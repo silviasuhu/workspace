@@ -1,11 +1,25 @@
+call plug#begin()
+Plug 'yunlingz/equinusocio-material.vim'
+Plug 'rhysd/vim-clang-format'
+call plug#end()
+
+set termguicolors
+colorscheme equinusocio_material
+
+" use a different style
+" valid values: 'default' (default), 'darker', 'pure'
+"let g:equinusocio_material_style = 'pure'
+
 " Set shift width to 4 spaces.
 set shiftwidth=4
 
-" Set tab width to 4 columns.
-set tabstop=4
+" Set tab width to 4 whitespaces.
+set softtabstop=4
 
 " Use space characters instead of tabs.
 set expandtab
+
+set autoindent
 
 " Do not wrap lines. Allow long lines to extend as far as the line goes.
 set nowrap
@@ -26,9 +40,10 @@ set hlsearch
 " Send copied text to system clipboard
 set clipboard=unnamed
 
-" Set background dark
-set background=dark
-
-set mouse=r
+set mouse=a
 
 set number
+
+let g:clang_format#detect_style_file = 1
+let g:clang_format#auto_format = 1
+let g:clang_format#auto_format_on_insert_leave = 1
