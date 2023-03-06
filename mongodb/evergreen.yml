@@ -1,0 +1,86 @@
+api_server_host: https://evergreen.mongodb.com/api
+ui_server_host: https://evergreen.mongodb.com
+api_key: <<api_key>>
+user: <<user>>
+projects:
+    - name: mongodb-mongo-master
+      default: true
+      tasks:
+        - burn_in_tests_gen
+      local_aliases:
+        - alias: burn_in
+          variant: .*required
+          task: burn_in_tests_gen
+        - alias: sharding
+          variant: .*required
+          task: shard
+      trigger_aliases: []
+    - name: mongodb-mongo-v6.2
+      tasks:
+        - burn_in_tests_gen
+      local_aliases:
+        - alias: burn_in
+          variant: .*required
+          task: burn_in_tests_gen
+        - alias: sharding
+          variant: .*required
+          task: shard
+      trigger_aliases: []
+    - name: mongodb-mongo-v6.1
+      tasks:
+        - burn_in_tests_gen
+      local_aliases:
+        - alias: burn_in
+          variant: .*required
+          task: burn_in_tests_gen
+        - alias: sharding
+          variant: .*required
+          task: shard
+      trigger_aliases: []
+    - name: mongodb-mongo-v6.0
+      tasks:
+        - burn_in_tests_gen
+      local_aliases:
+        - alias: burn_in
+          variant: .*required
+          task: burn_in_tests_gen
+        - alias: sharding
+          variant: .*required
+          task: shard
+      trigger_aliases: []
+    - name: mongodb-mongo-v5.0
+      tasks:
+        - burn_in_tests_gen
+      local_aliases:
+        - alias: burn_in
+          variant: .*required
+          task: burn_in_tests_gen
+        - alias: sharding
+          variant: .*required
+          task: shard
+      trigger_aliases: []
+    - name: mongodb-mongo-v4.4
+      tasks:
+        - burn_in_tests_gen
+      local_aliases:
+        - alias: burn_in
+          variant: .*required
+          task: burn_in_tests_gen
+        - alias: sharding
+          variant: .*required
+          task: shard
+      trigger_aliases: []
+    - name: mongosh
+      trigger_aliases: []
+disable_auto_defaulting: true
+projects_for_directory:
+    /home/ubuntu/devel/10gen-mongo/main1: mongodb-mongo-master
+    /home/ubuntu/devel/10gen-mongo/main2: mongodb-mongo-master
+    /home/ubuntu/devel/10gen-mongo/main3: mongodb-mongo-master
+    /home/ubuntu/devel/10gen-mongo/master: mongodb-mongo-master
+    /home/ubuntu/devel/10gen-mongo/v4.4: mongodb-mongo-v4.4
+    /home/ubuntu/devel/10gen-mongo/v5.0: mongodb-mongo-v5.0
+    /home/ubuntu/devel/10gen-mongo/v6.0: mongodb-mongo-v6.0
+    /home/ubuntu/devel/10gen-mongo/v6.2: mongodb-mongo-v6.2
+    /home/ubuntu/devel/10gen-mongo/v6.3: mongodb-mongo-v6.3
+    /home/ubuntu/devel/mongosh: mongosh

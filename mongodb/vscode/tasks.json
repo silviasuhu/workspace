@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Jira summary",
+            "type": "shell",
+            "command": "mon_repoSummary.sh",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "detail": "Show current branch Jira info",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

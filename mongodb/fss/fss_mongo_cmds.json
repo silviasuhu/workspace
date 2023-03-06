@@ -1,0 +1,413 @@
+{
+    "args": {
+        "target": {
+            "options": {
+                "install-core": {
+                    "description": "core"
+                },
+                "install-all": {
+                    "description": "all"
+                },
+                "intall-unittests": {
+                    "description": "unittests"
+                }
+            },
+            "description": "",
+            "default": "install-all"
+        },
+        "jsSuite": {
+            "options": {
+                "sharding": {
+                    "description": ""
+                }
+            },
+            "description": "Jstest suites",
+            "default": "sharding"
+        }
+    },
+    "pre_checks": {
+        "wrkdir_is_mongo_root": {
+            "cmd": "if [[ ! -d buildscripts ]]; then echo \"ERROR: ${PWD} is not a mongo working directory\" 1>&2; return 1; fi"
+        },
+        "wrkdir_is_inside_git_repository": {
+            "cmd": "if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) != 'true' ]]; then echo \"ERROR: ${PWD} is not inside a git repository\" 1>&2; return 1; fi"
+        },
+        "venv_is_active": {
+            "cmd": "if [[ -z ${VIRTUAL_ENV} ]]; then echo \"ERROR: No Python virtual environment activated\" 1>&2; return 1; fi"
+        }
+    },
+    "commands": {
+        "mongo_build": {
+            "description": "Ninja wrapper. Builds the binaries",
+            "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> <<target>> | tee out.log; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "args": [
+                    "target"
+                ],
+                "queries": {
+                    "ninjaFile": {
+                        "description": "ninja file",
+                        "query_cmd": "ls *.ninja",
+                        "default": "opt.ninja",
+                        "element_preview": "bat --color=always {}"
+                    }
+                }
+            }
+        },
+        "mongo_clean": {
+            "description": "Ninja wrapper. Builds the binaries",
+            "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> -t clean; ccache -c; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "queries": {
+                    "ninjaFile": {
+                        "description": "ninja file",
+                        "query_cmd": "ls *.ninja",
+                        "default": "opt.ninja",
+                        "element_preview": "bat --color=always {}"
+                    }
+                }
+            }
+        },
+        "mongo_build_json": {
+            "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
+            "cmd": "./buildscripts/scons.py --build-profile=compiledb compiledb GDB_INDEX=0",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
+        },
+        "mongo_pre_build": {
+            "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
+            "cmd": "./buildscripts/scons.py --build-profile=<<build_profile>> GDB_INDEX=0",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "queries": {
+                    "build_profile": {
+                        "description": "build profile",
+                        "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --colour=never 'BuildProfileType\\.[A-Z]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
+                        "default": "opt",
+                        "element_preview": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | sed -n '/BuildProfileType\\.{}:/I,/^.*)/p'"
+                    }
+                }
+            }
+        },
+        "mongo_activate_venv": {
+            "description": "Activates virtual environment for a mongo project",
+            "cmd": ". .venv/bin/activate",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_install_venv": {
+            "description": "Creates venv in mongo project and installs its requirements",
+            "cmd": "[[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install -r buildscripts/requirements.txt --use-feature=2020-resolver",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_run_jstest_local": {
+            "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
+            "cmd": "mkdir -p lastTest && cp executor.log tests.log lastTest 2>/dev/null; ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; res=${PIPESTATUS[0]}; if [ $res -ne 0 ]; then echo '';echo '     ERROR LOGS:'; grep -B 7 'failed to load' tests.log; fi; (exit $res)",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "queries": {
+                    "jsTest": {
+                        "description": "js file to test",
+                        "query_cmd": "find ./jstests -type f -name '*.js'",
+                        "element_preview": "bat --color=always {}",
+                        "default": ""
+                    },
+                    "jsSuite": {
+                        "description": "",
+                        "query_cmd": "./buildscripts/resmoke.py list-suites",
+                        "element_preview": "bat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
+                        "default": "sharding"
+                    }
+                }
+            }
+        },
+        "mongo_run_unittest": {
+            "description": "Runs local unittest",
+            "cmd": "./build/install/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "queries": {
+                    "unittest_bin": {
+                        "description": "binary to test",
+                        "query_cmd": "ls build/install/bin",
+                        "default": "db_s_server_test"
+                    }
+                }
+            }
+        },
+        "mongo_run_eslint": {
+            "description": "Runs eslint over js tests, a linter for javascript",
+            "cmd": "unbuffer ./buildscripts/eslint.py lint | tee out.log; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_run_cpplint": {
+            "description": "Runs quickcpplint, a linter for c++",
+            "cmd": "unbuffer ./buildscripts/quickcpplint.py lint | tee out.log; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": true,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_format": {
+            "description": "Formats the source code according to the conversion adopted by all development teams.",
+            "cmd": "./buildscripts/clang_format.py format-my",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "evg_squash_and_send_to_commit_queue": {
+            "description": "Formats the source code according to the conversion adopted by all development teams.",
+            "cmd": "evergreen commit-queue merge -p <<project>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "queries": {
+                    "project": {
+                        "description": "branch to merge the changes",
+                        "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
+                        "default": "mongodb-mongo-"
+                    }
+                }
+            }
+        },
+        "mongo_find_stable_commit": {
+            "description": "Find a stable commit in repository branches.",
+            "cmd": "git co-evg-base --verbose --commit-lookback 200 --evg-project <<project>> --pass-threshold <<passThreshold>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "queries": {
+                    "project": {
+                        "description": "branch to search on",
+                        "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
+                        "default": "mongodb-mongo-"
+                    }
+                },
+                "inputs": {
+                    "passThreshold": {
+                        "description": "Success threshold (0.0 - 100.0)",
+                        "default": "0.95"
+                    }
+                }
+            }
+        },
+        "mgoto": {
+            "description": "Goto 10-gen mongo repository",
+            "cmd": "cd $HOME/devel/10gen-mongo/<<repo_path>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "queries": {
+                    "repo_path": {
+                        "description": "",
+                        "query_cmd": "ls $HOME/devel/10gen-mongo",
+                        "element_preview": "mon_repoSummary.sh '{}'",
+                        "default": "main"
+                    }
+                }
+            }
+        },
+        "mongo_find_suites_by_jstest": {
+            "description": "Find all the suites for a jstest",
+            "cmd": "./buildscripts/resmoke.py find-suites <<jsTest>>",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "queries": {
+                    "jsTest": {
+                        "description": "js test file",
+                        "query_cmd": "find ./jstests -type f -name '*.js'",
+                        "element_preview": "bat --color=always {}",
+                        "default": ""
+                    }
+                }
+            }
+        },
+        "evg_test_remotely": {
+            "description": "Create a remote patch",
+            "cmd": "evergreen patch --project <<project>> --alias <<alias>> --uncommitted",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "queries": {
+                    "project": {
+                        "description": "project",
+                        "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
+                        "default": "mongodb-mongo-master"
+                    },
+                    "alias": {
+                        "description": "alias",
+                        "query_cmd": "echo -e 'required\\nburn_in\\nsharding'",
+                        "default": "required"
+                    }
+                }
+            }
+        },
+        "evg_finalize_patch": {
+            "description": "Schedule/finalize a patch",
+            "cmd": "evergreen finalize-patch -i <<patch_id>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "queries": {
+                    "patch_id": {
+                        "description": "project",
+                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                        "default": ""
+                    }
+                }
+            }
+        },
+        "evg_cancel_patch": {
+            "description": "Cancel a patch",
+            "cmd": "evergreen cancel-patch -i <<patch_id>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "queries": {
+                    "patch_id": {
+                        "description": "project",
+                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                        "default": ""
+                    }
+                }
+            }
+        },
+        "evg_show_patch": {
+            "description": "Show patch information",
+            "cmd": "evergreen list-patches --show-summary -i <<patch_id>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "queries": {
+                    "patch_id": {
+                        "description": "project",
+                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                        "default": ""
+                    }
+                }
+            }
+        },
+        "evg_show_patches": {
+            "description": "Show all patches",
+            "cmd": "evergreen list-patches -i <<patch_id>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
+        },
+        "mongo_download_latest_binaries": {
+            "description": "Download the latest last-lts & last-continuous binaries in build/multiversion_bin. Need to run from the root of mongodb/mongo repo.",
+            "cmd": "mkdir -p ~/devel/bin && db-contrib-tool setup-repro-env --installDir ~/devel/bin/ --linkDir ~/devel/bin/ --edition targeted --platform ubuntu1804",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
+        },
+        "mongo_new_worktree_dir_to_new_local_branch_to_existing_remote_branch": {
+            "description": "Create a new worktree attached to an existing remote branch.",
+            "cmd": "git worktree add --track -B <<branch>> ../<<branch>> origin/<<branch>>; cd ../<<branch>>",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "queries": {
+                    "branch": {
+                        "description": "Remote branches",
+                        "query_cmd": "git branch -r | sed 's/^ *origin\\/\/\/g'",
+                        "default": ""
+                    }
+                }
+            }
+        },
+        "mongo_new_worktree_dir_to_new_local_branch": {
+            "description": "Create a new worktree attached to a new branch.",
+            "cmd": "git worktree add -B <<branch_name>> ../<<branch_name>>; cd ../<<branch_name>>",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "inputs": {
+                    "branch_name": {
+                        "description": "Name for the new branch"
+                    }
+                }
+            }
+        }
+    }
+}

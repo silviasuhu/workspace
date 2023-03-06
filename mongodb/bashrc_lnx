@@ -1,0 +1,46 @@
+#! /bin/bash
+
+# Initialize const variables
+WORKSPACE_MONGODB_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+
+### Set common Linux settings
+. $(dirname $WORKSPACE_MONGODB_DIR)/common/bashrc_lnx
+
+### Set general environment settings
+export PATH=~/bin:${PATH}
+export PATH=~/devel/bin:${PATH}
+
+### Source bash scripts
+BASHRC_D_PATH="$WORKSPACE_MONGODB_DIR/scripts/bashrc.d"
+for file in $(find $BASHRC_D_PATH -type f); do
+    source $file
+done
+
+export PATH=${PATH}:$WORKSPACE_MONGODB_DIR/scripts/bin
+
+### Set MongoDB's development settings only for Linux
+if [ "$(uname)" != "Darwin" ]; then
+    export LC_ALL='C'
+    ulimit -v 65011712
+    ulimit -n 64000
+    ulimit -u 64000
+    ulimit -l 1024
+    ulimit -c unlimited
+fi
+
+### Export Mongo binaries for development
+[[ -d /opt/nodejs/node-v8.11.3-linux-x64 ]] && export PATH=/opt/nodejs/node-v8.11.3-linux-x64/bin:${PATH}
+export NINJA_STATUS='[%f/%t (%p) %es] '
+[[ -d $HOME/.cargo ]] && . "$HOME/.cargo/env"
+
+### Mongo aliases
+alias gbs="git branch --list 'suhu*'"
+alias s="mon_repoSummary.sh"
+alias sa="mon_allReposSummary.sh"
+
+alias ss_repeatTest="$WORKSPACE_MONGODB_DIR/tools/testing/repeatTestUntilFailure.sh"
+alias ss_merge_and_sort_logs="grep -r ^ . | sed -E \"s/^([^:]*)\:{([^,]*)/{\2, \\\"n\\\"\:\1/g\" | sort"
+
+# BEGIN Source server_bashrc.sh
+#source /home/ubuntu/mongodb-mongo-master/server-workflow-tool/server_bashrc.sh
+# END Source server_bashrc.sh

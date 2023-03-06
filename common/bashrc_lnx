@@ -1,0 +1,92 @@
+### Set general environment settings
+export PATH=${PATH}:~/.local/bin
+export EDITOR=vim
+
+# Set terminal main color (used by TMUX and Oh My Posh)
+export TERM_MAIN_COLOR="#ff7f50"
+
+# Set spelling correction
+shopt -s cdspell
+
+# Do not put duplicate lines or lines starting with space in the history
+export HISTCONTROL=ignoreboth
+
+# Append to the history file (do not overwrite it)
+shopt -s histappend
+
+# Silence zsh message as default shell
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Initialize const variables
+WORKSPACE_COMMON_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+
+### FuzzyFinder setup
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
+export FZF_DEFAULT_OPTS='--no-height --multi --layout=reverse --border'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :50 {}'"
+export FZF_ALT_C_COMMAND='fd --type d . --hidden'
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
+
+### Source bash scripts
+BASHRC_D_PATH="$WORKSPACE_COMMON_DIR/scripts/bashrc.d"
+for file in $(find $BASHRC_D_PATH -type f); do
+    source $file
+done
+
+export PATH=${PATH}:$WORKSPACE_COMMON_DIR/scripts/bin
+
+# Forgit setup (https://github.com/wfxr/forgit)
+. ~/.forgit/forgit.plugin.sh
+export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
+
+### Init Oh My Posh
+export CLICOLOR=1
+eval "$(oh-my-posh --init --shell bash --config "$WORKSPACE_COMMON_DIR"/oh-my-posh/custom_v2.omp.json)"
+
+### Aliases
+# alias ls='ls -h --color=auto'
+alias ll='ls -lhs'
+alias la='ls -la'
+alias grep='grep --color=always'
+alias more='more --RAW-CONTROL-CHARS --chop-long-lines'
+alias l='less --status-column --LINE-NUMBERS --HILITE-UNREAD --IGNORE-CASE --RAW-CONTROL-CHARS'
+alias ljs='less -p "failed to load"'
+
+alias tmux='tmux -u'
+alias ff='fzf --bind "ctrl-d:reload(fd --type d --hidden --follow),ctrl-f:reload($FZF_DEFAULT_COMMAND)" --preview "bat --color=always --line-range :50 {}"'
+alias g='git'
+alias gs='git status'
+alias gc='git commit'
+alias gw='git worktree'
+alias decompress_gz="gzip -d"
+alias decompress_tar="tar -xvf"
+alias decompress_targz="tar -xzvf"
+alias decompress_tgz="tar -xvzf"
+alias decompress_zip="unzip"
+
+# Set aliases from ~/.bash_aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+#######
+### INTERACTIVE SHELL ONLY
+#######
+if [[ $- == *i* ]]; then
+
+    # Autocomplete based on history using up and down arrows
+    bind '"\e[A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+    
+    # Use tmux for FZF if running from tmux
+    if [[ $TMUX ]]; then
+        export FZF_TMUX=1
+    fi
+fi
+
+### Init tmux automatically on Visual Studio Code
+#if [[ $TERM_PROGRAM == vscode ]]; then
+#    ss_tmux_vsc
+#fi

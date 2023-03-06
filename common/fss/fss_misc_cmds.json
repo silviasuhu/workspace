@@ -1,0 +1,36 @@
+{
+    "args": {},
+    "pre_checks": {
+        "in_tmux": {
+            "cmd": "if [[ -z ${TMUX} ]]; then echo \"ERROR: Not inside tmux session.\" 1>&2; return 1; fi"
+        }
+    },
+    "commands": {
+        "tmux_refresh_env": {
+            "description": "Proper ssh forward to tmux. Refreshes env variables with regexp '^(SSH|DISPLAY)' for all existing panes.",
+            "cmd": "refresh_tmux_env",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "in_tmux"
+            ],
+            "parameters": {}
+        },
+        "icecream_status": {
+            "description": "Shows icecream cluster status",
+            "cmd": "icecream-sundae -s iceccd.production.build.10gen.cc",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
+        },
+        "test": {
+            "description": "Test.",
+            "cmd": "sleep 2",
+            "bell": false,
+            "statistics": true,
+            "pre_checks": [],
+            "parameters": {}
+        }
+    }
+}

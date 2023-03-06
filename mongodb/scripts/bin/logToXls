@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# usage function
+usage() {
+  echo "Usage: $0 [-h] [-l <logFile>]"
+  echo "  -h\tprints this usage"
+  echo "  -l <logFile>"
+  exit 1
+}
+
+# Parse the options
+while getopts ":hl:" opt; do
+  case $opt in
+    h)
+      usage
+      ;;
+    l)
+      logFile=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+# Remove the parsed options
+shift $((OPTIND-1))
+
+# Define the regexes
+getNamespacesTime_regex=".*getNamespacesWithMergeableChunks took ([0-9]+) ms to get collections to merge.*"
+commandTime_regex=".*Execution of MergeAllChunksOnShardCommand request completed.*elapsed: ([0-9]+).*"
+commandTime_shard_regex='.*Execution of MergeAllChunksOnShardCommand request completed.*"shard":"([^"]+).*';
+commandTime_nss_regex='.*Execution of MergeAllChunksOnShardCommand request completed.*"nss":"([^"]+).*';
+
+# Create the xls files
+echo -e "numColls\tnumChunksPerColl\tgetNamespacesTime(ms)" > getNamespacesTime.xls
+echo -e "numColls\tnumChunksPerColl\tcommandTime(microsec)\tshard\tnss" > commandTime.xls
+
+numColls=0;
+numChunks=0;
+
+while read -r line; do
+
+    if [[ $line =~ "runAutoMergerTest" ]]; then
+        numColls=$(echo "$line" | sed -nE 's/.*numColls: ([0-9]+),.*/\1/p')
+        numChunks=$(echo "$line" | sed -nE 's/.*numChunksPerColl: ([0-9]+).*/\1/p')
+    fi
+
+    if [[ $line =~ $getNamespacesTime_regex ]]; then
+        timestamp=$(echo "$line" | cut -d' ' -f3)
+        getNamespacesTime=$(echo "$line" | sed -nE "s/$getNamespacesTime_regex/\1/p")
+        echo -e "$numColls\t$numChunks\t$getNamespacesTime\t$timestamp" >> getNamespacesTime.xls
+    fi
+
+    if [[ $line =~ $commandTime_regex ]]; then
+        timestamp=$(echo "$line" | cut -d' ' -f3)
+        commandTime=$(echo "$line" | sed -nE "s/$commandTime_regex/\1/p")
+        shard=$(echo "$line" | sed -nE "s/$commandTime_shard_regex/\1/p")
+        nss=$(echo "$line" | sed -nE "s/$commandTime_nss_regex/\1/p")
+        echo -e "$numColls\t$numChunks\t$commandTime\t$shard\t$nss\t$timestamp" >> commandTime.xls
+    fi
+
+done < "$logFile"

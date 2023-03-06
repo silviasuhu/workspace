@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Define tmux session name
+session_name=$(tmux display-message -p '#S')
+
+# Get list of panes in the session
+# panes=$(tmux list-panes -s -F "#I #P #{pane_current_path} #{pane_current_command}")
+panes=$(tmux list-panes -s -F "#D")
+
+# Loop through each pane and print its current command
+echo "Active processes in tmux session '$session_name':"
+for pane in $panes; do
+  # Get the current command running in the pane
+  cmd=$(tmux list-panes -s -F "#D: #I #P #{pane_current_path} #{pane_current_command}" | grep "$pane" | sed -e 's/bash/ /g' | awk -F ': ' '{print $2}')
+  echo "  Pane $cmd"
+done
