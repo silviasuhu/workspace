@@ -1,6 +1,6 @@
-# What includes
+# What is included
 
-## Environment
+## Generic environment
 - Tmux v3.3 with custom configuration
 - Vim with custom configuration
 - Oh-my-posh
@@ -9,16 +9,15 @@
 - `fss` command (easy way to execute predefined commands using `fzf`)
 
 ## MongoDB development
-- Clangd
-- mongodbtoolchain (https://github.com/10gen/toolchain-builder/blob/master)
 - evergreen.yml template file
+- Automatically pull mongo repositories with `updateGitRepositories.sh`
+- Selfmade development scripts accessed by `fss`
+- mongodbtoolchain installation guide (https://github.com/10gen/toolchain-builder/blob/master)
 - mtools (https://github.com/rueckstiess/mtools). Bunch of tools like `mlaunch` (which spawns a MongoDB cluster) and `mloginfo` and `mlogfilter` (which helps you analyzing mongodb logs)
 - m (https://github.com/aheckmann/m). Helps you download, use, and manage multiple versions of the MongoDB server and command-line tools.
 - mrlog (https://github.com/markbenvenuto/mrlog). Improves mongodb log reading.
 - git-co-evg-base (https://github.com/evergreen-ci/git-co-evg-base)
 - t2 (https://github.com/10gen/t2) Tool to graph server statistics
-- Automatically pull mongo repositories following `~/.updateGitRepositories.json`
-- Selfmade development scripts accessed by `fss`
 
 ## MongoDB binaries
 - MongoShell `mongo`
@@ -64,12 +63,6 @@
     brew install diff-so-fancy
 #### forgit
     git clone https://github.com/wfxr/forgit $HOME/.forgit
-#### clangd
-    wget https://github.com/clangd/clangd/releases/download/14.0.3/clangd-linux-14.0.3.zip
-    unzip clangd-linux-14.0.3.zip
-    mv clangd_14.0.3 .clangd_14.0.3
-    ln -s $HOME/.clangd_14.0.3/bin/clangd $HOME/.local/bin/clangd
-    rm clangd-linux-14.0.3.zip
 #### m
 &nbsp;&nbsp;&nbsp;&nbsp;Follow instructions from https://github.com/aheckmann/m#installation.  
 &nbsp;&nbsp;&nbsp;&nbsp;Be sure m binary is in your PATH env variable.
@@ -142,7 +135,7 @@
 3- Save and exit the crontab editor.  
     
 
-# Resources
+# Other resources
 
 - Tmux plugins: https://github.com/tmux-plugins/tpm
 - Oh my posh: https://ohmyposh.dev/docs/
