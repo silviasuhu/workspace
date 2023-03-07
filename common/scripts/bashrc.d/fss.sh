@@ -208,7 +208,7 @@ fss() {
     timestampInit=$(date +%s);
 
     if [ "$cmdStatistics" = true ]; then
-        cmdExec="reportCmdTiming $timestampInit";
+        cmdExec="reportCmdTiming $cmdExec";
     fi
 
     if [ "$cmdBell" = true ]; then
