@@ -64,23 +64,28 @@
     brew install diff-so-fancy
 #### forgit
     git clone https://github.com/wfxr/forgit $HOME/.forgit
+#### vim plugin manager
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 #### m
-&nbsp;&nbsp;&nbsp;&nbsp;Follow instructions from https://github.com/aheckmann/m#installation.  
-&nbsp;&nbsp;&nbsp;&nbsp;Be sure m binary is in your PATH env variable.
-#### mtools
-&nbsp;&nbsp;&nbsp;&nbsp;Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
-&nbsp;&nbsp;&nbsp;&nbsp;Be sure binaries are in your PATH env variable.  
-#### mrlog
-&nbsp;&nbsp;&nbsp;&nbsp;Follow instructions from https://github.com/markbenvenuto/mrlog.  
-#### git-co-evg-base
-&nbsp;&nbsp;&nbsp;&nbsp;Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#installation.  
-#### t2
-&nbsp;&nbsp;&nbsp;&nbsp;Follow instructions from https://github.com/10gen/t2.  
-&nbsp;&nbsp;&nbsp;&nbsp;Be aware it requires GUI.  
-#### lnav
-&nbsp;&nbsp;&nbsp;&nbsp;Follow instructions from https://lnav.org/downloads.  
+Follow instructions from https://github.com/aheckmann/m#installation.  
 
-## 2. Get workspace source code (modify WORKSPACE_DIR as desired)
+Be sure m binary is in your PATH env variable.
+#### mtools
+Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
+
+Be sure binaries are in your PATH env variable.  
+#### mrlog
+Follow instructions from https://github.com/markbenvenuto/mrlog.  
+#### git-co-evg-base
+Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#installation.  
+#### t2
+Follow instructions from https://github.com/10gen/t2.  
+
+Note: it requires GUI.  
+#### lnav
+Follow instructions from https://lnav.org/downloads.  
+
+## 2. Download this repo (modify WORKSPACE_DIR as desired)
     WORKSPACE_DIR=$HOME/.config/workspace
     mkdir -p $WORKSPACE_DIR
     git clone https://github.com/silviasuhu/workspace-configuration.git $WORKSPACE_DIR
@@ -120,8 +125,18 @@
 
     ln -s /opt/mongodbtoolchain/v4/bin/gdb $HOME/.local/bin/gdb
         
-## 7. Create .bash_aliases file (if needed)
-    touch $HOME/.bash_aliases
+## 7. Install vim plugins
+1- Open vim
+
+    vim
+2- Run :PlugInstall command
+
+    :PlugInstall
+3- Wait pluggins to be installed and restart vim
+
+Note: plugins to be installed are read from .vimrc file
+
+More info here https://github.com/junegunn/vim-plug#unix
     
 ## 8. Configure crontab to execute automatic scripts periodically
 1- Open crontab:  
