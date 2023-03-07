@@ -45,6 +45,7 @@
     make && sudo make install
     rm $HOME/tmux-3.3.tar.gz
 #### tmux plugin manager
+    mkdir -p $HOME/.tmux/plugins
     git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm  
 #### fzf
     git clone --depth 1 https://github.com/junegunn/fzf $HOME/.fzf
@@ -92,7 +93,7 @@
     ln -s $WORKSPACE_DIR/common/updateGitRepositories/updateGitRepositories.json $HOME/.updateGitRepositories.json
     ln -s $WORKSPACE_DIR/mongodb/vscode/settings.json $HOME/.vscode-server/data/Machine/settings.json
     
-    mkdir -p $HOME/.lnav/formats
+    mkdir -p $HOME/.lnav/formats/installed
     ln -s $WORKSPACE_DIR/mongodb/lnav/formats/* $HOME/.lnav/formats/installed
     
     cp $WORKSPACE_DIR/mongodb/evergreen.yml $HOME/.evergreen.yml
