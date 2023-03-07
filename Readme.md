@@ -27,7 +27,7 @@
 ## 1. Create local bin directory
     mkdir -p ~/.local/bin
 
-## 2. Get dependencies
+## 2. Install dependencies
 
 #### oh-my-posh
     sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O ~/.local/bin/oh-my-posh
@@ -43,10 +43,7 @@
     cd tmux-3.3
     ./configure --prefix=$HOME/.local
     make && sudo make install
-    rm $HOME/tmux-3.3.tar.gz
-#### tmux plugin manager
-    mkdir -p $HOME/.tmux/plugins
-    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm  
+    rm $HOME/tmux-3.3.tar.gz 
 #### fzf
     git clone --depth 1 https://github.com/junegunn/fzf $HOME/.fzf
     $HOME/.fzf/install
@@ -64,8 +61,6 @@
     brew install diff-so-fancy
 #### forgit
     git clone https://github.com/wfxr/forgit $HOME/.forgit
-#### vim plugin manager
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 #### m
 Follow instructions from https://github.com/aheckmann/m#installation.  
 
@@ -126,19 +121,33 @@ Follow instructions from https://lnav.org/downloads.
     ln -s /opt/mongodbtoolchain/v4/bin/gdb $HOME/.local/bin/gdb
         
 ## 7. Install vim plugins
-1- Open vim
+1- Clone the vim plugin manager
+
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+2- Open vim
 
     vim
-2- Run :PlugInstall command
+3- Run :PlugInstall command
 
     :PlugInstall
-3- Wait pluggins to be installed and restart vim
+4- Wait pluggins to be installed and restart vim
 
 Note: plugins to be installed are read from .vimrc file
 
 More info here https://github.com/junegunn/vim-plug#unix
     
-## 8. Configure crontab to execute automatic scripts periodically
+## 8. Install tmux plugins
+1- Clone the tpm repository
+
+    mkdir -p $HOME/.tmux/plugins
+    git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm 
+
+2- Enter a tmux session
+
+3- Press prefix + I (capital i, as in Install)
+
+## 9. Configure crontab to execute automatic scripts periodically
 1- Open crontab:  
 
     crontab -e
