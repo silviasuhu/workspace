@@ -70,7 +70,8 @@ Follow instructions from https://rueckstiess.github.io/mtools/install.html.
 
 Be sure binaries are in your PATH env variable.  
 #### mrlog
-Follow instructions from https://github.com/markbenvenuto/mrlog.  
+Follow instructions from https://github.com/markbenvenuto/mrlog.
+Remember to link the binary to ~/.local/bin
 #### git-co-evg-base
 Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#installation.  
 #### t2
