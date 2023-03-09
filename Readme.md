@@ -83,7 +83,7 @@ Follow instructions from https://lnav.org/downloads.
 ## 2. Download this repo (modify WORKSPACE_DIR as desired)
     WORKSPACE_DIR=$HOME/.config/workspace
     mkdir -p $WORKSPACE_DIR
-    git clone https://github.com/silviasuhu/workspace-configuration.git $WORKSPACE_DIR
+    git clone https://github.com/silviasuhu/workspace.git $WORKSPACE_DIR
 
 ## 3. Create symbolic links and copies from downloaded files to HOME directory
     ln -s $WORKSPACE_DIR/mongodb/bashrc_lnx $HOME/.bashrc
