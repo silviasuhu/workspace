@@ -41,8 +41,8 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/v6.1",
-            "project": "mongodb-mongo-v6.1",
+            "dir": "$HOME/devel/10gen-mongo/v6.3",
+            "project": "mongodb-mongo-v6.3",
             "doPull": true,
             "doNinjaFile": true,
             "doBuild": true,
