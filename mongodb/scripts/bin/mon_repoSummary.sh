@@ -12,6 +12,7 @@ if [ -z "$1" ]; then
     branch=$(git rev-parse --abbrev-ref HEAD)
     gitstatus=$(git status)
 else
+    repoDirName=$1
     pushd "$GIT_TREE_PATH/$repoDirName" > /dev/null
     branch=$(git rev-parse --abbrev-ref HEAD)
     gitstatus=$(git status)
