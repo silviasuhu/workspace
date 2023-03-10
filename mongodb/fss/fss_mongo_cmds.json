@@ -8,12 +8,15 @@
                 "install-all": {
                     "description": "all"
                 },
+                "install-devcore": {
+                    "description": "devcore"
+                },
                 "intall-unittests": {
                     "description": "unittests"
                 }
             },
             "description": "",
-            "default": "install-all"
+            "default": "install-devcore"
         },
         "jsSuite": {
             "options": {
