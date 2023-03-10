@@ -40,6 +40,7 @@ alias sa="mon_allReposSummary.sh"
 
 alias ss_repeatTest="$WORKSPACE_MONGODB_DIR/tools/testing/repeatTestUntilFailure.sh"
 alias ss_merge_and_sort_logs="grep -r ^ . | sed -E \"s/^([^:]*)\:{([^,]*)/{\2, \\\"n\\\"\:\1/g\" | sort"
+alias compile_v40='./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all'
 
 # BEGIN Source server_bashrc.sh
 #source /home/ubuntu/mongodb-mongo-master/server-workflow-tool/server_bashrc.sh
