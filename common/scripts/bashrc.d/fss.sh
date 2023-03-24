@@ -195,8 +195,7 @@ fss() {
         description=$(echo "$input" | jq -r .description)
         defaultValue=$(echo "$input" | jq -r .default?)
 
-        echo "Type the value for '$input'. $description"
-        read -p "Type the '$input' [$defaultValue]: " value
+        read -p "Type the '$inputName' ($description) [$defaultValue]: " value
         value=${value:-$defaultValue}
         cmdExec="${cmdExec//"<<$inputName>>"/"$value"}" 
     done
