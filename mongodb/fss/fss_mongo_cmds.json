@@ -269,7 +269,7 @@
                 "inputs": {
                     "passThreshold": {
                         "description": "Success threshold (0.0 - 100.0)",
-                        "default": "0.95"
+                        "default": "0.97"
                     }
                 }
             }
