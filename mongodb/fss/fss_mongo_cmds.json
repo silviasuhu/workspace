@@ -254,7 +254,7 @@
         },
         "mongo_find_stable_commit": {
             "description": "Find a stable commit in repository branches.",
-            "cmd": "git co-evg-base --verbose --commit-lookback 200 --evg-project <<project>> --pass-threshold <<passThreshold>>",
+            "cmd": "git co-evg-base --verbose --commit-lookback 200 --evg-project <<project>> --pass-threshold <<passThreshold>> --build-variant enterprise-rhel-80-64-bit-dynamic-all-feature-flags-required",
             "bell": false,
             "statistics": false,
             "pre_checks": [],
