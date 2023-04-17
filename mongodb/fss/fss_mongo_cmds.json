@@ -188,18 +188,18 @@
                 "venv_is_active"
             ],
             "parameters": {
-                "inputs": {
-                    "fileName": {
-                        "description": "Unittest filename without its extension",
-                        "default": ""
-                    }
-                },
                 "queries": {
                     "ninjaFile": {
                         "description": "ninja file",
                         "query_cmd": "ls *.ninja",
                         "default": "opt.ninja",
                         "element_preview": "bat --color=always {}"
+                    },
+                    "fileName": {
+                        "description": "unittest file",
+                        "query_cmd": "find ./src/mongo -type f -name '*test.cpp' | sed -r 's/^.*\\/(.*)\\.cpp$/\\1/'",
+                        "element_preview": "",
+                        "default": ""
                     }
                 }
             }
