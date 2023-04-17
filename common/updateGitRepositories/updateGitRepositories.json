@@ -9,7 +9,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/main1",
+            "dir": "$HOME/devel/10gen-mongo/mainPeach",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doNinjaFile": true,
@@ -17,7 +17,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/main2",
+            "dir": "$HOME/devel/10gen-mongo/mainPlum",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doNinjaFile": true,
@@ -25,7 +25,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/main3",
+            "dir": "$HOME/devel/10gen-mongo/mainDate",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doNinjaFile": true,
@@ -37,7 +37,7 @@
             "project": "mongodb-mongo-v6.0",
             "doPull": true,
             "doNinjaFile": true,
-            "doBuild": true,
+            "doBuild": false,
             "doClangdJson": true
         },
         {
@@ -45,15 +45,15 @@
             "project": "mongodb-mongo-v6.3",
             "doPull": true,
             "doNinjaFile": true,
-            "doBuild": true,
+            "doBuild": false,
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/v6.2",
-            "project": "mongodb-mongo-v6.2",
+            "dir": "$HOME/devel/10gen-mongo/v7.0",
+            "project": "mongodb-mongo-v7.0",
             "doPull": true,
             "doNinjaFile": true,
-            "doBuild": true,
+            "doBuild": false,
             "doClangdJson": true
         },
         {
@@ -61,7 +61,7 @@
             "project": "mongodb-mongo-v5.0",
             "doPull": true,
             "doNinjaFile": true,
-            "doBuild": true,
+            "doBuild": false,
             "doClangdJson": true
         },
         {
