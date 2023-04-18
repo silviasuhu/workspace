@@ -170,3 +170,4 @@ More info here https://github.com/junegunn/vim-plug#unix
 - FZF advanced examples: https://github.com/junegunn/fzf/blob/master/ADVANCED.md
 - Diff so fancy: https://github.com/so-fancy/diff-so-fancy
 - Lnav: https://lnav.org
+- How to test locally: https://github.com/mongodb/mongo/wiki/Running-Tests-from-Evergreen-Tasks-Locally
