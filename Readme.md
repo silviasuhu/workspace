@@ -18,6 +18,7 @@
 - mrlog (https://github.com/markbenvenuto/mrlog). Improves mongodb log reading.
 - git-co-evg-base (https://github.com/evergreen-ci/git-co-evg-base)
 - t2 (https://github.com/10gen/t2) Tool to graph server statistics
+- wiredtiger (git://github.com/wiredtiger/wiredtiger.git) binary for reading wt files
 
 ## MongoDB binaries
 - MongoShell `mongo`
@@ -75,9 +76,10 @@ Remember to link the binary to ~/.local/bin
 #### git-co-evg-base
 Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#installation.  
 #### t2
-Follow instructions from https://github.com/10gen/t2.  
-
-Note: it requires GUI.  
+Follow instructions from https://github.com/10gen/t2.
+Note: it requires GUI.
+#### WiredTiger
+Follow instructions from https://source.wiredtiger.com/.  
 #### lnav
 Follow instructions from https://lnav.org/downloads.  
 
