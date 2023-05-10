@@ -19,6 +19,7 @@
 - git-co-evg-base (https://github.com/evergreen-ci/git-co-evg-base)
 - t2 (https://github.com/10gen/t2) Tool to graph server statistics
 - wiredtiger (git://github.com/wiredtiger/wiredtiger.git) binary for reading wt files
+- mongo-tools (https://github.com/mongodb/mongo-tools) essential tools for MongoDB (bsondump, mongoimport, ...)
 
 ## MongoDB binaries
 - MongoShell `mongo`
@@ -79,7 +80,9 @@ Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#install
 Follow instructions from https://github.com/10gen/t2.
 Note: it requires GUI.
 #### WiredTiger
-Follow instructions from https://source.wiredtiger.com/.  
+Follow instructions from https://source.wiredtiger.com/.
+#### Mongo-tools
+Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
 #### lnav
 Follow instructions from https://lnav.org/downloads.  
 
