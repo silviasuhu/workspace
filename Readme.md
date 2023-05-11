@@ -176,3 +176,4 @@ More info here https://github.com/junegunn/vim-plug#unix
 - Diff so fancy: https://github.com/so-fancy/diff-so-fancy
 - Lnav: https://lnav.org
 - How to test locally: https://github.com/mongodb/mongo/wiki/Running-Tests-from-Evergreen-Tasks-Locally
+- WT guide: https://www.percona.com/blog/wiredtiger-file-forensics-part-3-viewing-all-the-mongodb-data
