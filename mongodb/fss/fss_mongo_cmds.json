@@ -136,7 +136,7 @@
         },
         "mongo_run_jstest_local": {
             "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
-            "cmd": "mkdir -p lastTest && cp executor.log tests.log lastTest 2>/dev/null; ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; res=${PIPESTATUS[0]}; if [ $res -ne 0 ]; then echo '';echo '     ERROR LOGS:'; grep -B 7 'failed to load' tests.log; fi; (exit $res)",
+            "cmd": "mkdir -p lastTest && cp executor.log tests.log lastTest 2>/dev/null; ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": true,
             "pre_checks": [
@@ -274,6 +274,16 @@
                 }
             }
         },
+        "mongo_install_multiversion_env": {
+            "description": "Installs multiversion binaries and sets up the environment on the current repo",
+            "cmd": "db-contrib-tool setup-repro-env --installDir /data/multiversion",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
         "mgoto": {
             "description": "Goto 10-gen mongo repository",
             "cmd": "cd $HOME/devel/10gen-mongo/<<repo_path>>",
@@ -328,7 +338,7 @@
                     },
                     "alias": {
                         "description": "alias",
-                        "query_cmd": "echo -e 'required\\nburn_in\\nsharding'",
+                        "query_cmd": "echo -e 'required\\nburn_in\\nsharding\\nrun_unittests'",
                         "default": "required"
                     }
                 }
@@ -434,6 +444,34 @@
                 "inputs": {
                     "branch_name": {
                         "description": "Name for the new branch"
+                    }
+                }
+            }
+        },
+        "wt_dump_collection_names": {
+            "description": "Dump collection names from a _mdb_catalog.wt file",
+            "cmd": "<<wt_binary>> dump -x table:_mdb_catalog | tail -n +7 | awk 'NR%2 == 0 { print }' | xxd -r -p | bsondump --quiet | jq -r 'select(. | has(\\\"md\\\")) | [.ident, .ns] | @tsv' | sort > wt_ident_vs_collection_ns.tsv",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "inputs": {
+                    "wt_binary": {
+                        "description": "Path to wt binary"
+                    }
+                }
+            }
+        },
+        "wt_dump_index_ns_names": {
+            "description": "Dump index collection names from a _mdb_catalog.wt file",
+            "cmd": "<<wt_binary>> dump -x table:_mdb_catalog | tail -n +7 | awk 'NR%2 == 0 { print }' | xxd -r -p | bsondump --quiet | jq -r 'select(. | has(\\\"idxIdent\\\")) | .ns as $nsT | .idxIdent | to_entries[] | [.value, $nsT, .key] | @tsv' | sort > wt_vs_index.tsv",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "inputs": {
+                    "wt_binary": {
+                        "description": "Path to wt binary"
                     }
                 }
             }
