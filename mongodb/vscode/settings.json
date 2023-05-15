@@ -1,85 +1,90 @@
 {
-  "editor.rulers": [
-    100
-  ],
-  "C_Cpp.default.cppStandard": "c++17",
-  "C_Cpp.default.cStandard": "c17",
-  "C_Cpp.default.intelliSenseMode": "gcc-x64",
-  "C_Cpp.autocomplete": "Disabled",
-  "C_Cpp.formatting": "Disabled",
-  "C_Cpp.errorSquiggles": "Disabled",
-  "C_Cpp.intelliSenseEngine": "Disabled",
-  "clangd.path": "/opt/mongodbtoolchain/v4/bin/clangd",
-  "clang-tidy.executable": "/opt/mongodbtoolchain/v4/bin/clang-tidy",
-  "clang-format.executable": "/opt/mongodbtoolchain/v4/bin/clang-format",
-  "[cpp]": {
-    "editor.defaultFormatter": "xaver.clang-format"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "xaver.clang-format"
-  },
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "clangd.arguments": [
-    "--background-index=true",
-    "--suggest-missing-includes",
-    "--header-insertion=never",
-    "--query-driver=/opt/mongodbtoolchain/v4/bin/clang++"
-  ],
-  "files.associations": {
-    "SConstruct": "python",
-    "SConscript": "python",
-    "**/*.idl": "yaml"
-  },
-  "files.exclude": {
-    "debian/": true,
-    "distsrc/": true,
-    "rpm/": true,
-    "site_scons/": true,
-    "src/third_party/": true,
-    "build.ninja": true,
-    "compile_commands.json": true,
-    "resmoke.ini": true
-  },
-  "cSpell.words": [
-    "BSON",
-    "BSONOBJ",
-    "dassert",
-    "DLEVEL",
-    "fassert",
-    "FCVP",
-    "jstests",
-    "logd",
-    "LOGV",
-    "multiversion",
-    "Noops",
-    "Oplog",
-    "optimes",
-    "stdx",
-    "sharded",
-    "shardsvr",
-    "stmts",
-    "tassert",
-    "Txns",
-    "uassert",
-    "uasserted",
-    "Unreplicated",
-    "UNSHARDED",
-    "upserted",
-    "wuow"
-  ],
-  "cSpell.ignoreRegExpList": [
-    "shard.*"
-  ],
-  "github.copilot.enable": {
-    "*": true,
-    "cpp": true,
-    "yaml": false,
-    "plaintext": false,
-    "markdown": false
-  },
-  "todo-tree.general.tags": [
-    "TODO",
-    "MYTODO"
-  ]
+    "editor.rulers": [
+        100
+    ],
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c17",
+    "C_Cpp.default.intelliSenseMode": "gcc-x64",
+    "C_Cpp.autocomplete": "Disabled",
+    "C_Cpp.formatting": "Disabled",
+    "C_Cpp.errorSquiggles": "Disabled",
+    "C_Cpp.intelliSenseEngine": "Disabled",
+    "clangd.path": "/opt/mongodbtoolchain/v4/bin/clangd",
+    "clang-tidy.executable": "buildscripts/clang_tidy_vscode.py",
+    "clang-format.executable": "/opt/mongodbtoolchain/v4/bin/clang-format",
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "files.insertFinalNewline": true,
+    "eslint.validate": [
+        "javascript"
+    ],
+    "clangd.arguments": [
+        "--background-index=true",
+        "--suggest-missing-includes",
+        "--header-insertion=never",
+        "--query-driver=/opt/mongodbtoolchain/v4/bin/clang++"
+    ],
+    "files.associations": {
+        "SConstruct": "python",
+        "SConscript": "python",
+        "**/*.idl": "yaml"
+    },
+    "files.exclude": {
+        "debian/": true,
+        "distsrc/": true,
+        "rpm/": true,
+        "site_scons/": true,
+        "src/third_party/": true,
+        "build.ninja": true,
+        "compile_commands.json": true,
+        "resmoke.ini": true
+    },
+    "cSpell.words": [
+        "BSON",
+        "BSONOBJ",
+        "dassert",
+        "DLEVEL",
+        "fassert",
+        "FCVP",
+        "jstests",
+        "logd",
+        "LOGV",
+        "multiversion",
+        "Noops",
+        "Oplog",
+        "optimes",
+        "stdx",
+        "sharded",
+        "shardsvr",
+        "stmts",
+        "tassert",
+        "Txns",
+        "uassert",
+        "uasserted",
+        "Unreplicated",
+        "UNSHARDED",
+        "upserted",
+        "wuow"
+    ],
+    "cSpell.ignoreRegExpList": [
+        "shard.*"
+    ],
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "cpp": true
+    },
+    "todo-tree.general.tags": [
+        "TODO",
+        "MYTODO"
+    ]
 }
