@@ -191,9 +191,9 @@ More info here https://github.com/junegunn/vim-plug#unix
     git worktree add mainDate master
     git worktree add mainPlum master
     
-## 11. Link /data/db path to $HOME to prevent full disk scenarios
-    mkdir ~/.data
-    ln -s ~/.data /data
+## 11. Link /data/db path to $HOME/.data to prevent full disk scenarios
+    sudo mv /data ~/.data
+    sudo ln -s ~/.data /data
 
 # Other resources
 
