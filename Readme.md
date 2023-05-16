@@ -46,7 +46,9 @@
     cd tmux-3.3
     ./configure --prefix=$HOME/.local
     make && sudo make install
-    rm $HOME/tmux-3.3.tar.gz 
+    rm $HOME/tmux-3.3.tar.gz
+#### jq
+    sudo apt-get install jq
 #### fzf
     git clone --depth 1 https://github.com/junegunn/fzf $HOME/.fzf
     $HOME/.fzf/install
@@ -166,6 +168,24 @@ More info here https://github.com/junegunn/vim-plug#unix
         
 3- Save and exit the crontab editor.  
     
+## 10. Install mongo repositories
+
+    mkdir -p ~/devel/10gen-mongo-enterprise-modules
+    git clone git@github.com:10gen/mongo-enterprise-modules.git 10gen-mongo-enterprise-modules
+    
+    mkdir -p ~/devel/mongodb-mongo-tools
+    git clone git@github.com:mongodb/mongo-tools.git ~/devel/mongodb-mongo-tools
+    
+    mkdir -p ~/devel/10gen-mongo
+    cd ~/devel/10gen-mongo
+    git clone --bare git@github.com:10gen/mongo.git .bare
+    echo "gitdir: ./.bare" > .git
+    git worktree add --track -B master master origin/master
+    git worktree add --track -B v7.0 v7.0 origin/v7.0
+    git worktree add mainPeach master
+    git worktree add mainDate master
+    git worktree add mainPlum master
+    
 
 # Other resources
 
@@ -178,3 +198,4 @@ More info here https://github.com/junegunn/vim-plug#unix
 - Lnav: https://lnav.org
 - How to test locally: https://github.com/mongodb/mongo/wiki/Running-Tests-from-Evergreen-Tasks-Locally
 - WT guide: https://www.percona.com/blog/wiredtiger-file-forensics-part-3-viewing-all-the-mongodb-data
+- Git worktree guildeline: https://morgan.cugerone.com/blog/how-to-use-git-worktree-and-in-a-clean-way/
