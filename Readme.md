@@ -197,7 +197,6 @@ More info here https://github.com/junegunn/vim-plug#unix
 
 # Other resources
 
-- Tmux plugins: https://github.com/tmux-plugins/tpm
 - Oh my posh: https://ohmyposh.dev/docs/
 - FZF tutorial video: https://www.youtube.com/watch?v=tB-AgxzBmH8&t=1031s
 - FZF examples: https://github.com/junegunn/fzf/wiki/examples
