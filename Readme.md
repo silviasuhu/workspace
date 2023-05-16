@@ -13,13 +13,16 @@
 - Automatically pull mongo repositories with `updateGitRepositories.sh`
 - Selfmade development scripts accessed by `fss`
 - mongodbtoolchain installation guide (https://github.com/10gen/toolchain-builder/blob/master)
-- mtools (https://github.com/rueckstiess/mtools). Bunch of tools like `mlaunch` (which spawns a MongoDB cluster) and `mloginfo` and `mlogfilter` (which helps you analyzing mongodb logs)
-- m (https://github.com/aheckmann/m). Helps you download, use, and manage multiple versions of the MongoDB server and command-line tools.
+- db-contrib-tool (https://github.com/10gen/db-contrib-tool). Used to setup multiversion environment
 - mrlog (https://github.com/markbenvenuto/mrlog). Improves mongodb log reading.
 - git-co-evg-base (https://github.com/evergreen-ci/git-co-evg-base)
 - t2 (https://github.com/10gen/t2) Tool to graph server statistics
 - wiredtiger (git://github.com/wiredtiger/wiredtiger.git) binary for reading wt files
 - mongo-tools (https://github.com/mongodb/mongo-tools) essential tools for MongoDB (bsondump, mongoimport, ...)
+
+### Optional
+- mtools (https://github.com/rueckstiess/mtools). Bunch of tools like `mlaunch` (which spawns a MongoDB cluster) and `mloginfo` and `mlogfilter` (which helps you analyzing mongodb logs)
+- m (https://github.com/aheckmann/m). Helps you download, use, and manage multiple versions of the MongoDB server and command-line tools.
 
 ## MongoDB binaries
 - MongoShell `mongo`
@@ -36,28 +39,13 @@
     sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v16.4.0/posh-linux-arm64 -O ~/.local/bin/oh-my-posh
     sudo chmod +x $HOME/.local/bin/oh-my-posh
     oh-my-posh font install Meslo
-#### tmux (v3.3)
-    sudo apt-get remove tmux
-    sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config
-        
-    cd $HOME
-    wget https://github.com/tmux/tmux/releases/download/3.3/tmux-3.3.tar.gz
-    tar -xf tmux-3.3.tar.gz
-    cd tmux-3.3
-    ./configure --prefix=$HOME/.local
-    make && sudo make install
-    rm $HOME/tmux-3.3.tar.gz
+#### tmux (+v3.3)
+    sudo apt-get install tmux
 #### jq
     sudo apt-get install jq
 #### fzf
     git clone --depth 1 https://github.com/junegunn/fzf $HOME/.fzf
     $HOME/.fzf/install
-#### fd
-###### Linux
-    sudo apt-get install fd-find
-    ln -s $(which fdfind) $HOME/.local/bin/fd
-###### MacOS
-    brew install fd
 #### diff-so-fancy
 ###### Linux
     git clone https://github.com/so-fancy/diff-so-fancy $HOME/.diff-so-fancy
@@ -66,28 +54,45 @@
     brew install diff-so-fancy
 #### forgit
     git clone https://github.com/wfxr/forgit $HOME/.forgit
-#### m
-Follow instructions from https://github.com/aheckmann/m#installation.  
-
-Be sure m binary is in your PATH env variable.
-#### mtools
-Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
-
-Be sure binaries are in your PATH env variable.  
+#### db-contrib-tools
+    cd ~
+    /opt/mongodbtoolchain/v4/bin/python3 -m pip install pipx
+    /opt/mongodbtoolchain/v4/bin/python3 -m pipx ensurepath
+    /opt/mongodbtoolchain/v4/bin/python3 -m pipx install db-contrib-tool
 #### mrlog
-Follow instructions from https://github.com/markbenvenuto/mrlog.
-Remember to link the binary to ~/.local/bin
-#### git-co-evg-base
-Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#installation.  
-#### t2
-Follow instructions from https://github.com/10gen/t2.
-Note: it requires GUI.
-#### WiredTiger
-Follow instructions from https://source.wiredtiger.com/.
+    git clone git@github.com:markbenvenuto/mrlog.git .mrlog
+    cd .mrlog
+    cargo build --release
+    ln -s ~/.mrlog/target/release/mrlog ~/.local/bin/mrlog
 #### Mongo-tools
 Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
 #### lnav
-Follow instructions from https://lnav.org/downloads.  
+Follow instructions from https://lnav.org/downloads.
+
+
+
+### Optional dependencies
+#### git-co-evg-base
+Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#installation.
+#### fd
+###### Linux
+    sudo apt-get install fd-find
+    ln -s $(which fdfind) $HOME/.local/bin/fd
+###### MacOS
+    brew install fd
+#### mtools
+Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
+
+Be sure binaries are in your PATH env variable. 
+#### m
+Follow instructions from https://github.com/aheckmann/m#installation.
+
+Be sure m binary is in your PATH env variable.
+#### WiredTiger
+Follow instructions from https://source.wiredtiger.com/.
+#### t2
+Follow instructions from https://github.com/10gen/t2.
+Note: it requires GUI.
 
 ## 2. Download this repo (modify WORKSPACE_DIR as desired)
     WORKSPACE_DIR=$HOME/.config/workspace
@@ -186,6 +191,9 @@ More info here https://github.com/junegunn/vim-plug#unix
     git worktree add mainDate master
     git worktree add mainPlum master
     
+## 11. Link /data/db path to $HOME to prevent full disk scenarios
+    mkdir ~/.data
+    ln -s ~/.data /data
 
 # Other resources
 
