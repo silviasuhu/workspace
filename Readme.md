@@ -26,13 +26,14 @@
 
 # Installation
 
-## 1. Create local bin directory
+## 1. Create local bin directory and add it to PATH
     mkdir -p ~/.local/bin
+    export PATH=~/.local/bin:$PATH
 
 ## 2. Install dependencies
 
 #### oh-my-posh
-    sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O ~/.local/bin/oh-my-posh
+    sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v16.4.0/posh-linux-arm64 -O ~/.local/bin/oh-my-posh
     sudo chmod +x $HOME/.local/bin/oh-my-posh
     oh-my-posh font install Meslo
 #### tmux (v3.3)
