@@ -1,6 +1,18 @@
 call plug#begin()
 Plug 'yunlingz/equinusocio-material.vim'
 Plug 'rhysd/vim-clang-format'
+Plug 'https://github.com/ycm-core/YouCompleteMe', { 'dir': '~/.vim/plugged/YouCompleteMe', 'do': 'python3 install.py --clang-completer' }
+if v:version >= 800
+    Plug 'https://github.com/dense-analysis/ale.git', { 'tag': 'v2.6.0' }
+endif
+
+Plug 'https://github.com/lyuts/vim-rtags'
+
+Plug 'https://github.com/junegunn/fzf', { 'tag': '0.20.0', 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
+Plug 'https://github.com/junegunn/fzf.vim'
+
+Plug 'https://github.com/tpope/vim-fugitive', { 'tag': 'v3.2' }
+
 call plug#end()
 
 set termguicolors
@@ -44,6 +56,26 @@ set mouse=a
 
 set number
 
-let g:clang_format#detect_style_file = 1
-let g:clang_format#auto_format = 1
-let g:clang_format#auto_format_on_insert_leave = 1
+set encoding=utf-8
+
+if &rtp =~ 'plugged/vim-clang-format'
+    let g:clang_format#detect_style_file = 1
+    let g:clang_format#auto_format = 1
+    " Uncomment the line below if using a virtual development workstation. An environment variable called MONGO_REPO has
+    " to be defined for this to work. Additionally, $MONGO_REPO/build/clang-format has to be linked to the clang-format
+    " binary.
+    " let g:clang_format#command = $MONGO_REPO.'/build/clang-format'
+endif
+
+if &rtp =~'plugged/ale' && v:version >= 800
+    let g:ale_linters_explicit = 1
+    " Uncomment the lines below if using a virtual development workstation. An environment variable called MONGO_REPO
+    " has to be defined for this to work.
+    " let g:ale_linters = {'javascript' : ['eslint'] }
+    " let g:ale_javascript_eslint_executable = $MONGO_REPO.'/build/eslint'
+endif
+
+if &rtp =~'plugged/vim-rtags'
+    " Uncomment the lines below if using a virtual development workstation.
+    " let g:rtagsAutoLaunchRdm = 1
+endif
