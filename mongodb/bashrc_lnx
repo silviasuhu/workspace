@@ -1,5 +1,21 @@
 #! /bin/bash
 
+### Set MongoDB's development settings only for Linux
+if [ "$(uname)" != "Darwin" ]; then
+    # BEGIN LC_ALL=C
+    export LC_ALL="C"
+    # END LC_ALL=C
+    # BEGIN ULIMITS BLOCK
+    ulimit -v unlimited
+    ulimit -n 64000
+    ulimit -u 64000
+    ulimit -l 256000
+    # END ULIMITS BLOCK
+    # BEGIN ULIMITS BLOCK WT
+    ulimit -c unlimited
+    # END ULIMITS BLOCK WT
+fi
+
 # Initialize const variables
 WORKSPACE_MONGODB_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
@@ -17,16 +33,6 @@ for file in $(find $BASHRC_D_PATH -type f); do
 done
 
 export PATH=${PATH}:$WORKSPACE_MONGODB_DIR/scripts/bin
-
-### Set MongoDB's development settings only for Linux
-if [ "$(uname)" != "Darwin" ]; then
-    export LC_ALL='C'
-    ulimit -v 65011712
-    ulimit -n 64000
-    ulimit -u 64000
-    ulimit -l 1024
-    ulimit -c unlimited
-fi
 
 ### Export Mongo binaries for development
 [[ -d /opt/nodejs/node-v8.11.3-linux-x64 ]] && export PATH=/opt/nodejs/node-v8.11.3-linux-x64/bin:${PATH}
