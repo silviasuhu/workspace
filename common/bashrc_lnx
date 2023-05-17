@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ### Set general environment settings
-export PATH=${PATH}:~/.local/bin
+export PATH=~/.local/bin:${PATH}
 export EDITOR=vim
 
 # Set terminal main color (used by TMUX and Oh My Posh)
@@ -39,11 +39,11 @@ for file in $(find $BASHRC_D_PATH -type f); do
     source $file
 done
 
-export PATH=${PATH}:$WORKSPACE_COMMON_DIR/scripts/bin
+export PATH=$WORKSPACE_COMMON_DIR/scripts/bin:${PATH}
 
 # Forgit setup (https://github.com/wfxr/forgit)
 . ~/.forgit/forgit.plugin.sh
-export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
+export PATH=$FORGIT_INSTALL_DIR/bin:${PATH}
 
 ### Init Oh My Posh
 export CLICOLOR=1
