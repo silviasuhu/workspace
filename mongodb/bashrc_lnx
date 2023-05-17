@@ -22,9 +22,6 @@ WORKSPACE_MONGODB_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 ### Set common Linux settings
 . $(dirname $WORKSPACE_MONGODB_DIR)/common/bashrc_lnx
 
-### Set general environment settings
-export PATH=~/bin:${PATH}
-
 ### Source bash scripts
 BASHRC_D_PATH="$WORKSPACE_MONGODB_DIR/scripts/bashrc.d"
 for file in $(find $BASHRC_D_PATH -type f); do
@@ -34,7 +31,7 @@ done
 export PATH=${PATH}:$WORKSPACE_MONGODB_DIR/scripts/bin:
 
 ### Export mongo multiversion binaries (managed by db-contrib-tools)
-export PATH=~/build/multiversion_bin:$PATH
+export PATH=~/mongo/bin:$PATH
 
 ### Export development dependency binaries
 [[ -d /opt/nodejs/node-v8.11.3-linux-x64 ]] && export PATH=/opt/nodejs/node-v8.11.3-linux-x64/bin:${PATH}
