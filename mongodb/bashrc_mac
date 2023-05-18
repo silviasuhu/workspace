@@ -12,8 +12,5 @@ export PATH=/opt/homebrew/bin:${PATH}
 # Export Terminal main color (used by TMUX and Oh My Posh)
 export TERM_MAIN_COLOR="#50b9ff"
 
-# Mongo binaries
-#export PATH=~/.mongo/mongodb-macos-x86_64-6.0.3/bin:${PATH}
-#export PATH=~/.mongo/mongosh-1.6.0-darwin-x64/bin:${PATH}
-#export PATH=~/.mongo/mongodb-database-tools-macos-x86_64-100.6.1/bin:${PATH}
+# Export paths
 export PATH=~/Library/Python/3.9/bin:${PATH}
