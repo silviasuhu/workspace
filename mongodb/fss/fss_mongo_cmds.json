@@ -2,21 +2,30 @@
     "args": {
         "target": {
             "options": {
-                "install-core": {
-                    "description": "core"
+                "install-mongod": {
+                    "description": ""
                 },
-                "install-all": {
-                    "description": "all"
+                "install-mongos": {
+                    "description": ""
+                },
+                "install-servers": {
+                    "description": "includes all server components"
+                },
+                "install-core": {
+                    "description": "includes only mongod and mongos"
                 },
                 "install-devcore": {
-                    "description": "devcore"
+                    "description": "includes mongod, mongos, and jstestshell (formerly mongo shell)"
                 },
-                "intall-unittests": {
-                    "description": "unittests"
+                "install-all": {
+                    "description": "includes a complete end-user distribution and tests"
+                },
+                "install-all-meta": {
+                    "description": "absolutely everything that can be build and installed"
                 }
             },
             "description": "",
-            "default": "install-"
+            "default": "install-devcore"
         },
         "jsSuite": {
             "options": {
@@ -44,7 +53,7 @@
             "description": "Ninja wrapper. Builds the binaries",
             "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> <<target>> | tee out.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
@@ -67,7 +76,7 @@
             "description": "Ninja wrapper. Builds the binaries",
             "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> -t clean; ccache -c; (exit ${PIPESTATUS[0]})",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
@@ -87,7 +96,7 @@
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
             "cmd": "./buildscripts/scons.py --build-profile=compiledb compiledb GDB_INDEX=0",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
@@ -98,7 +107,7 @@
             "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
             "cmd": "./buildscripts/scons.py --build-profile=<<build_profile>> GDB_INDEX=0",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
@@ -136,9 +145,9 @@
         },
         "mongo_run_jstest_local": {
             "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
-            "cmd": "mkdir -p lastTest && cp executor.log tests.log lastTest 2>/dev/null; ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
@@ -164,7 +173,7 @@
             "description": "Runs unittest binary locally",
             "cmd": "./build/install/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root"
             ],
@@ -182,7 +191,7 @@
             "description": "Compiles and runs unittest file locally",
             "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> +<<fileName>> | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
@@ -208,7 +217,7 @@
             "description": "Runs eslint over js tests, a linter for javascript",
             "cmd": "unbuffer ./buildscripts/eslint.py lint | tee out.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root"
             ],
@@ -218,7 +227,7 @@
             "description": "Runs quickcpplint, a linter for c++",
             "cmd": "unbuffer ./buildscripts/quickcpplint.py lint | tee out.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
-            "statistics": true,
+            "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root"
             ],
