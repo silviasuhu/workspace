@@ -91,8 +91,11 @@ Be sure m binary is in your PATH env variable.
 #### WiredTiger
 Follow instructions from https://source.wiredtiger.com/.
 #### t2
-Follow instructions from https://github.com/10gen/t2.
-Note: it requires GUI.
+Install it on the laptop only, because it requires GUI.
+1- Download the source code from the last release https://github.com/10gen/t2/releases.
+2- Build the code following the instructions from https://github.com/10gen/t2.
+3- To run it you will have to go to t2 directory and:
+    ./build/t2/t2 test/data/mongodb_6.0/*
 
 ## 2. Download this repo (modify WORKSPACE_DIR as desired)
     WORKSPACE_DIR=$HOME/.config/workspace
