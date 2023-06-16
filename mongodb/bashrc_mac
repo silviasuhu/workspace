@@ -12,5 +12,12 @@ export PATH=/opt/homebrew/bin:${PATH}
 # Export Terminal main color (used by TMUX and Oh My Posh)
 export TERM_MAIN_COLOR="#50b9ff"
 
-# Export paths
-export PATH=~/Library/Python/3.9/bin:${PATH}
+# Setting PATH for Python 3.11
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
+export PATH
+
+# Setting PATH for Python 2.7
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+export PATH
