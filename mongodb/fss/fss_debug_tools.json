@@ -1,15 +1,12 @@
 {
-    "args": {
-    },
-    "pre_checks": {
-    },
+    "args": {},
+    "pre_checks": {},
     "commands": {
         "deb_enable_laptop_access_to_new_spawned_host": {
             "description": "Enable connection to an spawned host from the laptop",
             "cmd": "sudo sh -c \"echo '#Temporal spawned host:' >> /etc/ppp/ip-up;echo '/sbin/route add -host <<hostname>> -interface ppp0' >> /etc/ppp/ip-up\"; echo 'ssh <<username>>@<<hostname>>' > sshSpawnedHost.sh; chmod +x sshSpawnedHost.sh; echo 'scp <<username>>@<<hostname>>:/home/ec2-user/debug/gdb.txt .' > scpGdbTxt.sh; chmod +x scpGdbTxt.sh; echo 'Remember to restart the VPN connection'",
             "bell": false,
-            "pre_checks": [
-            ],
+            "pre_checks": [],
             "parameters": {
                 "inputs": {
                     "hostname": {
@@ -20,7 +17,6 @@
                         "description": "Username to access the spawned host",
                         "default": "ec2-user"
                     }
-
                 }
             }
         },
@@ -28,14 +24,34 @@
             "description": "Convert gdb stacktraces to html",
             "cmd": "python /Users/silvia/projects/t2-0.18.12/scripts/gdb2stacks.py < <<gdb_stacktraces_file>> | python3 /Users/silvia/projects/t2-0.18.12/scripts/calltree.py > <<gdb_stacktraces_file>>.html",
             "bell": false,
-            "pre_checks": [
-            ],
+            "pre_checks": [],
             "parameters": {
                 "queries": {
                     "gdb_stacktraces_file": {
                         "description": "File with stacktraces",
                         "query_cmd": "ls",
                         "default": "gdb.txt"
+                    }
+                }
+            }
+        },
+        "deb_mongod_run_locally": {
+            "description": "Run mongod on the current directory",
+            "cmd": "m <<version>> && mongod --dbpath . --setParameter recoverFromOplogAsStandalone=true --port <<port>>",
+            "bell": false,
+            "pre_checks": [],
+            "parameters": {
+                "inputs": {
+                    "port": {
+                        "description": "Port number",
+                        "default": "27017"
+                    }
+                },
+                "queries": {
+                    "version": {
+                        "description": "mongod version",
+                        "query_cmd": "m",
+                        "default": ""
                     }
                 }
             }
