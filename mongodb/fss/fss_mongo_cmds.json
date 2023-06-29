@@ -66,7 +66,7 @@
                     "ninjaFile": {
                         "description": "ninja file",
                         "query_cmd": "ls *.ninja",
-                        "default": "opt.ninja",
+                        "default": "",
                         "element_preview": "bat --color=always {}"
                     }
                 }
@@ -116,8 +116,8 @@
                 "queries": {
                     "build_profile": {
                         "description": "build profile",
-                        "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --colour=never 'BuildProfileType\\.[A-Z]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
-                        "default": "opt",
+                        "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --colour=never 'BuildProfileType\\.[A-Z_]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
+                        "default": "fast",
                         "element_preview": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | sed -n '/BuildProfileType\\.{}:/I,/^.*)/p'"
                     }
                 }
