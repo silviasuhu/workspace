@@ -347,8 +347,27 @@
                     },
                     "alias": {
                         "description": "alias",
-                        "query_cmd": "echo -e 'required\\nburn_in\\nsharding\\nrun_unittests'",
+                        "query_cmd": "echo -e 'required\\nsharding\\nrun_unittests'",
                         "default": "required"
+                    }
+                }
+            }
+        },
+        "evg_burn_in_test_remotely": {
+            "description": "Create a burn in remote patch",
+            "cmd": "evergreen patch --project mongodb-mongo-master --param burn_in_tests=<<jsTest>> --variants 'run-all-affected-jstests'",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "queries": {
+                    "jsTest": {
+                        "description": "js file to test",
+                        "query_cmd": "find ./jstests -type f -name '*.js'",
+                        "element_preview": "bat --color=always {}",
+                        "default": ""
                     }
                 }
             }
