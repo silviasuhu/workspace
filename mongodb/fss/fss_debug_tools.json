@@ -2,7 +2,7 @@
     "args": {},
     "pre_checks": {},
     "commands": {
-        "deb_enable_laptop_access_to_new_spawned_host": {
+        "debLaptop_enable_access_to_new_spawned_host": {
             "description": "Enable connection to an spawned host from the laptop",
             "cmd": "sudo sh -c \"echo '#Temporal spawned host:' >> /etc/ppp/ip-up;echo '/sbin/route add -host <<hostname>> -interface ppp0' >> /etc/ppp/ip-up\"; echo 'ssh <<username>>@<<hostname>>' > sshSpawnedHost.sh; chmod +x sshSpawnedHost.sh; echo 'scp <<username>>@<<hostname>>:/home/ec2-user/debug/gdb.txt .' > scpGdbTxt.sh; chmod +x scpGdbTxt.sh; echo 'Remember to restart the VPN connection'",
             "bell": false,
@@ -20,7 +20,7 @@
                 }
             }
         },
-        "deb_gdb_stacktraces_to_html": {
+        "debLaptop_gdb_stacktraces_to_html": {
             "description": "Convert gdb stacktraces to html",
             "cmd": "python /Users/silvia/projects/t2-0.18.12/scripts/gdb2stacks.py < <<gdb_stacktraces_file>> | python3 /Users/silvia/projects/t2-0.18.12/scripts/calltree.py > <<gdb_stacktraces_file>>.html",
             "bell": false,
@@ -35,7 +35,7 @@
                 }
             }
         },
-        "deb_mongod_run_locally": {
+        "debLaptop_mongod_run_locally": {
             "description": "Run mongod on the current directory",
             "cmd": "m <<version>> && mongod --dbpath . --setParameter recoverFromOplogAsStandalone=true --port <<port>>",
             "bell": false,
@@ -55,6 +55,20 @@
                     }
                 }
             }
+        },
+        "debWs_create_testslog_link_into_home": {
+            "description": "Create a symbolic link into home to the tests.log of the current dir.",
+            "cmd": "ln -s $(pwd)/tests.log $HOME/tests.log",
+            "bell": false,
+            "pre_checks": [],
+            "parameters": {}
+        },
+        "debLaptop_download_testslog_from_ws_and_open": {
+            "description": "",
+            "cmd": "scp devel-ws:~/tests.log .;open https://parsley.mongodb.com/upload;open .",
+            "bell": false,
+            "pre_checks": [],
+            "parameters": {}
         }
     }
 }
