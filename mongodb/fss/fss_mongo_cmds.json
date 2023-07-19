@@ -353,7 +353,26 @@
                 }
             }
         },
-        "evg_burn_in_test_remotely": {
+        "evg_test_remotely_repeat_patch": {
+            "description": "Create a remote patch reusing the tasks and tests from another patch",
+            "cmd": "evergreen patch --repeat-patch <<patch_id>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "queries": {
+                    "patch_id": {
+                        "description": "project",
+                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                        "default": ""
+                    }
+                }
+            }
+        },
+        "evg_test_remotely_burn_in": {
             "description": "Create a burn in remote patch",
             "cmd": "evergreen patch --project mongodb-mongo-master --param burn_in_tests=<<jsTest>> --variants 'run-all-affected-jstests'",
             "bell": false,
