@@ -116,7 +116,7 @@
                 "queries": {
                     "build_profile": {
                         "description": "build profile",
-                        "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --colour=never 'BuildProfileType\\.[A-Z_]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
+                        "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --color=never 'BuildProfileType\\.[A-Z_]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
                         "default": "fast",
                         "element_preview": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | sed -n '/BuildProfileType\\.{}:/I,/^.*)/p'"
                     }
@@ -143,7 +143,7 @@
             ],
             "parameters": {}
         },
-        "mongo_run_jstest_local": {
+        "mongo_run_local_test_js": {
             "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
             "cmd": "./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
@@ -169,7 +169,33 @@
                 }
             }
         },
-        "mongo_run_unittest_binary": {
+        "mongo_run_local_test_bm": {
+            "description": "Runs local bm test.",
+            "cmd": "./buildscripts/resmoke.py run --storageEngineCacheSizeGB=1 --jobs=1 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --suite=<<bmSuite>> <<bmBinTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "queries": {
+                    "bmSuite": {
+                        "description": "",
+                        "query_cmd": "./buildscripts/resmoke.py list-suites | grep --color=never benchmark",
+                        "element_preview": "bat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
+                        "default": ""
+                    },
+                    "bmBinTest": {
+                        "description": "bm binary file to test",
+                        "query_cmd": "find ./build/install/bin -type f -name '*bm'",
+                        "element_preview": "",
+                        "default": ""
+                    }
+                }
+            }
+        },
+        "mongo_run_local_unittest_binary": {
             "description": "Runs unittest binary locally",
             "cmd": "./build/install/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
@@ -187,7 +213,7 @@
                 }
             }
         },
-        "mongo_run_unittest_file": {
+        "mongo_run_local_unittest_file": {
             "description": "Compiles and runs unittest file locally",
             "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> +<<fileName>> | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
