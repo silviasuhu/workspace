@@ -58,7 +58,7 @@
         },
         "debWs_create_testslog_link_into_home": {
             "description": "Create a symbolic link into home to the tests.log of the current dir.",
-            "cmd": "ln -s $(pwd)/tests.log $HOME/tests.log",
+            "cmd": "rm $HOME/tests.log;ln -s $(pwd)/tests.log $HOME/tests.log",
             "bell": false,
             "pre_checks": [],
             "parameters": {}
