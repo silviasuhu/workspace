@@ -28,7 +28,7 @@ WORKSPACE_COMMON_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 export FZF_DEFAULT_OPTS='--no-height --multi --layout=reverse --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :50 {}'"
+export FZF_CTRL_T_OPTS="--preview 'batcat --color=always --line-range :50 {}'"
 export FZF_ALT_C_COMMAND='fd --type d . --hidden'
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
@@ -59,7 +59,7 @@ alias l='less --status-column --LINE-NUMBERS --HILITE-UNREAD --IGNORE-CASE --RAW
 alias ljs='less -p "failed to load"'
 
 alias tmux='tmux -u'
-alias ff='fzf --bind "ctrl-d:reload(fd --type d --hidden --follow),ctrl-f:reload($FZF_DEFAULT_COMMAND)" --preview "bat --color=always --line-range :50 {}"'
+alias ff='fzf --bind "ctrl-d:reload(fd --type d --hidden --follow),ctrl-f:reload($FZF_DEFAULT_COMMAND)" --preview "batcat --color=always --line-range :50 {}"'
 alias g='git'
 alias gs='git status'
 alias gc='git commit'

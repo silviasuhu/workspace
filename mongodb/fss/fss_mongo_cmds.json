@@ -67,7 +67,7 @@
                         "description": "ninja file",
                         "query_cmd": "ls *.ninja",
                         "default": "",
-                        "element_preview": "bat --color=always {}"
+                        "element_preview": "batcat --color=always {}"
                     }
                 }
             }
@@ -87,7 +87,7 @@
                         "description": "ninja file",
                         "query_cmd": "ls *.ninja",
                         "default": "",
-                        "element_preview": "bat --color=always {}"
+                        "element_preview": "batcat --color=always {}"
                     }
                 }
             }
@@ -157,13 +157,13 @@
                     "jsTest": {
                         "description": "js file to test",
                         "query_cmd": "find ./jstests -type f -name '*.js'",
-                        "element_preview": "bat --color=always {}",
+                        "element_preview": "batcat --color=always {}",
                         "default": ""
                     },
                     "jsSuite": {
                         "description": "",
                         "query_cmd": "./buildscripts/resmoke.py list-suites",
-                        "element_preview": "bat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
+                        "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
                         "default": "sharding"
                     }
                 }
@@ -183,7 +183,7 @@
                     "bmSuite": {
                         "description": "",
                         "query_cmd": "./buildscripts/resmoke.py list-suites | grep --color=never benchmark",
-                        "element_preview": "bat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
+                        "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
                         "default": ""
                     },
                     "bmBinTest": {
@@ -228,7 +228,7 @@
                         "description": "ninja file",
                         "query_cmd": "ls *.ninja",
                         "default": "",
-                        "element_preview": "bat --color=always {}"
+                        "element_preview": "batcat --color=always {}"
                     },
                     "fileName": {
                         "description": "unittest file",
@@ -350,7 +350,7 @@
                     "jsTest": {
                         "description": "js test file",
                         "query_cmd": "find ./jstests -type f -name '*.js'",
-                        "element_preview": "bat --color=always {}",
+                        "element_preview": "batcat --color=always {}",
                         "default": ""
                     }
                 }
@@ -411,7 +411,7 @@
                     "jsTest": {
                         "description": "js file to test",
                         "query_cmd": "find ./jstests -type f -name '*.js'",
-                        "element_preview": "bat --color=always {}",
+                        "element_preview": "batcat --color=always {}",
                         "default": ""
                     }
                 }
