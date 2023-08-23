@@ -42,6 +42,7 @@ export NINJA_STATUS='[%f/%t (%p) %es] '
 alias gbs="git branch --list 'suhu*'"
 alias s="mon_repoSummary.sh"
 alias sa="mon_allReposSummary.sh"
+alias t="tail -f tests.log"
 
 alias ss_repeatTest="$WORKSPACE_MONGODB_DIR/tools/testing/repeatTestUntilFailure.sh"
 alias ss_merge_and_sort_logs="grep -r ^ . | sed -E \"s/^([^:]*)\:{([^,]*)/{\2, \\\"n\\\"\:\1/g\" | sort"
