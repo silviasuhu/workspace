@@ -86,7 +86,7 @@
                     "ninjaFile": {
                         "description": "ninja file",
                         "query_cmd": "ls *.ninja",
-                        "default": "opt.ninja",
+                        "default": "",
                         "element_preview": "bat --color=always {}"
                     }
                 }
@@ -227,7 +227,7 @@
                     "ninjaFile": {
                         "description": "ninja file",
                         "query_cmd": "ls *.ninja",
-                        "default": "opt.ninja",
+                        "default": "",
                         "element_preview": "bat --color=always {}"
                     },
                     "fileName": {
