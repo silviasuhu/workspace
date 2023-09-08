@@ -8,6 +8,7 @@
 # INFO PER REPO:
 #     dir:
 #     project:
+#     doInstallVEnv: (true/false)
 #     pull: (true/false)
 #     build: (true/false)
 #     link-json: (true/false)
@@ -24,6 +25,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
     dir=$(echo $repo | jq -r .dir);
     project=$(echo $repo | jq -r .project);
     doPull=$(echo $repo | jq -r .doPull);
+    doInstallVEnv=$(echo $repo | jq -r .doInstallVEnv);
     doNinjaFile=$(echo $repo | jq -r .doNinjaFile);
     doBuild=$(echo $repo | jq -r .doBuild);
     doClangdJson=$(echo $repo | jq -r .doClangdJson);
@@ -41,6 +43,28 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
         fi
     fi
 
+    # Install virtual environment from scratch
+    if [[ "$doInstallVEnv" = true ]]; then
+        output="$(cd $dir && rm -r .venv; cd $dir && /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && python3 -m pip install 'poetry==1.5.1' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && .venv/bin/python3 -m poetry install --no-root --sync )" 
+        res=$(echo $?);
+        if [ $res -ne 0 ]; then
+            echo "[$(date)][ERROR][$dir][INSTALL-VENV] Failed installing virtual environment. $output" >> $LOG;
+        else
+            echo "[$(date)][INFO][$dir][INSTALL-VENV] Virtual environment installed." >> $LOG;
+        fi
+    fi
+
+    # Ninja file
+    if [[ "$doNinjaFile" = true ]]; then
+        output="$(cd $dir && . .venv/bin/activate && buildscripts/scons.py --build-profile=fast)"
+        res=$(echo $?);
+        if [ $res -ne 0 ]; then
+            echo "[$(date)][ERROR][$dir][NINJA-FILE] Failed creating ninja file. $output" >> $LOG;
+        else
+            echo "[$(date)][INFO][$dir][NINJA-FILE] Ninja file created." >> $LOG;
+        fi
+    fi
+
     # Clangd link json
     if [[ "$doClangdJson" = true ]]; then
         output="$(cd $dir && . .venv/bin/activate && buildscripts/scons.py --build-profile=compiledb compiledb)"
@@ -52,20 +76,9 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
         fi
     fi
 
-    # Ninja file
-    if [[ "$doNinjaFile" = true ]]; then
-        output="$(cd $dir && . .venv/bin/activate && buildscripts/scons.py --build-profile=opt)"
-        res=$(echo $?);
-        if [ $res -ne 0 ]; then
-            echo "[$(date)][ERROR][$dir][NINJA-FILE] Failed creating ninja file. $output" >> $LOG;
-        else
-            echo "[$(date)][INFO][$dir][NINJA-FILE] Ninja file created." >> $LOG;
-        fi
-    fi
-
     # Build
     if [[ "$doBuild" = true ]]; then
-        output="$(cd $dir && ninja -j400 -f opt.ninja install-all)"
+        output="$(cd $dir && ninja -j400 -f fast.ninja install-devcore)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
             echo "[$(date)][ERROR][$dir][BUILD] Build failed. $output" >> $LOG;

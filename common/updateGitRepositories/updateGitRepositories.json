@@ -4,6 +4,7 @@
             "dir": "$HOME/devel/10gen-mongo/master",
             "project": "mongodb-mongo-master",
             "doPull": true,
+            "doInstallVEnv": true,
             "doNinjaFile": true,
             "doBuild": true,
             "doClangdJson": true
@@ -12,6 +13,7 @@
             "dir": "$HOME/devel/10gen-mongo/mainPeach",
             "project": "mongodb-mongo-master",
             "doPull": false,
+            "doInstallVEnv": false,
             "doNinjaFile": true,
             "doBuild": true,
             "doClangdJson": true
@@ -20,6 +22,7 @@
             "dir": "$HOME/devel/10gen-mongo/mainPlum",
             "project": "mongodb-mongo-master",
             "doPull": false,
+            "doInstallVEnv": false,
             "doNinjaFile": true,
             "doBuild": true,
             "doClangdJson": true
@@ -28,6 +31,7 @@
             "dir": "$HOME/devel/10gen-mongo/mainDate",
             "project": "mongodb-mongo-master",
             "doPull": false,
+            "doInstallVEnv": false,
             "doNinjaFile": true,
             "doBuild": true,
             "doClangdJson": true
@@ -36,14 +40,7 @@
             "dir": "$HOME/devel/10gen-mongo/v6.0",
             "project": "mongodb-mongo-v6.0",
             "doPull": true,
-            "doNinjaFile": true,
-            "doBuild": false,
-            "doClangdJson": true
-        },
-        {
-            "dir": "$HOME/devel/10gen-mongo/v6.3",
-            "project": "mongodb-mongo-v6.3",
-            "doPull": true,
+            "doInstallVEnv": true,
             "doNinjaFile": true,
             "doBuild": false,
             "doClangdJson": true
@@ -52,6 +49,7 @@
             "dir": "$HOME/devel/10gen-mongo/v7.0",
             "project": "mongodb-mongo-v7.0",
             "doPull": true,
+            "doInstallVEnv": true,
             "doNinjaFile": true,
             "doBuild": false,
             "doClangdJson": true
@@ -60,6 +58,7 @@
             "dir": "$HOME/devel/10gen-mongo/v5.0",
             "project": "mongodb-mongo-v5.0",
             "doPull": true,
+            "doInstallVEnv": true,
             "doNinjaFile": true,
             "doBuild": false,
             "doClangdJson": true
@@ -68,6 +67,7 @@
             "dir": "$HOME/devel/10gen-mongo-enterprise-modules",
             "project": "mongodb-mongo-master",
             "doPull": true,
+            "doInstallVEnv": false,
             "doNinjaFile": false,
             "doBuild": false,
             "doClangdJson": false
