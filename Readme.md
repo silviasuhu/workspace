@@ -1,7 +1,7 @@
 # What is included
 
 ## Generic environment
-- Tmux v3.3 with custom configuration
+- Tmux with custom configuration
 - Vim with custom configuration
 - Oh-my-posh
 - FZF
