@@ -34,6 +34,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
     
     # Pull repo
     if [[ "$doPull" = true ]]; then
+        echo "[$(date)][INFO][$dir][PULL] 'git pull' started." >> $LOG;
         output="$(cd $dir && git pull)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
@@ -45,6 +46,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
 
     # Install virtual environment from scratch
     if [[ "$doInstallVEnv" = true ]]; then
+        echo "[$(date)][INFO][$dir][INSTALL-VENV] Virtual environment installation started." >> $LOG;
         output="$(cd $dir && rm -r .venv; cd $dir && /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && python3 -m pip install 'poetry==1.5.1' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && .venv/bin/python3 -m poetry install --no-root --sync )" 
         res=$(echo $?);
         if [ $res -ne 0 ]; then
@@ -56,6 +58,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
 
     # Ninja file
     if [[ "$doNinjaFile" = true ]]; then
+        echo "[$(date)][INFO][$dir][NINJA-FILE] Ninja file creation started." >> $LOG;
         output="$(cd $dir && . .venv/bin/activate && buildscripts/scons.py --build-profile=fast)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
@@ -67,6 +70,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
 
     # Clangd link json
     if [[ "$doClangdJson" = true ]]; then
+        echo "[$(date)][INFO][$dir][CLANGD-JSON] Clangd json started." >> $LOG;
         output="$(cd $dir && . .venv/bin/activate && buildscripts/scons.py --build-profile=compiledb compiledb)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
@@ -78,6 +82,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
 
     # Build
     if [[ "$doBuild" = true ]]; then
+        echo "[$(date)][INFO][$dir][BUILD] Build started." >> $LOG;
         output="$(cd $dir && ninja -j400 -f fast.ninja install-devcore)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
