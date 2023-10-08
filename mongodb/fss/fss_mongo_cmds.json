@@ -125,6 +125,26 @@
             ],
             "parameters": {}
         },
+        "mongo_prepare_current_repository": {
+            "description": "Makes the list of actions specified on .prepareRepo.json file",
+            "cmd": "updateGitRepositories.sh .prepareRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_prepare_and_rebuild_current_repository": {
+            "description": "Makes the list of actions specified on .prepareAndBuildRepo.json file",
+            "cmd": "updateGitRepositories.sh .prepareAndBuildRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
         "mongo_pre_build": {
             "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
             "cmd": "./buildscripts/scons.py --build-profile=<<build_profile>> GDB_INDEX=0",
