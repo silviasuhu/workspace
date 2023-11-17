@@ -361,6 +361,17 @@
                 }
             }
         },
+        "mongo_get_enterprise_revision": {
+            "description": "Get the enterprise module revision for the current commit",
+            "cmd": "evg-api --json manifest --project mongodb-mongo-master --commit \"$(git merge-base master HEAD)\" | jq --raw-output .modules.enterprise.revision",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
+        },
         "mongo_install_multiversion_env": {
             "description": "Installs multiversion binaries and sets up the environment on the current repo",
             "cmd": "db-contrib-tool setup-repro-env --installDir /data/multiversion",
