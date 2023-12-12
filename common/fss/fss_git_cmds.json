@@ -18,6 +18,29 @@
                 }
             }
         },
+        "git_tag_new_stable_version": {
+            "description": "Create a new tag.",
+            "cmd": "git tag -a <<tag_date>>-<<branch>>-sstable -m 'Stable version' <<commit>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_inside_git_repository"
+            ],
+            "parameters": {
+                "inputs": {
+                    "tag_date": {
+                        "description": "Revision date. Format: YY.MM.DD"
+                    },
+                    "branch": {
+                        "description": "Branch of the revision.",
+                        "default": "master"
+                    },
+                    "commit": {
+                        "description": "Commit to mark."
+                    }
+                }
+            }
+        },
         "git_track_remote_branch": {
             "description": "Make local branch to track a remote branch.",
             "cmd": "git branch -u origin/<<remote_branch>>",
