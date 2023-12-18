@@ -17,7 +17,8 @@
 - mrlog (https://github.com/markbenvenuto/mrlog). Improves mongodb log reading.
 - git-co-evg-base (https://github.com/evergreen-ci/git-co-evg-base)
 - t2 (https://github.com/10gen/t2) Tool to graph server statistics
-- wiredtiger (git://github.com/wiredtiger/wiredtiger.git) binary for reading wt files
+- wiredtiger (https://github.com/wiredtiger/wiredtiger.git) binary for reading wt files
+- wiredtiger scripts (https://github.com/wiredtiger/wiredtiger/blob/develop/tools/wt_to_mdb_bson.py)
 - mongo-tools (https://github.com/mongodb/mongo-tools) essential tools for MongoDB (bsondump, mongoimport, ...)
 
 ### Optional
