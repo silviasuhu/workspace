@@ -383,8 +383,8 @@
             "parameters": {}
         },
         "mgoto": {
-            "description": "Goto 10-gen mongo repository",
-            "cmd": "cd $HOME/devel/10gen-mongo/<<repo_path>>",
+            "description": "Goto mongo repository",
+            "cmd": "cd $HOME/devel/mongo/<<repo_path>>",
             "bell": false,
             "statistics": false,
             "pre_checks": [],
@@ -392,7 +392,7 @@
                 "queries": {
                     "repo_path": {
                         "description": "",
-                        "query_cmd": "ls $HOME/devel/10gen-mongo",
+                        "query_cmd": "ls $HOME/devel/mongo",
                         "element_preview": "mon_repoSummary.sh '{}'",
                         "default": "main"
                     }

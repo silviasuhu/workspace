@@ -1,7 +1,7 @@
 {
     "repositories": [
         {
-            "dir": "$HOME/devel/10gen-mongo/master",
+            "dir": "$HOME/devel/mongo/master",
             "project": "mongodb-mongo-master",
             "doPull": true,
             "doInstallVEnv": true,
@@ -10,7 +10,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/mainPeach",
+            "dir": "$HOME/devel/mongo/mainPeach",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doInstallVEnv": false,
@@ -19,7 +19,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/mainPlum",
+            "dir": "$HOME/devel/mongo/mainPlum",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doInstallVEnv": false,
@@ -28,7 +28,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/mainDate",
+            "dir": "$HOME/devel/mongo/mainLion",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doInstallVEnv": false,
@@ -37,7 +37,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/v6.0",
+            "dir": "$HOME/devel/mongo/v6.0",
             "project": "mongodb-mongo-v6.0",
             "doPull": true,
             "doInstallVEnv": true,
@@ -46,7 +46,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/v7.0",
+            "dir": "$HOME/devel/mongo/v7.0",
             "project": "mongodb-mongo-v7.0",
             "doPull": true,
             "doInstallVEnv": true,
@@ -55,7 +55,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo/v5.0",
+            "dir": "$HOME/devel/mongo/v5.0",
             "project": "mongodb-mongo-v5.0",
             "doPull": true,
             "doInstallVEnv": true,
@@ -64,7 +64,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/10gen-mongo-enterprise-modules",
+            "dir": "$HOME/devel/mongo-enterprise-modules",
             "project": "mongodb-mongo-master",
             "doPull": true,
             "doInstallVEnv": false,

@@ -6,7 +6,7 @@
 #  repoDirName: The name of the directory containing the repo placed under $GIT_TREE_PATH
 #               If no parameter is passed, the current directory is assumed to be the repo
 
-GIT_TREE_PATH="/home/ubuntu/devel/10gen-mongo"
+GIT_TREE_PATH="/home/ubuntu/devel/mongo"
 
 if [ -z "$1" ]; then
     branch=$(git rev-parse --abbrev-ref HEAD)

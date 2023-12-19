@@ -179,14 +179,14 @@ More info here https://github.com/junegunn/vim-plug#unix
     
 ## 10. Install mongo repositories
 
-    mkdir -p ~/devel/10gen-mongo-enterprise-modules
-    git clone git@github.com:10gen/mongo-enterprise-modules.git 10gen-mongo-enterprise-modules
+    mkdir -p ~/devel/mongo-enterprise-modules
+    git clone git@github.com:10gen/mongo-enterprise-modules.git mongo-enterprise-modules
     
     mkdir -p ~/devel/mongodb-mongo-tools
     git clone git@github.com:mongodb/mongo-tools.git ~/devel/mongodb-mongo-tools
     
-    mkdir -p ~/devel/10gen-mongo
-    cd ~/devel/10gen-mongo
+    mkdir -p ~/devel/mongo
+    cd ~/devel/mongo
     git clone --bare git@github.com:10gen/mongo.git .bare
     echo "gitdir: ./.bare" > .git
     git worktree add --track -B master master origin/master

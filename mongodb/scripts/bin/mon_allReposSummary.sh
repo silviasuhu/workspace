@@ -1,6 +1,6 @@
 #! /bin/bash
 
-ROOT_PATH="/home/ubuntu/devel/10gen-mongo"
+ROOT_PATH="/home/ubuntu/devel/mongo"
 JIRA_URL="https://jira.mongodb.org"
 
 if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]]; then
