@@ -51,7 +51,7 @@
     "commands": {
         "mongo_build": {
             "description": "Ninja wrapper. Builds the binaries",
-            "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> <<target>> | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn unbuffer ninja -j400 -f <<ninjaFile>> <<target>> | tee out.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -74,7 +74,7 @@
         },
         "mongo_build_v4.0_v4.4": {
             "description": "Builds the binaries for v4.0 and v4.4",
-            "cmd": "./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all | tee out.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -85,7 +85,7 @@
         },
         "mongo_build_v5.0": {
             "description": "Builds the binaries for v5.0",
-            "cmd": "./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on --link-model=dynamic --ninja generate-ninja ICECC=icecc all | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on --link-model=dynamic --ninja generate-ninja ICECC=icecc all | tee out.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -116,7 +116,7 @@
         },
         "mongo_build_json": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
-            "cmd": "./buildscripts/scons.py --build-profile=compiledb compiledb GDB_INDEX=0",
+            "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb GDB_INDEX=0",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -127,7 +127,7 @@
         },
         "mongo_prepare_current_repository": {
             "description": "Makes the list of actions specified on .prepareRepo.json file",
-            "cmd": "updateGitRepositories.sh .prepareRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
+            "cmd": "tsp -fn updateGitRepositories.sh .prepareRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -137,7 +137,7 @@
         },
         "mongo_prepare_and_rebuild_current_repository": {
             "description": "Makes the list of actions specified on .prepareAndBuildRepo.json file",
-            "cmd": "updateGitRepositories.sh .prepareAndBuildRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
+            "cmd": "tsp -fn updateGitRepositories.sh .prepareAndBuildRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -147,7 +147,7 @@
         },
         "mongo_pre_build": {
             "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
-            "cmd": "./buildscripts/scons.py --build-profile=<<build_profile>> GDB_INDEX=0",
+            "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=<<build_profile>> GDB_INDEX=0",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -197,7 +197,7 @@
         },
         "mongo_run_local_test_js": {
             "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
-            "cmd": "./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -223,7 +223,7 @@
         },
         "mongo_run_local_test_bm": {
             "description": "Runs local bm test.",
-            "cmd": "./buildscripts/resmoke.py run --storageEngineCacheSizeGB=1 --jobs=1 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --suite=<<bmSuite>> <<bmBinTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/resmoke.py run --storageEngineCacheSizeGB=1 --jobs=1 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --suite=<<bmSuite>> <<bmBinTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -249,7 +249,7 @@
         },
         "mongo_run_local_unittest_binary": {
             "description": "Runs unittest binary locally",
-            "cmd": "./build/install/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./build/install/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -267,7 +267,7 @@
         },
         "mongo_run_local_unittest_file": {
             "description": "Compiles and runs unittest file locally",
-            "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> +<<fileName>> | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn unbuffer ninja -j400 -f <<ninjaFile>> +<<fileName>> | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
