@@ -575,14 +575,33 @@
         },
         "wt_dump_collection_names": {
             "description": "Dump collection names from a _mdb_catalog.wt file",
-            "cmd": "<<wt_binary>> dump -x table:_mdb_catalog | tail -n +7 | awk 'NR%2 == 0 { print }' | xxd -r -p | bsondump --quiet | jq -r 'select(. | has(\\\"md\\\")) | [.ident, .ns] | @tsv' | sort > wt_ident_vs_collection_ns.tsv",
+            "cmd": "<<wt_binary>> dump -x table:_mdb_catalog | tail -n +7 | awk 'NR%2 == 0 { print }' | xxd -r -p | bsondump --quiet | jq -r 'select(. | has(\"md\")) | [.ident, .ns] | @tsv' | sort",
             "bell": false,
             "statistics": false,
             "pre_checks": [],
             "parameters": {
                 "inputs": {
                     "wt_binary": {
-                        "description": "Path to wt binary"
+                        "description": "Path to wt binary",
+                        "default": "wt"
+                    }
+                }
+            }
+        },
+        "wt_dump_collection_data": {
+            "description": "Dump collection entries",
+            "cmd": "<<wt_binary>> dump -x table:<<collection>> | wt_to_mdb_bson.py -m dump",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "inputs": {
+                    "wt_binary": {
+                        "description": "Path to wt binary",
+                        "default": "wt"
+                    },
+                    "collection": {
+                        "description": "Collection ident"
                     }
                 }
             }
