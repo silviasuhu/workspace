@@ -35,7 +35,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
     # Pull repo
     if [[ "$doPull" = true ]]; then
         echo "[$(date)][INFO][$dir][PULL] 'git pull' started." >> $LOG;
-        output="$(cd $dir && git pull)"
+        output="$(git --git-dir $dir/.git --work-tree $dir pull)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
             echo "[$(date)][ERROR][$dir][PULL] 'git pull' didn't work. $output" >> $LOG;
