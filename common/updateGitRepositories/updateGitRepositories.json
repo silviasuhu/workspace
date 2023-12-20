@@ -10,7 +10,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/mongo/mainPeach",
+            "dir": "$HOME/devel/mongo/mainStrawberry",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doInstallVEnv": false,
@@ -19,7 +19,7 @@
             "doClangdJson": true
         },
         {
-            "dir": "$HOME/devel/mongo/mainPlum",
+            "dir": "$HOME/devel/mongo/mainSunset",
             "project": "mongodb-mongo-master",
             "doPull": false,
             "doInstallVEnv": false,
