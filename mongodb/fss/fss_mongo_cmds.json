@@ -51,7 +51,7 @@
     "commands": {
         "mongo_build": {
             "description": "Ninja wrapper. Builds the binaries",
-            "cmd": "tsp -fn unbuffer ninja -j400 -f <<ninjaFile>> <<target>> | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ninja -j400 -f <<ninjaFile>> <<target>>",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -96,7 +96,7 @@
         },
         "mongo_clean": {
             "description": "Ninja wrapper. Builds the binaries",
-            "cmd": "unbuffer ninja -j400 -f <<ninjaFile>> -t clean; ccache -c; (exit ${PIPESTATUS[0]})",
+            "cmd": "ninja -j400 -f <<ninjaFile>> -t clean; ccache -c; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -293,7 +293,7 @@
         },
         "mongo_run_eslint": {
             "description": "Runs eslint over js tests, a linter for javascript",
-            "cmd": "unbuffer ./buildscripts/eslint.py lint | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "./buildscripts/eslint.py lint",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -303,7 +303,7 @@
         },
         "mongo_run_cpplint": {
             "description": "Runs quickcpplint, a linter for c++",
-            "cmd": "unbuffer ./buildscripts/quickcpplint.py lint | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "./buildscripts/quickcpplint.py lint",
             "bell": true,
             "statistics": false,
             "pre_checks": [
