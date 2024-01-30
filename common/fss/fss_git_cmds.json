@@ -101,6 +101,15 @@
                     }
                 }
             }
+        },
+        "git_show_previous_targeted_revisions": {
+            "description": "Show previous targeted revisions `git reflog`",
+            "cmd": "git reflog",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_inside_git_repository"
+            ]
         }
     }
 }
