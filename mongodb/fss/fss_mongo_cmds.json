@@ -22,6 +22,9 @@
                 },
                 "install-all-meta": {
                     "description": "absolutely everything that can be build and installed"
+                },
+                "install-unittests": {
+                    "description": "install unit test binaries"
                 }
             },
             "description": "",
