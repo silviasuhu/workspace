@@ -51,7 +51,7 @@
     "commands": {
         "mongo_build": {
             "description": "Ninja wrapper. Builds the binaries",
-            "cmd": "tsp -fn ninja -j400 -f <<ninjaFile>> <<target>>",
+            "cmd": "tsp -fn nice -n 19 ninja -j400 -f <<ninjaFile>> <<target>>",
             "bell": true,
             "statistics": false,
             "pre_checks": [
