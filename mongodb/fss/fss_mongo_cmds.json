@@ -77,7 +77,7 @@
         },
         "mongo_build_v4.0_v4.4": {
             "description": "Builds the binaries for v4.0 and v4.4",
-            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -88,7 +88,7 @@
         },
         "mongo_build_v5.0": {
             "description": "Builds the binaries for v5.0",
-            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on --link-model=dynamic --ninja generate-ninja ICECC=icecc all | tee out.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on --link-model=dynamic --ninja generate-ninja ICECC=icecc all",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -99,7 +99,7 @@
         },
         "mongo_clean": {
             "description": "Ninja wrapper. Builds the binaries",
-            "cmd": "ninja -j400 -f <<ninjaFile>> -t clean; ccache -c; (exit ${PIPESTATUS[0]})",
+            "cmd": "ninja -j400 -f <<ninjaFile>> -t clean; ccache -c;",
             "bell": true,
             "statistics": false,
             "pre_checks": [
