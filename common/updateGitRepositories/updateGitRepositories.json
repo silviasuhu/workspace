@@ -40,28 +40,28 @@
             "dir": "$HOME/devel/mongo/v6.0",
             "project": "mongodb-mongo-v6.0",
             "doPull": true,
-            "doInstallVEnv": true,
-            "doNinjaFile": true,
+            "doInstallVEnv": false,
+            "doNinjaFile": false,
             "doBuild": false,
-            "doClangdJson": true
+            "doClangdJson": false
         },
         {
             "dir": "$HOME/devel/mongo/v7.0",
             "project": "mongodb-mongo-v7.0",
             "doPull": true,
-            "doInstallVEnv": true,
-            "doNinjaFile": true,
+            "doInstallVEnv": false,
+            "doNinjaFile": false,
             "doBuild": false,
-            "doClangdJson": true
+            "doClangdJson": false
         },
         {
             "dir": "$HOME/devel/mongo/v5.0",
             "project": "mongodb-mongo-v5.0",
             "doPull": true,
-            "doInstallVEnv": true,
-            "doNinjaFile": true,
+            "doInstallVEnv": false,
+            "doNinjaFile": false,
             "doBuild": false,
-            "doClangdJson": true
+            "doClangdJson": false
         },
         {
             "dir": "$HOME/devel/mongo-enterprise-modules",
