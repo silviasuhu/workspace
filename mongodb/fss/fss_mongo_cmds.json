@@ -75,20 +75,9 @@
                 }
             }
         },
-        "mongo_build_v4.0_v4.4": {
+        "mongo_build_v40_v44_older_versions": {
             "description": "Builds the binaries for v4.0 and v4.4",
             "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "venv_is_active"
-            ],
-            "parameters": {}
-        },
-        "mongo_build_v5.0": {
-            "description": "Builds the binaries for v5.0",
-            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on --link-model=dynamic --ninja generate-ninja ICECC=icecc all",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -175,6 +164,25 @@
                         "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --color=never 'BuildProfileType\\.[A-Z_]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
                         "default": "fast",
                         "element_preview": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | sed -n '/BuildProfileType\\.{}:/I,/^.*)/p'"
+                    }
+                }
+            }
+        },
+        "mongo_pre_build_v44_v50_v60": {
+            "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
+            "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=<<build_profile>>",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "queries": {
+                    "build_profile": {
+                        "description": "build profile",
+                        "query_cmd": "echo -e 'default\\nfast\\nopt\\nsan\\ncompiledb'",
+                        "default": "fast"
                     }
                 }
             }
