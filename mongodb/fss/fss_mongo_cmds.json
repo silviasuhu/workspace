@@ -99,7 +99,7 @@
         },
         "mongo_clean": {
             "description": "Ninja wrapper. Builds the binaries",
-            "cmd": "ninja -j400 -f <<ninjaFile>> -t clean; ccache -c;",
+            "cmd": "ninja -j400 -f <<ninjaFile>> -t clean; ccache -c",
             "bell": true,
             "statistics": false,
             "pre_checks": [
