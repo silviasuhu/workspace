@@ -289,7 +289,7 @@
         },
         "mongo_run_local_unittest_file": {
             "description": "Compiles and runs unittest file locally",
-            "cmd": "tsp -fn unbuffer ninja -j400 -f <<ninjaFile>> +<<fileName>> | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ninja -j400 -f <<ninjaFile>> +<<fileName>> | mrlog| tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
