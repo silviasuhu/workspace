@@ -20,13 +20,13 @@
 - wiredtiger (https://github.com/wiredtiger/wiredtiger.git) binary for reading wt files
 - wiredtiger scripts (https://github.com/wiredtiger/wiredtiger/blob/develop/tools/wt_to_mdb_bson.py)
 - mongo-tools (https://github.com/mongodb/mongo-tools) essential tools for MongoDB (bsondump, mongoimport, ...)
+- Mongo shell (https://www.mongodb.com/try/download/shell)
 
 ### Optional
 - mtools (https://github.com/rueckstiess/mtools). Bunch of tools like `mlaunch` (which spawns a MongoDB cluster) and `mloginfo` and `mlogfilter` (which helps you analyzing mongodb logs)
 - m (https://github.com/aheckmann/m). Helps you download, use, and manage multiple versions of the MongoDB server and command-line tools.
 
 ## MongoDB binaries
-- MongoShell `mongo`
 
 # Installation
 
