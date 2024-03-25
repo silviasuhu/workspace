@@ -28,10 +28,11 @@ for file in $(find $BASHRC_D_PATH -type f); do
     source $file
 done
 
-export PATH=$WORKSPACE_MONGODB_DIR/scripts/bin:${PATH}
+### Requested by mtools
+source $HOME/.asdf/asdf.sh
+source $HOME/.asdf/completions/asdf.bash
 
-### Export mongo multiversion binaries (managed by db-contrib-tools)
-export PATH=~/mongo/bin:${PATH}
+export PATH=$WORKSPACE_MONGODB_DIR/scripts/bin:${PATH}
 
 ### Export development dependency binaries
 [[ -d /opt/nodejs/node-v8.11.3-linux-x64 ]] && export PATH=/opt/nodejs/node-v8.11.3-linux-x64/bin:${PATH}
