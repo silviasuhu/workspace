@@ -43,6 +43,8 @@ alias gbs="git branch --list 'suhu*'"
 alias s="mon_repoSummary.sh"
 alias sa="mon_allReposSummary.sh"
 alias t="tail -f tests.log"
+alias tf="tail -f tests.log | grep -e 'failed to load' -e 'SSS'"
+alias ltf="mrlog tests.log | l -Sn +/'failed to load' +uujjj"
 
 alias ss_repeatTest="$WORKSPACE_MONGODB_DIR/tools/testing/repeatTestUntilFailure.sh"
 alias ss_merge_and_sort_logs="grep -r ^ . | sed -E \"s/^([^:]*)\:{([^,]*)/{\2, \\\"n\\\"\:\1/g\" | sort"
