@@ -38,13 +38,13 @@
                     "default": "install-devcore",
                     "query_cmd": "echo -e 'install-mongod\ninstall-mongos\ninstall-servers\ninstall-core\ninstall-devcore\ninstall-all\ninstall-all-meta\ninstall-unittests'"
                 },
-                    "ninjaFile": {
+                "ninjaFile": {
                     "body": "-f <<VALUE>>",
                     "type": "query",
-                        "description": "ninja file",
-                        "query_cmd": "ls *.ninja",
-                        "default": "",
-                        "element_preview": "batcat --color=always {}"
+                    "description": "ninja file",
+                    "query_cmd": "ls *.ninja",
+                    "default": "",
+                    "element_preview": "batcat --color=always {}"
                 }
             }
         },
@@ -89,13 +89,13 @@
                 "venv_is_active"
             ],
             "parameters": {
-                    "ninjaFile": {
+                "ninjaFile": {
                     "body": "-f <<VALUE>>",
                     "type": "query",
-                        "description": "ninja file",
-                        "query_cmd": "ls *.ninja",
-                        "default": "",
-                        "element_preview": "batcat --color=always {}"
+                    "description": "ninja file",
+                    "query_cmd": "ls *.ninja",
+                    "default": "",
+                    "element_preview": "batcat --color=always {}"
                 }
             }
         },
@@ -151,12 +151,12 @@
                 "venv_is_active"
             ],
             "parameters": {
-                    "build_profile": {
+                "build_profile": {
                     "type": "query",
-                        "description": "build profile",
-                        "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --color=never 'BuildProfileType\\.[A-Z_]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
-                        "default": "fast",
-                        "element_preview": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | sed -n '/BuildProfileType\\.{}:/I,/^.*)/p'"
+                    "description": "build profile",
+                    "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --color=never 'BuildProfileType\\.[A-Z_]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
+                    "default": "fast",
+                    "element_preview": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | sed -n '/BuildProfileType\\.{}:/I,/^.*)/p'"
                 }
             }
         },
@@ -170,11 +170,11 @@
                 "venv_is_active"
             ],
             "parameters": {
-                    "build_profile": {
+                "build_profile": {
                     "type": "query",
-                        "description": "build profile",
-                        "query_cmd": "echo -e 'default\\nfast\\nopt\\nsan\\ncompiledb'",
-                        "default": "fast"
+                    "description": "build profile",
+                    "query_cmd": "echo -e 'default\\nfast\\nopt\\nsan\\ncompiledb'",
+                    "default": "fast"
                 }
             }
         },
@@ -218,19 +218,19 @@
                 "venv_is_active"
             ],
             "parameters": {
-                    "jsTest": {
+                "jsTest": {
                     "type": "query",
-                        "description": "js file to test",
-                        "query_cmd": "find ./jstests -type f -name '*.js'",
-                        "element_preview": "batcat --color=always {}",
-                        "default": ""
-                    },
-                    "jsSuite": {
+                    "description": "js file to test",
+                    "query_cmd": "find ./jstests -type f -name '*.js'",
+                    "element_preview": "batcat --color=always {}",
+                    "default": ""
+                },
+                "jsSuite": {
                     "type": "query",
-                        "description": "",
-                        "query_cmd": "./buildscripts/resmoke.py list-suites",
-                        "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
-                        "default": "sharding"
+                    "description": "",
+                    "query_cmd": "./buildscripts/resmoke.py list-suites",
+                    "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
+                    "default": "sharding"
                 }
             }
         },
@@ -244,19 +244,19 @@
                 "venv_is_active"
             ],
             "parameters": {
-                    "bmSuite": {
+                "bmSuite": {
                     "type": "query",
-                        "description": "",
-                        "query_cmd": "./buildscripts/resmoke.py list-suites | grep --color=never benchmark",
-                        "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
-                        "default": ""
-                    },
-                    "bmBinTest": {
+                    "description": "",
+                    "query_cmd": "./buildscripts/resmoke.py list-suites | grep --color=never benchmark",
+                    "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
+                    "default": ""
+                },
+                "bmBinTest": {
                     "type": "query",
-                        "description": "bm binary file to test",
-                        "query_cmd": "find ./build/install/bin -type f -name '*bm'",
-                        "element_preview": "",
-                        "default": ""
+                    "description": "bm binary file to test",
+                    "query_cmd": "find ./build/install/bin -type f -name '*bm'",
+                    "element_preview": "",
+                    "default": ""
                 }
             }
         },
@@ -269,11 +269,11 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                    "unittest_bin": {
+                "unittest_bin": {
                     "type": "query",
-                        "description": "binary to test",
-                        "query_cmd": "ls build/install/bin",
-                        "default": "db_s_server_test"
+                    "description": "binary to test",
+                    "query_cmd": "ls build/install/bin",
+                    "default": "db_s_server_test"
                 }
             }
         },
@@ -287,19 +287,19 @@
                 "venv_is_active"
             ],
             "parameters": {
-                    "ninjaFile": {
+                "ninjaFile": {
                     "type": "query",
-                        "description": "ninja file",
-                        "query_cmd": "ls *.ninja",
-                        "default": "",
-                        "element_preview": "batcat --color=always {}"
-                    },
-                    "fileName": {
+                    "description": "ninja file",
+                    "query_cmd": "ls *.ninja",
+                    "default": "",
+                    "element_preview": "batcat --color=always {}"
+                },
+                "fileName": {
                     "type": "query",
-                        "description": "unittest file",
-                        "query_cmd": "find ./src/mongo -type f -name '*test.cpp' | sed -r 's/^.*\\/(.*)\\.cpp$/\\1/'",
-                        "element_preview": "",
-                        "default": ""
+                    "description": "unittest file",
+                    "query_cmd": "find ./src/mongo -type f -name '*test.cpp' | sed -r 's/^.*\\/(.*)\\.cpp$/\\1/'",
+                    "element_preview": "",
+                    "default": ""
                 }
             }
         },
@@ -342,11 +342,11 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                    "project": {
+                "project": {
                     "type": "query",
-                        "description": "branch to merge the changes",
-                        "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
-                        "default": "mongodb-mongo-"
+                    "description": "branch to merge the changes",
+                    "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
+                    "default": "mongodb-mongo-"
                 }
             }
         },
@@ -357,16 +357,16 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "project": {
+                "project": {
                     "type": "query",
-                        "description": "branch to search on",
-                        "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
-                        "default": "mongodb-mongo-"
+                    "description": "branch to search on",
+                    "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
+                    "default": "mongodb-mongo-"
                 },
-                    "passThreshold": {
+                "passThreshold": {
                     "type": "input",
-                        "description": "Success threshold (0.0 - 100.0)",
-                        "default": "0.97"
+                    "description": "Success threshold (0.0 - 100.0)",
+                    "default": "0.97"
                 }
             }
         },
@@ -398,12 +398,12 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "repo_path": {
+                "repo_path": {
                     "type": "query",
-                        "description": "",
-                        "query_cmd": "ls $HOME/devel/mongo",
-                        "element_preview": "mon_repoSummary.sh '{}'",
-                        "default": "main"
+                    "description": "",
+                    "query_cmd": "ls $HOME/devel/mongo",
+                    "element_preview": "mon_repoSummary.sh '{}'",
+                    "default": "main"
                 }
             }
         },
@@ -417,12 +417,12 @@
                 "venv_is_active"
             ],
             "parameters": {
-                    "jsTest": {
+                "jsTest": {
                     "type": "query",
-                        "description": "js test file",
-                        "query_cmd": "find ./jstests -type f -name '*.js'",
-                        "element_preview": "batcat --color=always {}",
-                        "default": ""
+                    "description": "js test file",
+                    "query_cmd": "find ./jstests -type f -name '*.js'",
+                    "element_preview": "batcat --color=always {}",
+                    "default": ""
                 }
             }
         },
@@ -435,19 +435,19 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                    "project": {
+                "project": {
                     "type": "query",
-                        "description": "project",
-                        "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
-                        "default": "mongodb-mongo-master"
-                    },
-                    "alias": {
+                    "description": "project",
+                    "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
+                    "default": "mongodb-mongo-master"
+                },
+                "alias": {
                     "body": "--alias <<VALUE>>",
                     "type": "query",
                     "optional": true,
-                        "description": "alias",
-                        "query_cmd": "echo -e 'required\\nsharding\\nrun_unittests'",
-                        "default": "required"
+                    "description": "alias",
+                    "query_cmd": "echo -e 'required\\nsharding\\nrun_unittests'",
+                    "default": "required"
                 },
                 "uncommitted": {
                     "body": "--uncommitted",
@@ -465,12 +465,12 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                    "patch_id": {
+                "patch_id": {
                     "type": "query",
-                        "description": "project",
-                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
-                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
-                        "default": ""
+                    "description": "project",
+                    "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                    "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                    "default": ""
                 }
             }
         },
@@ -483,12 +483,12 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                    "jsTest": {
+                "jsTest": {
                     "type": "query",
-                        "description": "js file to test",
-                        "query_cmd": "find ./jstests -type f -name '*.js'",
-                        "element_preview": "batcat --color=always {}",
-                        "default": ""
+                    "description": "js file to test",
+                    "query_cmd": "find ./jstests -type f -name '*.js'",
+                    "element_preview": "batcat --color=always {}",
+                    "default": ""
                 }
             }
         },
@@ -499,12 +499,12 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "patch_id": {
+                "patch_id": {
                     "type": "query",
-                        "description": "project",
-                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
-                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
-                        "default": ""
+                    "description": "project",
+                    "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                    "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                    "default": ""
                 }
             }
         },
@@ -515,12 +515,12 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "patch_id": {
+                "patch_id": {
                     "type": "query",
-                        "description": "project",
-                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
-                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
-                        "default": ""
+                    "description": "project",
+                    "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                    "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                    "default": ""
                 }
             }
         },
@@ -531,12 +531,12 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "patch_id": {
+                "patch_id": {
                     "type": "query",
-                        "description": "project",
-                        "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
-                        "element_preview": "evergreen list-patches --show-summary -i '{}'",
-                        "default": ""
+                    "description": "project",
+                    "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
+                    "element_preview": "evergreen list-patches --show-summary -i '{}'",
+                    "default": ""
                 }
             }
         },
@@ -575,9 +575,9 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                    "branch_name": {
+                "branch_name": {
                     "type": "input",
-                        "description": "Name for the new branch"
+                    "description": "Name for the new branch"
                 }
             }
         },
@@ -588,10 +588,10 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "wt_binary": {
+                "wt_binary": {
                     "type": "input",
-                        "description": "Path to wt binary",
-                        "default": "wt"
+                    "description": "Path to wt binary",
+                    "default": "wt"
                 }
             }
         },
@@ -602,14 +602,14 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "wt_binary": {
+                "wt_binary": {
                     "type": "input",
-                        "description": "Path to wt binary",
-                        "default": "wt"
-                    },
-                    "collection": {
+                    "description": "Path to wt binary",
+                    "default": "wt"
+                },
+                "collection": {
                     "type": "input",
-                        "description": "Collection ident"
+                    "description": "Collection ident"
                 }
             }
         },
@@ -620,12 +620,27 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {
-                    "wt_binary": {
+                "wt_binary": {
                     "type": "input",
-                        "description": "Path to wt binary"
-                    }
+                    "description": "Path to wt binary"
                 }
             }
+        },
+        "mlaunch_start": {
+            "description": "Launch a mongodb cluster",
+            "cmd": "mlaunch init --mongos 1 --sharded 1 --replicaset 1 --csrs 1 --nodes 1 --verbose --dir ~/tmp/mlaunch_data",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
+        },
+        "mlaunch_stop": {
+            "description": "Stop a running mongodb cluster",
+            "cmd": "mlaunch stop --verbose --dir ~/tmp/mlaunch_data; pkill mongod; rm -r ~/tmp/mlaunch_data",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
         }
     }
 }
