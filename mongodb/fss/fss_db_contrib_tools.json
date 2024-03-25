@@ -1,21 +1,17 @@
 {
-    "args": {
-    },
-    "pre_checks": {
-    },
+    "args": {},
+    "pre_checks": {},
     "commands": {
         "mongo_download_binaries": {
             "description": "Download mongo binary version",
             "cmd": "db-contrib-tool setup-repro-env --linkDir /home/ubuntu/mongo/bin --installDir /home/ubuntu/build/multiversion_bin <<version>>",
             "bell": true,
-            "pre_checks": [
-            ],
+            "pre_checks": [],
             "parameters": {
-                "inputs": {
-                    "version": {
-                        "description": "Binary version (Accepts binary versions, `master`, full git commit hashes, evergreen version ids, evergreen task ids)",
-                        "default": "LTS"
-                    }
+                "version": {
+                    "type": "input",
+                    "description": "Binary version (Accepts binary versions, `master`, full git commit hashes, evergreen version ids, evergreen task ids)",
+                    "default": "LTS"
                 }
             }
         }

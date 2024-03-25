@@ -11,10 +11,9 @@
                 "wrkdir_is_inside_git_repository"
             ],
             "parameters": {
-                "inputs": {
-                    "commit": {
-                        "description": "Commit to pick."
-                    }
+                "commit": {
+                    "type": "input",
+                    "description": "Commit to pick."
                 }
             }
         },
@@ -27,17 +26,18 @@
                 "wrkdir_is_inside_git_repository"
             ],
             "parameters": {
-                "inputs": {
-                    "tag_date": {
-                        "description": "Revision date. Format: YY.MM.DD"
-                    },
-                    "branch": {
-                        "description": "Branch of the revision.",
-                        "default": "master"
-                    },
-                    "commit": {
-                        "description": "Commit to mark."
-                    }
+                "tag_date": {
+                    "type": "input",
+                    "description": "Revision date. Format: YY.MM.DD"
+                },
+                "branch": {
+                    "type": "input",
+                    "description": "Branch of the revision.",
+                    "default": "master"
+                },
+                "commit": {
+                    "type": "input",
+                    "description": "Commit to mark."
                 }
             }
         },
@@ -50,12 +50,11 @@
                 "wrkdir_is_inside_git_repository"
             ],
             "parameters": {
-                "queries": {
-                    "remote_branch": {
-                        "description": "Remote branch to track",
-                        "query_cmd": "git branch -r | sed 's/^ *origin\\/\/\/g'",
-                        "default": ""
-                    }
+                "remote_branch": {
+                    "type": "query",
+                    "description": "Remote branch to track",
+                    "query_cmd": "git branch -r | sed 's/^ *origin\\/\/\/g'",
+                    "default": ""
                 }
             }
         },
@@ -78,10 +77,9 @@
                 "wrkdir_is_inside_git_repository"
             ],
             "parameters": {
-                "inputs": {
-                    "file_path": {
-                        "description": "File to see history."
-                    }
+                "file_path": {
+                    "type": "input",
+                    "description": "File to see history."
                 }
             }
         },
@@ -94,11 +92,10 @@
                 "wrkdir_is_inside_git_repository"
             ],
             "parameters": {
-                "inputs": {
-                    "author": {
-                        "description": "",
-                        "default": "Silvia Surroca"
-                    }
+                "author": {
+                    "type": "input",
+                    "description": "",
+                    "default": "Silvia Surroca"
                 }
             }
         },

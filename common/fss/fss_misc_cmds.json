@@ -1,5 +1,4 @@
 {
-    "args": {},
     "pre_checks": {
         "in_tmux": {
             "cmd": "if [[ -z ${TMUX} ]]; then echo \"ERROR: Not inside tmux session.\" 1>&2; return 1; fi"

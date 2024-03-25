@@ -8,15 +8,15 @@
             "bell": false,
             "pre_checks": [],
             "parameters": {
-                "inputs": {
-                    "hostname": {
-                        "description": "Url to access the spawned host",
-                        "default": ""
-                    },
-                    "username": {
-                        "description": "Username to access the spawned host",
-                        "default": "ec2-user"
-                    }
+                "hostname": {
+                    "type": "input",
+                    "description": "Url to access the spawned host",
+                    "default": ""
+                },
+                "username": {
+                    "type": "input",
+                    "description": "Username to access the spawned host",
+                    "default": "ec2-user"
                 }
             }
         },
@@ -26,12 +26,11 @@
             "bell": false,
             "pre_checks": [],
             "parameters": {
-                "queries": {
-                    "gdb_stacktraces_file": {
-                        "description": "File with stacktraces",
-                        "query_cmd": "ls",
-                        "default": "gdb.txt"
-                    }
+                "gdb_stacktraces_file": {
+                    "type": "query",
+                    "description": "File with stacktraces",
+                    "query_cmd": "ls",
+                    "default": "gdb.txt"
                 }
             }
         },
@@ -41,18 +40,16 @@
             "bell": false,
             "pre_checks": [],
             "parameters": {
-                "inputs": {
-                    "port": {
-                        "description": "Port number",
-                        "default": "27017"
-                    }
+                "port": {
+                    "type": "input",
+                    "description": "Port number",
+                    "default": "27017"
                 },
-                "queries": {
-                    "version": {
-                        "description": "mongod version",
-                        "query_cmd": "m",
-                        "default": ""
-                    }
+                "version": {
+                    "type": "query",
+                    "description": "mongod version",
+                    "query_cmd": "m",
+                    "default": ""
                 }
             }
         },
