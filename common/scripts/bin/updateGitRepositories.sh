@@ -59,7 +59,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
     # Ninja file
     if [[ "$doNinjaFile" = true ]]; then
         echo "[$(date)][INFO][$dir][NINJA-FILE] Ninja file creation started." >> $LOG;
-        output="$(cd $dir && . .venv/bin/activate && buildscripts/scons.py --build-profile=fast)"
+        output="$(cd $dir && . .venv/bin/activate && ./buildscripts/scons.py --build-profile=fast)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
             echo "[$(date)][ERROR][$dir][NINJA-FILE] Failed creating ninja file. $output" >> $LOG;
@@ -71,7 +71,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
     # Clangd link json
     if [[ "$doClangdJson" = true ]]; then
         echo "[$(date)][INFO][$dir][CLANGD-JSON] Clangd json started." >> $LOG;
-        output="$(cd $dir && . .venv/bin/activate && buildscripts/scons.py --build-profile=compiledb compiledb)"
+        output="$(cd $dir && . .venv/bin/activate && ./buildscripts/scons.py --build-profile=compiledb compiledb)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
             echo "[$(date)][ERROR][$dir][CLANGD-JSON] Failed creating clangd json. $output" >> $LOG;
@@ -83,7 +83,7 @@ for row in $(cat ${CONF_FILE} | envsubst | jq -r '.repositories[] | @base64'); d
     # Build
     if [[ "$doBuild" = true ]]; then
         echo "[$(date)][INFO][$dir][BUILD] Build started." >> $LOG;
-        output="$(cd $dir && ninja -j400 -f fast.ninja install-devcore)"
+        output="$(cd $dir && . .venv/bin/activate && ninja -j400 -f fast.ninja install-devcore)"
         res=$(echo $?);
         if [ $res -ne 0 ]; then
             echo "[$(date)][ERROR][$dir][BUILD] Build failed. $output" >> $LOG;
