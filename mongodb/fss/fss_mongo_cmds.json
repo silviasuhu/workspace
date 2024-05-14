@@ -557,12 +557,11 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                "queries": {
                     "branch": {
+                        "type": "query",
                         "description": "Remote branches",
                         "query_cmd": "git branch -r | sed 's/^ *origin\\/\/\/g'",
                         "default": ""
-                    }
                 }
             }
         },
