@@ -628,11 +628,31 @@
         },
         "mlaunch_start": {
             "description": "Launch a mongodb cluster",
-            "cmd": "mlaunch init --mongos 1 --sharded 1 --replicaset 1 --csrs 1 --nodes 1 --verbose --dir ~/tmp/mlaunch_data",
+            "cmd": "mlaunch init --mongos <<num_mongos>> --shards <<num_shards>> --replicaset 1 --nodes <<num_nodes_rs>> --csrs 1 --verbose --binarypath <<binary_path>> --dir ~/tmp/mlaunch_data",
             "bell": false,
             "statistics": false,
             "pre_checks": [],
-            "parameters": {}
+            "parameters": {
+                "num_mongos": {
+                    "type": "input",
+                    "default": "1"
+                },
+                "num_shards": {
+                    "type": "input",
+                    "default": "1"
+                },
+                "num_nodes_rs": {
+                    "type": "input",
+                    "default": "1"
+                },
+                "binary_path": {
+                    "type": "query",
+                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './build/install/bin'",
+                    "element_preview": "ls '{}'",
+                    "default": "./build/install/bin"
+
+                }
+            }
         },
         "mlaunch_stop": {
             "description": "Stop a running mongodb cluster",
