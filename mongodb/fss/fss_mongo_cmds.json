@@ -1,15 +1,4 @@
 {
-    "args": {
-        "jsSuite": {
-            "options": {
-                "sharding": {
-                    "description": ""
-                }
-            },
-            "description": "Jstest suites",
-            "default": "sharding"
-        }
-    },
     "pre_checks": {
         "wrkdir_is_mongo_root": {
             "cmd": "if [[ ! -d buildscripts ]]; then echo \"ERROR: ${PWD} is not a mongo working directory\" 1>&2; return 1; fi"
@@ -210,7 +199,7 @@
         },
         "mongo_run_local_test_js": {
             "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
-            "cmd": "tsp -fn ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --jobs=1 --runAllFeatureFlagTests --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath <<repeatTests>> --mongodSetParameters='{logComponentVerbosity: {command: 2, sharding: {verbosity: 2}}}' --jobs=1 <<runAllFeatureFlags>> --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -218,19 +207,30 @@
                 "venv_is_active"
             ],
             "parameters": {
-                "jsTest": {
-                    "type": "query",
-                    "description": "js file to test",
-                    "query_cmd": "find ./jstests -type f -name '*.js'",
-                    "element_preview": "batcat --color=always {}",
-                    "default": ""
-                },
                 "jsSuite": {
                     "type": "query",
                     "description": "",
                     "query_cmd": "./buildscripts/resmoke.py list-suites",
                     "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
                     "default": "sharding"
+                },
+                "jsTest": {
+                    "type": "query",
+                    "optional": true,
+                    "description": "js file to test",
+                    "query_cmd": "find ./jstests -type f -name '*.js'",
+                    "element_preview": "batcat --color=always {}",
+                    "default": ""
+                },
+                "runAllFeatureFlags": {
+                    "type": "fix",
+                    "body": "--runAllFeatureFlagTests",
+                    "optional": true
+                },
+                "repeatTests": {
+                    "type": "input",
+                    "body": "--repeatTests <<VALUE>>",
+                    "optional": "true"
                 }
             }
         },
