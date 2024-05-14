@@ -16,6 +16,9 @@ if [ "$(uname)" != "Darwin" ]; then
     # END ULIMITS BLOCK WT
 fi
 
+# Export HISTFILE so that bash scripts will be able to read it
+export HISTFILE
+
 # Initialize const variables
 WORKSPACE_MONGODB_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
@@ -27,6 +30,8 @@ BASHRC_D_PATH="$WORKSPACE_MONGODB_DIR/scripts/bashrc.d"
 for file in $(find $BASHRC_D_PATH -type f); do
     source $file
 done
+
+source $HOME/.fss/bin/fss.sh
 
 ### Requested by mtools
 source $HOME/.asdf/asdf.sh
