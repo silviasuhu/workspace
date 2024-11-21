@@ -79,7 +79,7 @@
         },
         "mongo_build_json": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
-            "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb GDB_INDEX=0",
+            "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
             "bell": true,
             "statistics": false,
             "pre_checks": [
