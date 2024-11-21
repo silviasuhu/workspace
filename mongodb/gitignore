@@ -4,3 +4,5 @@ worknotes*
 lab*
 .prepareRepo*
 .prepareAndBuildRepo*
+.lastCompilationMd5
+jstests/sharding/mytest.js
