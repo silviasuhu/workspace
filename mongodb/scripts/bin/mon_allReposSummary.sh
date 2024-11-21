@@ -2,8 +2,11 @@
 
 ROOT_PATH="/home/ubuntu/devel/mongo"
 JIRA_BASE_URL="https://jira.mongodb.org/rest/api/2/issue/"
-
 JIRA_TICKET_PATTERN="[A-Z]*-[0-9][0-9][0-9][0-9][0-9]"
+
+# Load util_scripts.sh to use `isRepoCompiled()` function
+SCRIPT_DIR=$(dirname "$0")
+source $SCRIPT_DIR/../../../common/scripts/bashrc.d/util_scripts.sh
 
 BOLD="1"
 NO_BOLD="0"
@@ -20,9 +23,9 @@ if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]]; then
 fi
 
 # Build the header for the directories table
-FIRST_COLUMN_WIDTH=16
-SECOND_COLUMN_WIDTH=25
-THIRD_COLUMN_WIDTH=22
+FIRST_COLUMN_WIDTH=24
+SECOND_COLUMN_WIDTH=27
+THIRD_COLUMN_WIDTH=24
 FOURTH_COLUMN_WIDTH=16
 FIFTH_COLUMN_WIDTH=25
 printf "%-${FIRST_COLUMN_WIDTH}s|%-${SECOND_COLUMN_WIDTH}s|%-${THIRD_COLUMN_WIDTH}s|%-${FOURTH_COLUMN_WIDTH}s|%-${FIFTH_COLUMN_WIDTH}s\n" "  DIR" "  BASED ON" "  BRANCH" "  STATUS" "  INFO"
@@ -45,7 +48,7 @@ branchYellow=""
 branchPurple=""
 
 # Iterate through all directories from $ROOT_PATH
-for dir in $(find $ROOT_PATH -maxdepth 1 -type d -print0 | sort -z | xargs -0); do
+for dir in $(find $ROOT_PATH -maxdepth 1 -mindepth 1 -type d -print0 | sort -z | xargs -0); do
     # Check if the directory is a git repository
     if [ -e "$dir/.git" ]; then
         pushd "$dir" > /dev/null
@@ -54,9 +57,8 @@ for dir in $(find $ROOT_PATH -maxdepth 1 -type d -print0 | sort -z | xargs -0); 
         # Get current branch
         branch=$(git rev-parse --abbrev-ref HEAD)
 
-        gitDescribe=$(git describe --abbrev=0 $branch)
-
         # Get the base branch
+        gitDescribe=$(git describe --abbrev=0 $branch)
         if [[ "$gitDescribe" == *"alpha"* ]]; then
             baseBranch="master"
         else
@@ -75,8 +77,23 @@ for dir in $(find $ROOT_PATH -maxdepth 1 -type d -print0 | sort -z | xargs -0); 
         baseCommitDate=$(git log --format=%ad --date=short -1 $baseCommit)
         branchPointingBaseCommit=$(git branch --points-at $baseCommit)
 
-        baseCommitSummary="$baseCommitDate, ${baseBranch:0:4}, ${baseCommit:0:5}"
+        baseCommitSummary="$baseCommitDate, ${baseBranch:0:4}, ${baseCommit:0:7}"
+
+        uncommittedChanges=$(git status --porcelain)
+
+        if [[ "$uncommittedChanges" == "" || "$uncommittedChanges" == "null" || -z "$uncommittedChanges" ]]; then
+            dirNameWithTags="$dirName [E]"
+        else
+            dirNameWithTags="$dirName [NE]"
+        fi
         
+        compiled=$(isRepoCompiled)
+        if [[ "$compiled" == "yes" ]]; then
+            dirNameWithTags="$dirNameWithTags [B]"
+        else
+            dirNameWithTags="$dirNameWithTags"
+        fi
+
         # Bold the current directory line
         if [[ ! -z "$currentBranch" ]] && [[ "$branch" == "$currentBranch" ]]; then
             formatBegin="* \e[${BOLD}"
@@ -119,10 +136,10 @@ for dir in $(find $ROOT_PATH -maxdepth 1 -type d -print0 | sort -z | xargs -0); 
 
         # Print a directory row
         if [[ -z "$summary" || "$summary" == "null" ]]; then
-            printf "${FORMAT}%-${fst_column_width}s [%s] %s${FORMAT_END}\n" "$dirName" "$baseCommitSummary" "$branch"
+            printf "${FORMAT}%-${fst_column_width}s [%s] %s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch"
         else
             jiraStatus=$(echo "$response" | jq -r '.fields.status.name')
-            printf "${FORMAT}%-${fst_column_width}s [%s] %-${THIRD_COLUMN_WIDTH}s %-${FOURTH_COLUMN_WIDTH}s %-${FIFTH_COLUMN_WIDTH}s${FORMAT_END}\n" "$dirName" "$baseCommitSummary" "$branch" "$jiraStatus" "$summary"
+            printf "${FORMAT}%-${fst_column_width}s [%s] %-${THIRD_COLUMN_WIDTH}s %-${FOURTH_COLUMN_WIDTH}s %-${FIFTH_COLUMN_WIDTH}s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch" "$jiraStatus" "$summary"
         fi
         popd > /dev/null
     fi

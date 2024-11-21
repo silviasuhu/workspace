@@ -13,7 +13,7 @@
     "commands": {
         "mongo_build": {
             "description": "Ninja wrapper. Builds the binaries",
-            "cmd": "tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>>",
+            "cmd": "rmBuildStamp; tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>> && stampSuccessfulBuild",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -70,7 +70,7 @@
         },
         "mongo_clean": {
             "description": "Ninja wrapper. Clean.",
-            "cmd": "ninja -j400 <<ninjaFile>> -t clean; ccache -c",
+            "cmd": "ninja -j400 <<ninjaFile>> -t clean; ccache -c; rmBuildStamp",
             "bell": true,
             "statistics": false,
             "pre_checks": [
