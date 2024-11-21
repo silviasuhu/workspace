@@ -20,7 +20,7 @@
                 }
             }
         },
-        "debLaptop_gdb_stacktraces_to_html": {
+        "deb_gdb_stacktraces_to_html": {
             "description": "Convert gdb stacktraces to html",
             "cmd": "python /Users/silvia/projects/t2-0.18.12/scripts/gdb2stacks.py < <<gdb_stacktraces_file>> | python3 /Users/silvia/projects/t2-0.18.12/scripts/calltree.py > <<gdb_stacktraces_file>>.html",
             "bell": false,
@@ -34,7 +34,7 @@
                 }
             }
         },
-        "debLaptop_mongod_run_locally": {
+        "deb_mongod_run_locally": {
             "description": "Run mongod on the current directory",
             "cmd": "m <<version>> && mongod --dbpath . --setParameter recoverFromOplogAsStandalone=true --port <<port>>",
             "bell": false,
@@ -53,16 +53,22 @@
                 }
             }
         },
-        "debWs_create_testslog_link_into_home": {
-            "description": "Create a symbolic link into home to the tests.log of the current dir.",
-            "cmd": "rm $HOME/tests.log;ln -s $(pwd)/tests.log $HOME/tests.log",
+        "deb_restore_config_dump": {
+            "description": "Restore a config dump in gz format to an already running mongod process.",
+            "cmd": "mongorestore --gzip --archive=<<path_to_gz_config_file>> --excludeCollection=settings",
             "bell": false,
             "pre_checks": [],
-            "parameters": {}
+            "parameters": {
+                "port": {
+                    "type": "path_to_gz_config_file",
+                    "description": "Path to the config dump file in gzip format.",
+                    "default": "/home/ubuntu/config.gz"
+                }
+            }
         },
-        "debLaptop_download_testslog_from_ws_and_open": {
-            "description": "",
-            "cmd": "scp devel-ws:~/tests.log .;open https://parsley.mongodb.com/upload;open .",
+        "db_show_open_ports_by_mongo_processes": {
+            "description": "Show open ports from mongo processes.",
+            "cmd": "ss -lntp | grep mongo",
             "bell": false,
             "pre_checks": [],
             "parameters": {}
