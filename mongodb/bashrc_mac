@@ -6,9 +6,6 @@ export PATH=/opt/homebrew/bin:${PATH}
 ### Set Homebrew bash completion
 [[ -r /usr/local/etc/profile.d/bash_completion.sh ]] && . /usr/local/etc/profile.d/bash_completion.sh
 
-### Set common and MongoDB settings
-. ~/.config/workspace/mongodb/bashrc_lnx
-
 # Export Terminal main color (used by TMUX and Oh My Posh)
 export TERM_MAIN_COLOR="#50b9ff"
 
@@ -22,4 +19,12 @@ export PATH
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 export PATH
 
+# Setting PATH for llvm binaries
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+# Task-spooler alias to get parity between Linux and Macos
+alias tsp=ts
+
+### Set common and MongoDB settings
+. ~/.config/workspace/mongodb/bashrc_lnx
+

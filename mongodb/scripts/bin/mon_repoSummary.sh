@@ -6,7 +6,7 @@
 #  repoDirName: The name of the directory containing the repo placed under $GIT_TREE_PATH
 #               If no parameter is passed, the current directory is assumed to be the repo
 
-ROOT_PATH="/home/ubuntu/devel/mongo"
+ROOT_PATH="$HOME/devel/mongo"
 
 JIRA_API_BASE_URL="https://jira.mongodb.org/rest/api/2/issue/"
 JIRA_BASE_URL="https://jira.mongodb.org/browse/"

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-ROOT_PATH="/home/ubuntu/devel/mongo"
+ROOT_PATH="$HOME/devel/mongo"
 JIRA_BASE_URL="https://jira.mongodb.org/rest/api/2/issue/"
 JIRA_TICKET_PATTERN="[A-Z]*-[0-9][0-9][0-9][0-9][0-9]"
 
@@ -110,15 +110,15 @@ for dir in $(find $ROOT_PATH -maxdepth 1 -mindepth 1 -type d -print0 | sort -z |
             jiraTicket=""
         fi
 
-        if [[ "$dir" =~ "mainLion" ]]; then
+        if [[ "$dir" =~ "develA" ]]; then
             FORMAT="${formatBegin};${YELLOW}m"
             commitBaseYellow="$baseCommit"
             branchYellow="$branch"
-        elif [[ "$dir" =~ "mainStrawberry" ]]; then
+        elif [[ "$dir" =~ "develB" ]]; then
             FORMAT="${formatBegin};${PURPLE}m"
             commitBasePurple="$baseCommit"
             branchPurple="$branch"
-        elif [[ "$dir" =~ "mainSunset" ]]; then
+        elif [[ "$dir" =~ "develC" ]]; then
             FORMAT="${formatBegin};${BLUE}m"
             commitBaseBlue="$baseCommit"
             branchBlue="$branch"
