@@ -37,17 +37,6 @@
                 }
             }
         },
-        "mongo_build_v40_v44_older_versions": {
-            "description": "Builds the binaries for v4.0 and v4.4",
-            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "venv_is_active"
-            ],
-            "parameters": {}
-        },
         "mongo_get_build_targets": {
             "description": "Get build targets",
             "cmd": "ninja <<ninjaFile>> -t targets rule phony",
@@ -99,6 +88,17 @@
             ],
             "parameters": {}
         },
+        "macos_install_python_and_build_json": {
+            "description": "",
+            "cmd": "[[ -d .venv ]] && rm -r .venv; python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh && ./buildscripts/scons.py --build-profile=compiledb compiledb GDB_INDEX=0",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
+        },
         "mongo_build_json_old": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
             "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
@@ -112,7 +112,7 @@
         },
         "mongo_prepare_current_repository": {
             "description": "Makes the list of actions specified on .prepareRepo.json file",
-            "cmd": "tsp -fn updateGitRepositories.sh .prepareRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
+            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh .prepareRepo.json",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -122,12 +122,20 @@
         },
         "mongo_prepare_and_rebuild_current_repository": {
             "description": "Makes the list of actions specified on .prepareAndBuildRepo.json file",
-            "cmd": "tsp -fn updateGitRepositories.sh .prepareAndBuildRepo.json | tail -f -n0 /tmp/updateGitRepositories.log",
+            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh .prepareAndBuildRepo.json",
             "bell": true,
             "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root"
             ],
+            "parameters": {}
+        },
+        "mongo_end_of_day": {
+            "description": "Makes the list of actions specified on ~/.updateGitRepositories.json",
+            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh ~/.updateGitRepositories.json",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [],
             "parameters": {}
         },
         "mongo_pre_build": {
@@ -144,28 +152,32 @@
                     "type": "query",
                     "description": "build profile",
                     "query_cmd": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | grep -o --color=never 'BuildProfileType\\.[A-Z_]*' | cut -d '.' -f2 | tr '[:upper:]' '[:lower:]'",
-                    "default": "san",
+                    "default": "fast",
                     "element_preview": "sed -n '/LINUX_BUILD_PROFILES = {/,/}/p' ./site_scons/mongo/build_profiles.py | sed -n '/BuildProfileType\\.{}:/I,/^.*)/p'"
                 }
             }
         },
-        "mongo_pre_build_v44_v50_v60": {
-            "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
-            "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=<<build_profile>>",
+        "mongo_pre_build_tsan": {
+            "description": "scons wrapper. Creates tsan.ninja file.",
+            "cmd": "tsp -fn ./buildscripts/scons.py --dbg=on --opt=on --use-libunwind=off --link-model=dynamic --variables-files=./etc/scons/mongodbtoolchain_stable_clang.vars --variables-files=./etc/scons/experimental_unified_ninja.vars --ninja ICECC=icecc CCACHE=ccache --sanitize=thread --allocator=system NINJA_PREFIX=tsan VARIANT_DIR=tsandebug",
             "bell": true,
             "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
             ],
-            "parameters": {
-                "build_profile": {
-                    "type": "query",
-                    "description": "build profile",
-                    "query_cmd": "echo -e 'default\\nfast\\nopt\\nsan\\ncompiledb'",
-                    "default": "fast"
-                }
-            }
+            "parameters": {}
+        },
+        "mongo_pre_build_v44_v50_v60": {
+            "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
+            "cmd": "tsp -fn ./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on --link-model=dynamic --ninja generate-ninja ICECC=icecc CCACHE=ccache",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
         },
         "mongo_activate_venv": {
             "description": "Activates virtual environment for a mongo project",
@@ -179,6 +191,16 @@
         },
         "mongo_install_venv": {
             "description": "Creates venv in mongo project and installs its requirements",
+            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_install_venv_old_80": {
+            "description": "Creates venv in mongo project and installs its requirements",
             "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && python3 -m poetry install --no-root --sync",
             "bell": true,
             "statistics": false,
@@ -187,7 +209,7 @@
             ],
             "parameters": {}
         },
-        "mongo_install_venv_old": {
+        "mongo_install_venv_old_70": {
             "description": "Creates venv in mongo project and installs its requirements",
             "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install -r buildscripts/requirements.txt --use-feature=2020-resolver",
             "bell": true,
@@ -199,7 +221,7 @@
         },
         "mongo_run_local_test_js": {
             "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
-            "cmd": "tsp -fn ./buildscripts/resmoke.py run --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath <<repeatTests>> --mongodSetParameters='{logComponentVerbosity: {command: 2, sharding: {verbosity: 2}}}' --jobs=1 <<runAllFeatureFlags>> --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/resmoke.py run --installDir=./build/install/bin --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath <<repeatTests>> --mongodSetParameters='{logComponentVerbosity: {command: 2, sharding: {verbosity: 2}}}' --jobs=1 <<runAllFeatureFlags>> --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -236,7 +258,7 @@
         },
         "mongo_run_local_test_bm": {
             "description": "Runs local bm test.",
-            "cmd": "tsp -fn ./buildscripts/resmoke.py run --storageEngineCacheSizeGB=1 --jobs=1 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --suite=<<bmSuite>> <<bmBinTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/resmoke.py run --installDir=./build/install/bin --storageEngineCacheSizeGB=1 --jobs=1 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --suite=<<bmSuite>> <<bmBinTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -557,11 +579,11 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {
-                    "branch": {
-                        "type": "query",
-                        "description": "Remote branches",
-                        "query_cmd": "git branch -r | sed 's/^ *origin\\/\/\/g'",
-                        "default": ""
+                "branch": {
+                    "type": "query",
+                    "description": "Remote branches",
+                    "query_cmd": "git branch -r | sed 's/^ *origin\\/\/\/g'",
+                    "default": ""
                 }
             }
         },
@@ -625,7 +647,7 @@
                 }
             }
         },
-        "mlaunch_start": {
+        "mlaunch_start_sharded_cluster": {
             "description": "Launch a mongodb cluster",
             "cmd": "mlaunch init --mongos <<num_mongos>> --shards <<num_shards>> --replicaset 1 --nodes <<num_nodes_rs>> --csrs 1 --verbose --binarypath <<binary_path>> --dir ~/tmp/mlaunch_data",
             "bell": false,
@@ -649,12 +671,45 @@
                     "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './build/install/bin'",
                     "element_preview": "ls '{}'",
                     "default": "./build/install/bin"
-
+                }
+            }
+        },
+        "mlaunch_start_standalone": {
+            "description": "Launch a mongodb standalone node",
+            "cmd": "mlaunch init --single --verbose --binarypath <<binary_path>> --dir ~/tmp/mlaunch_data",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "binary_path": {
+                    "type": "query",
+                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './build/install/bin'",
+                    "element_preview": "ls '{}'",
+                    "default": "./build/install/bin"
+                }
+            }
+        },
+        "mlaunch_start_replicaset": {
+            "description": "Launch a mongodb replicaset",
+            "cmd": "mlaunch init --replicaset --nodes <<num_nodes_rs>> --verbose --binarypath <<binary_path>> --dir ~/tmp/mlaunch_data",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {
+                "num_nodes_rs": {
+                    "type": "input",
+                    "default": "1"
+                },
+                "binary_path": {
+                    "type": "query",
+                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './build/install/bin'",
+                    "element_preview": "ls '{}'",
+                    "default": "./build/install/bin"
                 }
             }
         },
         "mlaunch_stop": {
-            "description": "Stop a running mongodb cluster",
+            "description": "Stop an ongoing mlaunch process",
             "cmd": "mlaunch stop --verbose --dir ~/tmp/mlaunch_data; pkill mongod; rm -r ~/tmp/mlaunch_data",
             "bell": false,
             "statistics": false,
