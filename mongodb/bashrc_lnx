@@ -33,7 +33,7 @@ done
 
 source $HOME/.fss/bin/fss.sh
 
-### Requested by mtools
+### Required by mtools
 source $HOME/.asdf/asdf.sh
 source $HOME/.asdf/completions/asdf.bash
 
