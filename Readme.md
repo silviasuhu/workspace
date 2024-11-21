@@ -6,7 +6,7 @@
 - Oh-my-posh
 - FZF
 - lnav
-- `fss` command (easy way to execute predefined commands using `fzf`)
+- `fss` commands (easy way to execute predefined commands using `fzf`)
 
 ## MongoDB development
 - evergreen.yml template file
@@ -69,7 +69,9 @@
 Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
 #### lnav
 Follow instructions from https://lnav.org/downloads.
-
+#### fss
+Clone the fss repo on $HOME:
+    git clone git@github.com:silviasuhu/fss.git .fss
 
 
 ### Optional dependencies
