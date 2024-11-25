@@ -5,7 +5,9 @@ export PATH=~/.local/bin:${PATH}
 export EDITOR=vim
 
 # Set terminal main color (used by TMUX and Oh My Posh)
-export TERM_MAIN_COLOR="#ff7f50"
+if [[ -z $TERM_MAIN_COLOR ]]; then
+    export TERM_MAIN_COLOR="#ff7f50"
+fi
 
 # Enable VI editing mode
 set -o vi
