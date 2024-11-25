@@ -98,6 +98,36 @@
             ],
             "parameters": {}
         },
+        "macos_new_internal_branch": {
+            "description": "",
+            "cmd": "g checkout -b suhu/<<jira_ticket>>-internal <<base_branch>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "jira_ticket": {
+                    "type": "input",
+                    "description": "Jira ticket"
+                },
+                "base_branch": {
+                    "type": "query",
+                    "description": "base branch",
+                    "query_cmd": "git branch | grep ss-master-stable",
+                    "element_preview": "git log -n1 {}"
+                }
+            }
+        },
+        "fetch_and_pull_internal_branch": {
+            "description": "",
+            "cmd": "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard $(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.'",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ]
+        },
         "mongo_build_json_old": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
             "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
