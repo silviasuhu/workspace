@@ -1,0 +1,67 @@
+{
+    "repositories": [
+        {
+            "dir": "$HOME/devel/mongo/master",
+            "project": "mongodb-mongo-master",
+            "doPull": true,
+            "doInstallVEnv": true,
+            "doNinjaFile": false,
+            "doBuild": false,
+            "doClangdJson": true
+        },
+        {
+            "dir": "$HOME/devel/mongo/develA",
+            "project": "mongodb-mongo-master",
+            "doPull": false,
+            "doInstallVEnv": true,
+            "doNinjaFile": false,
+            "doBuild": false,
+            "doClangdJson": true
+        },
+        {
+            "dir": "$HOME/devel/mongo/develB",
+            "project": "mongodb-mongo-master",
+            "doPull": false,
+            "doInstallVEnv": true,
+            "doNinjaFile": false,
+            "doBuild": false,
+            "doClangdJson": true
+        },
+        {
+            "dir": "$HOME/devel/mongo/develC",
+            "project": "mongodb-mongo-master",
+            "doPull": false,
+            "doInstallVEnv": true,
+            "doNinjaFile": false,
+            "doBuild": false,
+            "doClangdJson": true
+        },
+        {
+            "dir": "$HOME/devel/mongo/v8.0",
+            "project": "mongodb-mongo-v8.0",
+            "doPull": true,
+            "doInstallVEnv": true,
+            "doNinjaFile": false,
+            "doBuild": false,
+            "doClangdJson": true
+        },
+        {
+            "dir": "$HOME/devel/mongo/v7.0",
+            "project": "mongodb-mongo-v7.0",
+            "doPull": true,
+            "doInstallVEnv": true,
+            "doNinjaFile": false,
+            "doBuild": false,
+            "doClangdJson": true
+        },
+        {
+            "dir": "$HOME/devel/mongo/v6.0",
+            "project": "mongodb-mongo-v6.0",
+            "doPull": true,
+            "doInstallVEnv": true,
+            "doNinjaFile": false,
+            "doBuild": false,
+            "doClangdJson": true
+        }
+    ]
+}
