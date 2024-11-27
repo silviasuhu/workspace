@@ -128,6 +128,32 @@
                 "wrkdir_is_mongo_root"
             ]
         },
+        "mongo_build_after_fetch_and_pull_internal_branch": {
+            "description": "",
+            "cmd":
+            "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.' && rmBuildStamp; tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>> && stampSuccessfulBuild",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "target": {
+                    "type": "query",
+                    "description": "target",
+                    "default": "install-devcore",
+                    "query_cmd": "echo -e 'install-mongod\ninstall-mongos\ninstall-servers\ninstall-core\ninstall-devcore\ninstall-all\ninstall-all-meta\ninstall-unittests'"
+                },
+                "ninjaFile": {
+                    "body": "-f <<VALUE>>",
+                    "type": "query",
+                    "description": "ninja file",
+                    "query_cmd": "ls *.ninja",
+                    "default": "",
+                    "element_preview": "batcat --color=always {}"
+                }
+            }
+        },
         "mongo_build_json_old": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
             "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
