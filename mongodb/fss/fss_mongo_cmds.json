@@ -8,6 +8,12 @@
         },
         "venv_is_active": {
             "cmd": "if [[ -z ${VIRTUAL_ENV} ]]; then echo \"ERROR: No Python virtual environment activated\" 1>&2; return 1; fi"
+        },
+        "is_macos": {
+            "cmd": "if [[ \"$(uname -s)\" != 'Darwin' ]]; then echo 'ERROR: Not in a MacOs environment.' 1>&2; return 1; fi"
+        },
+        "is_workstation": {
+            "cmd": "if [[ \"$(uname -s)\" != 'Linux' ]]; then echo 'ERROR: Not in a Linxu environment.' 1>&2; return 1; fi"
         }
     },
     "commands": {
@@ -94,7 +100,8 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "is_macos"
             ],
             "parameters": {}
         },
@@ -104,7 +111,8 @@
             "bell": false,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "is_macos"
             ],
             "parameters": {
                 "jira_ticket": {
@@ -125,7 +133,8 @@
             "bell": false,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "is_workstation"
             ]
         },
         "mongo_build_after_fetch_and_pull_internal_branch": {
@@ -135,7 +144,8 @@
             "bell": false,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "is_workstation"
             ],
             "parameters": {
                 "target": {
