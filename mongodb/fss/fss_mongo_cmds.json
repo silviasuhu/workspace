@@ -117,12 +117,13 @@
             "parameters": {
                 "jira_ticket": {
                     "type": "input",
-                    "description": "Jira ticket"
+                    "description": "Jira ticket",
+                    "default":""
                 },
                 "base_branch": {
                     "type": "query",
                     "description": "base branch",
-                    "query_cmd": "git branch | grep ss-master-stable",
+                    "query_cmd": "git branch | grep --color=never ss-master-stable",
                     "element_preview": "git log -n1 {}"
                 }
             }
