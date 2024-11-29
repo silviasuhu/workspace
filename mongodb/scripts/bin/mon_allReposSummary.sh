@@ -10,6 +10,7 @@ source $SCRIPT_DIR/../../../common/scripts/bashrc.d/util_scripts.sh
 
 BOLD="1"
 NO_BOLD="0"
+GREEN="32"
 YELLOW="33"
 BLUE="34"
 PURPLE="35"
@@ -43,9 +44,11 @@ printf "\n"
 commitBaseBlue=""
 commitBaseYellow=""
 commitBasePurple=""
+commitBaseGreen=""
 branchBlue=""
 branchYellow=""
 branchPurple=""
+branchGreen=""
 
 # Iterate through all directories from $ROOT_PATH
 for dir in $(find $ROOT_PATH -maxdepth 1 -mindepth 1 -type d -print0 | sort -z | xargs -0); do
@@ -111,17 +114,17 @@ for dir in $(find $ROOT_PATH -maxdepth 1 -mindepth 1 -type d -print0 | sort -z |
         fi
 
         if [[ "$dir" =~ "develA" ]]; then
-            FORMAT="${formatBegin};${YELLOW}m"
-            commitBaseYellow="$baseCommit"
-            branchYellow="$branch"
+            FORMAT="${formatBegin};${GREEN}m"
+            commitBaseGreen="$baseCommit"
+            branchGreen="$branch"
         elif [[ "$dir" =~ "develB" ]]; then
-            FORMAT="${formatBegin};${PURPLE}m"
-            commitBasePurple="$baseCommit"
-            branchPurple="$branch"
-        elif [[ "$dir" =~ "develC" ]]; then
             FORMAT="${formatBegin};${BLUE}m"
             commitBaseBlue="$baseCommit"
             branchBlue="$branch"
+        elif [[ "$dir" =~ "develC" ]]; then
+            FORMAT="${formatBegin};${PURPLE}m"
+            commitBasePurple="$baseCommit"
+            branchPurple="$branch"
         else
             FORMAT="${formatBegin}m"
         fi
@@ -220,6 +223,8 @@ for branch in $(git branch | grep -e 'suhu' ); do
                     format="\e[${NO_BOLD};${PURLPLW}m"
                 elif [[ "$baseCommit" == "$commitBaseBlue" ]]; then
                     format="\e[${NO_BOLD};${BLUE}m"
+                elif [[ "$baseCommit" == "$commitBaseGREEN" ]]; then
+                    format="\e[${NO_BOLD};${GREEN}m"
                 else
                     format="\e[${NO_BOLD}m"
                 fi
