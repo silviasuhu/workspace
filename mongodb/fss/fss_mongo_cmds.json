@@ -96,7 +96,7 @@
         },
         "macos_install_python_and_build_json": {
             "description": "",
-            "cmd": "rm -r .venv; python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh && ./buildscripts/scons.py --build-profile=compiledb compiledb GDB_INDEX=0",
+            "cmd": "rm -r .venv; python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh && ./buildscripts/scons.py --build-profile=compiledb compiledb",
             "bell": true,
             "statistics": false,
             "pre_checks": [
