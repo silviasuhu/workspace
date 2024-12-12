@@ -22,9 +22,13 @@ export PATH
 # Setting PATH for llvm binaries
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
+# Setting PATH for mrlog
+export PATH="$HOME/projects/mrlog/target/release:${PATH}"
+
 # Task-spooler alias to get parity between Linux and Macos
 alias tsp=ts
 
 ### Set common and MongoDB settings
 . ~/.config/workspace/mongodb/bashrc_lnx
 
+. "$HOME/.cargo/env"
