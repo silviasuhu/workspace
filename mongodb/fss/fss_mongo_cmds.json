@@ -782,6 +782,14 @@
             "statistics": false,
             "pre_checks": [],
             "parameters": {}
+        },
+        "bazel_clean": {
+            "description": "Clear out bazel cache",
+            "cmd": "~/.local/bin/bazelisk clean --expunge",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
         }
     }
 }
