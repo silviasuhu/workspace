@@ -397,7 +397,8 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
             ],
             "parameters": {}
         },
@@ -407,7 +408,8 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
             ],
             "parameters": {}
         },
@@ -417,7 +419,19 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
+        },
+        "mongo_generate_matrix_suite": {
+            "description": "Generates matrix suite",
+            "cmd": "./buildscripts/resmoke.py generate-matrix-suites && bazel run //:format",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
             ],
             "parameters": {}
         },
