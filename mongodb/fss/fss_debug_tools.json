@@ -22,7 +22,7 @@
         },
         "deb_gdb_stacktraces_to_html": {
             "description": "Convert gdb stacktraces to html",
-            "cmd": "python /Users/silvia/projects/t2-0.18.12/scripts/gdb2stacks.py < <<gdb_stacktraces_file>> | python3 /Users/silvia/projects/t2-0.18.12/scripts/calltree.py > <<gdb_stacktraces_file>>.html",
+            "cmd": "python /Users/silvia/projects/t2/scripts/gdb2stacks.py < <<gdb_stacktraces_file>> | python3 /Users/silvia/projects/t2/scripts/calltree.py > <<gdb_stacktraces_file>>.html",
             "bell": false,
             "pre_checks": [],
             "parameters": {
