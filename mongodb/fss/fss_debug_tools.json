@@ -34,6 +34,19 @@
                 }
             }
         },
+        "deb_gdb_get_stacktraces_from_running_process": {
+            "description": "Get stacktraces from a running process",
+            "cmd": "gdb -p <<pid>> -batch -ex 'thread apply all bt' > gdb.txt",
+            "bell": false,
+            "pre_checks": [],
+            "parameters": {
+                "pid": {
+                    "type": "input",
+                    "description": "PID of the process",
+                    "default": ""
+                }
+            }
+        },
         "deb_mongod_run_locally": {
             "description": "Run mongod on the current directory",
             "cmd": "m <<version>> && mongod --dbpath . --setParameter recoverFromOplogAsStandalone=true --port <<port>>",
