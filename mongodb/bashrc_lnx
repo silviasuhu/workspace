@@ -57,8 +57,6 @@ alias ss_merge_and_sort_logs="grep -r ^ . | sed -E \"s/^([^:]*)\:{([^,]*)/{\2, \
 alias compile_v40='./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on ICECC=icecc all'
 alias compile_v50='./buildscripts/scons.py --variables-files=etc/scons/mongodbtoolchain_stable_clang.vars --opt=on --dbg=on --link-model=dynamic --ninja generate-ninja ICECC=icecc CCACHE=ccache'
 
-alias sm="evergreen notify slack -t '@silvia.surroca@mongodb.com' -m "
-
 # BEGIN Source server_bashrc.sh
 #source /home/ubuntu/mongodb-mongo-master/server-workflow-tool/server_bashrc.sh
 # END Source server_bashrc.sh
