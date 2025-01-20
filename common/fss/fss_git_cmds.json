@@ -1,5 +1,4 @@
 {
-    "args": {},
     "pre_checks": {},
     "commands": {
         "git_cherry_pick": {

@@ -1,5 +1,4 @@
 {
-    "args": {},
     "pre_checks": {},
     "commands": {
         "mongo_download_binaries": {

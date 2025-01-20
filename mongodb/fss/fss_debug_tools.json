@@ -1,5 +1,4 @@
 {
-    "args": {},
     "pre_checks": {},
     "commands": {
         "debLaptop_enable_access_to_new_spawned_host": {
