@@ -8,15 +8,10 @@
 - `fss` commands (easy way to execute predefined commands in a fzf fashion)
 - mongo-tools - essential tools for MongoDB (bsondump, mongoimport, ...)
 - Mongo shell
+- MongoDB binaries
 - Wired Tiger binaries
 - etc.
-
-
-### Optional
-- mtools (https://github.com/rueckstiess/mtools). Bunch of tools like `mlaunch` (which spawns a MongoDB cluster) and `mloginfo` and `mlogfilter` (which helps you analyzing mongodb logs)
-- m (https://github.com/aheckmann/m). Helps you download, use, and manage multiple versions of the MongoDB server and command-line tools.
-
-## MongoDB binaries
+  
 
 # Installation
 
@@ -45,11 +40,11 @@
     brew install diff-so-fancy
 
 #### mrlog
-    Follow instructions from https://github.com/markbenvenuto/mrlog
+>Follow instructions from https://github.com/markbenvenuto/mrlog
 #### Mongo-tools
-    Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
+>Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
 #### fss
-    Follow instructions from https://github.com/silviasuhu/fss
+>Follow instructions from https://github.com/silviasuhu/fss
 
 
 ### Optional dependencies
@@ -62,28 +57,28 @@
 ###### MacOS
     brew install fd
 #### mtools
-    Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
-    Make sure binaries are in your PATH env variable. 
+>Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
+>Make sure binaries are in your PATH env variable. 
 #### m
-    Follow instructions from https://github.com/aheckmann/m#installation.
-    Make sure the m binary is in your PATH env variable.
+>Follow instructions from https://github.com/aheckmann/m#installation.
+>Make sure the m binary is in your PATH env variable.
 #### WiredTiger
-    Follow instructions from https://source.wiredtiger.com/.
+>Follow instructions from https://source.wiredtiger.com/.
 #### t2
-    Install it on the laptop only, because it requires GUI.
-    1- Download the source code from the last release https://github.com/10gen/t2/releases.
-    2- Build the code following the instructions from https://github.com/10gen/t2.
-    3- To run it you will have to go to t2 directory and:
-        ./build/t2/t2 test/data/mongodb_6.0/*
+Install it on the laptop only, because it requires GUI.
+1- Download the source code from the last release https://github.com/10gen/t2/releases.
+2- Build the code following the instructions from https://github.com/10gen/t2.
+3- To run it you will have to go to t2 directory and:
+    ./build/t2/t2 test/data/mongodb_6.0/*
 #### mongo shell
-    Download binaries from https://www.mongodb.com/try/download/shell
+>Download binaries from https://www.mongodb.com/try/download/shell
 #### Wired Tiger
-    Install Wired Tiger binary following the instructions from https://github.com/wiredtiger/wiredtiger.git
+>Install Wired Tiger binary following the instructions from https://github.com/wiredtiger/wiredtiger.git
 #### Wired Tiger Scripts
-    Download WT scripts from https://github.com/wiredtiger/wiredtiger/blob/develop/tools
+>Download WT scripts from https://github.com/wiredtiger/wiredtiger/blob/develop/tools
 #### db-contrib-tools
-    Used to setup a multiversion environment
-    Follow the instructions from https://github.com/10gen/db-contrib-tool
+>Used to setup a multiversion environment
+>Follow the instructions from https://github.com/10gen/db-contrib-tool
 
 ## 2. Download this repo (modify WORKSPACE_DIR as desired)
     WORKSPACE_DIR=$HOME/workspace
