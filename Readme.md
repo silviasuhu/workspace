@@ -1,26 +1,16 @@
 # What is included
 
-## Generic environment
+## Summary of what the environment will look like
 - Tmux with custom configuration
 - Vim with custom configuration
 - Oh-my-posh
 - FZF
-- lnav
-- `fss` commands (easy way to execute predefined commands using `fzf`)
+- `fss` commands (easy way to execute predefined commands in a fzf fashion)
+- mongo-tools - essential tools for MongoDB (bsondump, mongoimport, ...)
+- Mongo shell
+- Wired Tiger binaries
+- etc.
 
-## MongoDB development
-- evergreen.yml template file
-- Automatically pull mongo repositories with `updateGitRepositories.sh`
-- Selfmade development scripts accessed by `fss`
-- mongodbtoolchain installation guide (https://github.com/10gen/toolchain-builder/blob/master)
-- db-contrib-tool (https://github.com/10gen/db-contrib-tool). Used to setup multiversion environment
-- mrlog (https://github.com/markbenvenuto/mrlog). Improves mongodb log reading.
-- git-co-evg-base (https://github.com/evergreen-ci/git-co-evg-base)
-- t2 (https://github.com/10gen/t2) Tool to graph server statistics
-- wiredtiger (https://github.com/wiredtiger/wiredtiger.git) binary for reading wt files
-- wiredtiger scripts (https://github.com/wiredtiger/wiredtiger/blob/develop/tools/wt_to_mdb_bson.py)
-- mongo-tools (https://github.com/mongodb/mongo-tools) essential tools for MongoDB (bsondump, mongoimport, ...)
-- Mongo shell (https://www.mongodb.com/try/download/shell)
 
 ### Optional
 - mtools (https://github.com/rueckstiess/mtools). Bunch of tools like `mlaunch` (which spawns a MongoDB cluster) and `mloginfo` and `mlogfilter` (which helps you analyzing mongodb logs)
@@ -53,30 +43,18 @@
     ln -s $HOME/.diff-so-fancy/diff-so-fancy $HOME/.local/bin/diff-so-fancy
 ###### MacOS
     brew install diff-so-fancy
-#### forgit
-    git clone https://github.com/wfxr/forgit $HOME/.forgit
-#### db-contrib-tools
-    cd ~
-    /opt/mongodbtoolchain/v4/bin/python3 -m pip install pipx
-    /opt/mongodbtoolchain/v4/bin/python3 -m pipx ensurepath
-    /opt/mongodbtoolchain/v4/bin/python3 -m pipx install db-contrib-tool
+
 #### mrlog
-    git clone git@github.com:markbenvenuto/mrlog.git .mrlog
-    cd .mrlog
-    cargo build --release
-    ln -s ~/.mrlog/target/release/mrlog ~/.local/bin/mrlog
+    Follow instructions from https://github.com/markbenvenuto/mrlog
 #### Mongo-tools
-Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
-#### lnav
-Follow instructions from https://lnav.org/downloads.
+    Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
 #### fss
-Clone the fss repo on $HOME:
-    git clone git@github.com:silviasuhu/fss.git .fss
+    Follow instructions from https://github.com/silviasuhu/fss
 
 
 ### Optional dependencies
-#### git-co-evg-base
-Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#installation.
+#### forgit
+    git clone https://github.com/wfxr/forgit $HOME/.forgit
 #### fd
 ###### Linux
     sudo apt-get install fd-find
@@ -84,25 +62,31 @@ Follow instructions from https://github.com/evergreen-ci/git-co-evg-base#install
 ###### MacOS
     brew install fd
 #### mtools
-Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
-
-Be sure binaries are in your PATH env variable. 
+    Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
+    Make sure binaries are in your PATH env variable. 
 #### m
-Follow instructions from https://github.com/aheckmann/m#installation.
-
-Be sure m binary is in your PATH env variable.
+    Follow instructions from https://github.com/aheckmann/m#installation.
+    Make sure the m binary is in your PATH env variable.
 #### WiredTiger
-Follow instructions from https://source.wiredtiger.com/.
+    Follow instructions from https://source.wiredtiger.com/.
 #### t2
-Install it on the laptop only, because it requires GUI.
-1- Download the source code from the last release https://github.com/10gen/t2/releases.
-2- Build the code following the instructions from https://github.com/10gen/t2.
-3- To run it you will have to go to t2 directory and:
-    ./build/t2/t2 test/data/mongodb_6.0/*
+    Install it on the laptop only, because it requires GUI.
+    1- Download the source code from the last release https://github.com/10gen/t2/releases.
+    2- Build the code following the instructions from https://github.com/10gen/t2.
+    3- To run it you will have to go to t2 directory and:
+        ./build/t2/t2 test/data/mongodb_6.0/*
+#### mongo shell
+    Download binaries from https://www.mongodb.com/try/download/shell
+#### Wired Tiger
+    Install Wired Tiger binary following the instructions from https://github.com/wiredtiger/wiredtiger.git
+#### Wired Tiger Scripts
+    Download WT scripts from https://github.com/wiredtiger/wiredtiger/blob/develop/tools
+#### db-contrib-tools
+    Used to setup a multiversion environment
+    Follow the instructions from https://github.com/10gen/db-contrib-tool
 
 ## 2. Download this repo (modify WORKSPACE_DIR as desired)
-    WORKSPACE_DIR=$HOME/.config/workspace
-    mkdir -p $WORKSPACE_DIR
+    WORKSPACE_DIR=$HOME/workspace
     git clone https://github.com/silviasuhu/workspace.git $WORKSPACE_DIR
 
 ## 3. Create symbolic links and copies from downloaded files to HOME directory
@@ -134,13 +118,13 @@ Install it on the laptop only, because it requires GUI.
     
 3- Update ~/.updateGitRepositories.json as desired.  
 
-## 6. Install mongodbtoolchain (if needed)
+## 6. Install mongodbtoolchain (if necessary)
 1- Follow steps on https://github.com/10gen/toolchain-builder/blob/master/INSTALL.md.  
 2- Create symbolic links to some of the included binaries. 
 
     ln -s /opt/mongodbtoolchain/v4/bin/gdb $HOME/.local/bin/gdb
         
-## 7. Install vim plugins
+## 7. Install vim plugins (optional)
 1- Clone the vim plugin manager
 
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -193,9 +177,9 @@ More info here https://github.com/junegunn/vim-plug#unix
     echo "gitdir: ./.bare" > .git
     git worktree add --track -B master master origin/master
     git worktree add --track -B v7.0 v7.0 origin/v7.0
-    git worktree add mainPeach master
-    git worktree add mainDate master
-    git worktree add mainPlum master
+    git worktree add devel1 master
+    git worktree add devel2 master
+    git worktree add devel3 master
     
 ## 11. Link /data/db path to $HOME/.data to prevent full disk scenarios
     sudo mv /data ~/.data
