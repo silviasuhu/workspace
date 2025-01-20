@@ -19,66 +19,144 @@
     mkdir -p ~/.local/bin
     export PATH=~/.local/bin:$PATH
 
-## 2. Install dependencies
+## 2. Install all the tools
 
-#### oh-my-posh
+### Oh-my-posh (https://ohmyposh.dev)
+A prompt theme engine for any shell.
+
+Installation:
+    
     sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v16.4.0/posh-linux-arm64 -O ~/.local/bin/oh-my-posh
     sudo chmod +x $HOME/.local/bin/oh-my-posh
     oh-my-posh font install Meslo
-#### tmux (+v3.3)
+    
+### Tmux (https://github.com/tmux/tmux)
+Tmux is a terminal multiplexer. It lets you switch easily between several programs in one terminal, detach them (they keep running in the background) and reattach them to a different terminal.
+
+Installation: You'll need a version newer or equal than v3.3
+
     sudo apt-get install tmux
-#### jq
+    
+### jq (https://github.com/jqlang/jq)
+`jq` is a lightweight and flexible command-line JSON processor.
+
+Installation:
+
     sudo apt-get install jq
-#### fzf
+    
+### fzf (https://github.com/junegunn/fzf)
+`fzf` is an interactive filter program for any kind of list
+
+Installation:
+
     git clone --depth 1 https://github.com/junegunn/fzf $HOME/.fzf
     $HOME/.fzf/install
-#### diff-so-fancy
-###### Linux
+    
+### diff-so-fancy (https://github.com/so-fancy/diff-so-fancy)
+`diff-so-fancy` strives to make your diffs human readable instead of machine readable.
+
+Installation:
+
+##### Linux
     git clone https://github.com/so-fancy/diff-so-fancy $HOME/.diff-so-fancy
     ln -s $HOME/.diff-so-fancy/diff-so-fancy $HOME/.local/bin/diff-so-fancy
-###### MacOS
+    
+##### MacOS
     brew install diff-so-fancy
 
-#### mrlog
->Follow instructions from https://github.com/markbenvenuto/mrlog
-#### Mongo-tools
->Follow instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
-#### fss
->Follow instructions from https://github.com/silviasuhu/fss
+### mrlog (https://github.com/markbenvenuto/mrlog)
+`mrlog` makes mongod logs more human-readable. It was built by a MondoDB developer (Mark Benvenuto).
+
+To install it, follow the instructions from https://github.com/markbenvenuto/mrlog.<br><br>
 
 
-### Optional dependencies
-#### forgit
+### MongoDB Database Tools (https://www.mongodb.com/docs/database-tools/installation/installation/)
+The MongoDB Database Tools are a suite of official command-line utilities for working with MongoDB, like mongorestore, mongodump, bsondump, etc.
+
+To install them, follow the instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
+
+This is the internal repo for the mongo tools: https://github.com/mongodb/mongo-tools.<br><br>
+
+### fss (https://github.com/silviasuhu/fss)
+`fss` is a tool to execute predefined and parametrized commands in a fzf fashion.
+
+To install this tool, follow the instructions from https://github.com/silviasuhu/fss.<br><br>
+
+
+### forgit (https://github.com/wfxr/forgit)
+Utility tool for using git interactively. Powered by fzf.
+
+Installation:
+
     git clone https://github.com/wfxr/forgit $HOME/.forgit
-#### fd
-###### Linux
+    
+### fd (https://github.com/sharkdp/fd)
+`fd` is a program to find entries in your filesystem. It is a simple, fast and user-friendly alternative to find.
+
+Installation:
+
+##### Linux
     sudo apt-get install fd-find
     ln -s $(which fdfind) $HOME/.local/bin/fd
-###### MacOS
+##### MacOS
     brew install fd
-#### mtools
->Follow instructions from https://rueckstiess.github.io/mtools/install.html.  
->Make sure binaries are in your PATH env variable. 
-#### m
->Follow instructions from https://github.com/aheckmann/m#installation.
->Make sure the m binary is in your PATH env variable.
-#### WiredTiger
->Follow instructions from https://source.wiredtiger.com/.
-#### t2
-Install it on the laptop only, because it requires GUI.
+    
+### mtools (https://github.com/rueckstiess/mtools)
+`mtools` is a collection of helper scripts to parse, filter, and visualize MongoDB log files.
+
+`mtools` also includes `mlaunch`, a utility to quickly set up complex MongoDB test environments on a local machine
+
+To install these tools, follow the instructions from https://rueckstiess.github.io/mtools/install.html.  
+
+Make sure binaries are in your PATH env variable.<br><br>
+
+### m (https://github.com/aheckmann/m)
+
+`m` helps you download, use, and manage multiple versions of the MongoDB server and command-line tools.
+
+To install it, follow the instructions from https://github.com/aheckmann/m#installation.
+
+Make sure the m binary is in your PATH env variable.<br><br>
+
+### WiredTiger (https://source.wiredtiger.com)
+
+Wired Tiger is the Storage Engine that runs under the hood of a `mongod` process.
+
+To install it, follow the instructions from https://source.wiredtiger.com
+
+The internal repo is https://github.com/wiredtiger/wiredtiger.git.<br><br>
+
+### Wired Tiger Scripts
+
+You'll find interesting WT scripts on https://github.com/wiredtiger/wiredtiger/blob/develop/tools.<br><br>
+
+### t2 (https://github.com/10gen/t2)
+
+The `t2` tool visualizes timeseries data, primarily geared towards efficiently visualizing the large amount of full-time diagnostic data capture (FTDC) data captured by mongod 3.2 and later.
+
+It's especially useful to investigate HELP tickets.
+
+You can only install it on the laptop because it requires GUI.
+
+Installation:
+
 1- Download the source code from the last release https://github.com/10gen/t2/releases.
 2- Build the code following the instructions from https://github.com/10gen/t2.
 3- To run it you will have to go to t2 directory and:
     ./build/t2/t2 test/data/mongodb_6.0/*
-#### mongo shell
->Download binaries from https://www.mongodb.com/try/download/shell
-#### Wired Tiger
->Install Wired Tiger binary following the instructions from https://github.com/wiredtiger/wiredtiger.git
-#### Wired Tiger Scripts
->Download WT scripts from https://github.com/wiredtiger/wiredtiger/blob/develop/tools
-#### db-contrib-tools
->Used to setup a multiversion environment
->Follow the instructions from https://github.com/10gen/db-contrib-tool
+
+### Mongo shell (https://www.mongodb.com/docs/mongodb-shell/)
+`mongosh` is the official CLI tool for accessing a MongoDB server.
+
+To install it, you can download binaries from https://www.mongodb.com/try/download/shell
+
+The internal repo for the Mongo shell is: https://github.com/mongodb-js/mongosh.<br><br>
+
+
+### db-contrib-tools
+It is used to setup a multiversion environment. However, I'm using `m` instead of `db-contrib-tools`.
+
+To install it, follow the instructions from https://github.com/10gen/db-contrib-tool.<br><br>
 
 ## 2. Download this repo (modify WORKSPACE_DIR as desired)
     WORKSPACE_DIR=$HOME/workspace
