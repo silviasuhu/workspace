@@ -23,8 +23,7 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "venv_is_active"
+                "wrkdir_is_mongo_root"
             ],
             "parameters": {
                 "target": {
@@ -43,34 +42,13 @@
                 }
             }
         },
-        "mongo_get_build_targets": {
-            "description": "Get build targets",
-            "cmd": "ninja <<ninjaFile>> -t targets rule phony",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "venv_is_active"
-            ],
-            "parameters": {
-                "ninjaFile": {
-                    "body": "-f <<VALUE>>",
-                    "type": "query",
-                    "description": "ninja file",
-                    "query_cmd": "ls *.ninja",
-                    "default": "",
-                    "element_preview": "batcat --color=always {}"
-                }
-            }
-        },
         "mongo_clean": {
             "description": "Ninja wrapper. Clean.",
             "cmd": "ninja -j400 <<ninjaFile>> -t clean; ccache -c; rmBuildStamp",
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "venv_is_active"
+                "wrkdir_is_mongo_root"
             ],
             "parameters": {
                 "ninjaFile": {
@@ -94,77 +72,6 @@
             ],
             "parameters": {}
         },
-        "macos_install_python_and_build_json": {
-            "description": "",
-            "cmd": "rm -r .venv; python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh && ./buildscripts/scons.py --build-profile=compiledb compiledb",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_macos"
-            ],
-            "parameters": {}
-        },
-        "macos_new_internal_branch": {
-            "description": "",
-            "cmd": "g checkout -b suhu/<<jira_ticket>>-internal <<base_branch>>",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_macos"
-            ],
-            "parameters": {
-                "jira_ticket": {
-                    "type": "input",
-                    "description": "Jira ticket",
-                    "default":""
-                },
-                "base_branch": {
-                    "type": "query",
-                    "description": "base branch",
-                    "query_cmd": "git branch | grep --color=never ss-master-stable | sort -r",
-                    "element_preview": "git log -n1 {}"
-                }
-            }
-        },
-        "fetch_and_pull_internal_branch": {
-            "description": "",
-            "cmd": "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.'",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_workstation"
-            ]
-        },
-        "mongo_build_after_fetch_and_pull_internal_branch": {
-            "description": "",
-            "cmd":
-            "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.' && rmBuildStamp; tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>> && stampSuccessfulBuild",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_workstation"
-            ],
-            "parameters": {
-                "target": {
-                    "type": "query",
-                    "description": "target",
-                    "default": "install-devcore",
-                    "query_cmd": "echo -e 'install-mongod\ninstall-mongos\ninstall-servers\ninstall-core\ninstall-devcore\ninstall-all\ninstall-all-meta\ninstall-unittests'"
-                },
-                "ninjaFile": {
-                    "body": "-f <<VALUE>>",
-                    "type": "query",
-                    "description": "ninja file",
-                    "query_cmd": "ls *.ninja",
-                    "default": "",
-                    "element_preview": "batcat --color=always {}"
-                }
-            }
-        },
         "mongo_build_json_old": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
             "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
@@ -174,34 +81,6 @@
                 "wrkdir_is_mongo_root",
                 "venv_is_active"
             ],
-            "parameters": {}
-        },
-        "mongo_prepare_current_repository": {
-            "description": "Makes the list of actions specified on .prepareRepo.json file",
-            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh .prepareRepo.json",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root"
-            ],
-            "parameters": {}
-        },
-        "mongo_prepare_and_rebuild_current_repository": {
-            "description": "Makes the list of actions specified on .prepareAndBuildRepo.json file",
-            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh .prepareAndBuildRepo.json",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root"
-            ],
-            "parameters": {}
-        },
-        "mongo_end_of_day": {
-            "description": "Makes the list of actions specified on ~/.updateGitRepositories.json",
-            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh ~/.updateGitRepositories.json",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [],
             "parameters": {}
         },
         "mongo_pre_build": {
@@ -435,47 +314,10 @@
             ],
             "parameters": {}
         },
-        "evg_squash_and_send_to_commit_queue": {
-            "description": "Formats the source code according to the conversion adopted by all development teams.",
-            "cmd": "evergreen commit-queue merge -p <<project>>",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root"
-            ],
-            "parameters": {
-                "project": {
-                    "type": "query",
-                    "description": "branch to merge the changes",
-                    "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
-                    "default": "mongodb-mongo-"
-                }
-            }
-        },
-        "mongo_find_stable_commit": {
-            "description": "Find a stable commit in repository branches.",
-            "cmd": "git co-evg-base --verbose --commit-lookback 200 --evg-project <<project>> --pass-threshold <<passThreshold>> --build-variant enterprise-rhel-80-64-bit-dynamic-all-feature-flags-required",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [],
-            "parameters": {
-                "project": {
-                    "type": "query",
-                    "description": "branch to search on",
-                    "query_cmd": "evergreen list --projects | awk '/mongodb-mongo/{print $1}'",
-                    "default": "mongodb-mongo-"
-                },
-                "passThreshold": {
-                    "type": "input",
-                    "description": "Success threshold (0.0 - 100.0)",
-                    "default": "0.97"
-                }
-            }
-        },
-        "mongo_get_enterprise_revision": {
-            "description": "Get the enterprise module revision for the current commit",
-            "cmd": "evg-api --json manifest --project mongodb-mongo-master --commit \"$(git merge-base master HEAD)\" | jq --raw-output .modules.enterprise.revision",
-            "bell": false,
+        "mongo_generate_matrix_suite_old": {
+            "description": "Generates matrix suite",
+            "cmd": "./buildscripts/resmoke.py generate-matrix-suites",
+            "bell": true,
             "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
@@ -492,22 +334,6 @@
                 "wrkdir_is_mongo_root"
             ],
             "parameters": {}
-        },
-        "mgoto": {
-            "description": "Goto mongo repository",
-            "cmd": "cd $HOME/devel/mongo/<<repo_path>>",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [],
-            "parameters": {
-                "repo_path": {
-                    "type": "query",
-                    "description": "",
-                    "query_cmd": "ls $HOME/devel/mongo",
-                    "element_preview": "mon_repoSummary.sh '{}'",
-                    "default": "main"
-                }
-            }
         },
         "mongo_find_suites_by_jstest": {
             "description": "Find all the suites for a jstest",
@@ -556,42 +382,6 @@
                     "type": "fix",
                     "optional": "true",
                     "default": "no"
-                }
-            }
-        },
-        "evg_test_remotely_repeat_patch": {
-            "description": "Create a remote patch reusing the tasks and tests from another patch",
-            "cmd": "evergreen patch --repeat-patch <<patch_id>>",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root"
-            ],
-            "parameters": {
-                "patch_id": {
-                    "type": "query",
-                    "description": "project",
-                    "query_cmd": "evergreen list-patches | awk '/ID : /{print $3}'",
-                    "element_preview": "evergreen list-patches --show-summary -i '{}'",
-                    "default": ""
-                }
-            }
-        },
-        "evg_test_remotely_burn_in": {
-            "description": "Create a burn in remote patch",
-            "cmd": "evergreen patch --project mongodb-mongo-master --param burn_in_tests=<<jsTest>> --variants 'run-all-affected-jstests'",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root"
-            ],
-            "parameters": {
-                "jsTest": {
-                    "type": "query",
-                    "description": "js file to test",
-                    "query_cmd": "find ./jstests -type f -name '*.js'",
-                    "element_preview": "batcat --color=always {}",
-                    "default": ""
                 }
             }
         },
@@ -645,7 +435,7 @@
         },
         "evg_show_patches": {
             "description": "Show all patches",
-            "cmd": "evergreen list-patches -i <<patch_id>>",
+            "cmd": "evergreen list-patches",
             "bell": false,
             "statistics": false,
             "pre_checks": [],
@@ -801,6 +591,105 @@
             "description": "Clear out bazel cache",
             "cmd": "~/.local/bin/bazelisk clean --expunge",
             "bell": false,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
+        },
+        "macos_install_python_and_build_json": {
+            "description": "",
+            "cmd": "rm -r .venv; python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh && ./buildscripts/scons.py --build-profile=compiledb compiledb",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "is_macos"
+            ],
+            "parameters": {}
+        },
+        "macos_new_internal_branch": {
+            "description": "",
+            "cmd": "g checkout -b suhu/<<jira_ticket>>-internal <<base_branch>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "is_macos"
+            ],
+            "parameters": {
+                "jira_ticket": {
+                    "type": "input",
+                    "description": "Jira ticket",
+                    "default":""
+                },
+                "base_branch": {
+                    "type": "query",
+                    "description": "base branch",
+                    "query_cmd": "git branch | grep --color=never ss-master-stable | sort -r",
+                    "element_preview": "git log -n1 {}"
+                }
+            }
+        },
+        "fetch_and_pull_internal_branch": {
+            "description": "",
+            "cmd": "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.'",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "is_workstation"
+            ]
+        },
+        "mongo_build_after_fetch_and_pull_internal_branch": {
+            "description": "",
+            "cmd":
+            "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.' && rmBuildStamp; tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>> && stampSuccessfulBuild",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "is_workstation"
+            ],
+            "parameters": {
+                "target": {
+                    "type": "query",
+                    "description": "target",
+                    "default": "install-devcore",
+                    "query_cmd": "echo -e 'install-mongod\ninstall-mongos\ninstall-servers\ninstall-core\ninstall-devcore\ninstall-all\ninstall-all-meta\ninstall-unittests'"
+                },
+                "ninjaFile": {
+                    "body": "-f <<VALUE>>",
+                    "type": "query",
+                    "description": "ninja file",
+                    "query_cmd": "ls *.ninja",
+                    "default": "",
+                    "element_preview": "batcat --color=always {}"
+                }
+            }
+        },
+        "mongo_prepare_current_repository": {
+            "description": "Makes the list of actions specified on .prepareRepo.json file",
+            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh .prepareRepo.json",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_prepare_and_rebuild_current_repository": {
+            "description": "Makes the list of actions specified on .prepareAndBuildRepo.json file",
+            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh .prepareAndBuildRepo.json",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
+        "mongo_end_of_day": {
+            "description": "Makes the list of actions specified on ~/.updateGitRepositories.json",
+            "cmd": "tsp -fn nice -n 19 updateGitRepositories.sh ~/.updateGitRepositories.json",
+            "bell": true,
             "statistics": false,
             "pre_checks": [],
             "parameters": {}
