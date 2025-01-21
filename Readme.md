@@ -127,6 +127,13 @@ It's a CLI tool to queue and execute jobs. It's especially useful to serialize d
 
 Repository: https://github.com/justanhduc/task-spooler
 
+### bat
+A cat(1) clone with syntax highlighting and Git integration.
+
+Repository: https://github.com/sharkdp/bat
+
+To install it follow the instructions from the given repository.
+
 ### mtools
 `mtools` is a collection of helper scripts to parse, filter, and visualize MongoDB log files.
 
