@@ -3,6 +3,7 @@
 ## Summary of what the environment will look like
 - Tmux with custom configuration
 - Vim with custom configuration
+- Git autocompletion
 - Oh-my-posh
 - FZF
 - `fss` commands (easy way to execute predefined commands in a fzf fashion)
