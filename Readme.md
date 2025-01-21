@@ -19,7 +19,7 @@
     mkdir -p ~/.local/bin
     export PATH=~/.local/bin:$PATH
 
-## 2. Install all the tools
+## 2. Install the environment tools
 
 ### Oh-my-posh
 A prompt theme engine for any shell.
