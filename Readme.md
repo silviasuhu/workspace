@@ -109,6 +109,11 @@ Installation:
 
     git clone https://github.com/wfxr/forgit $HOME/.forgit
     
+### fzf-tab
+Replace zsh's default completion selection menu with fzf!
+
+Repository: https://github.com/Aloxaf/fzf-tab
+
 ### fd
 `fd` is a program to find entries in your filesystem. It is a simple, fast and user-friendly alternative to find.
 
