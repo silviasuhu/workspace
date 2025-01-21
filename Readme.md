@@ -252,7 +252,7 @@ Note: plugins to be installed are read from .vimrc file
 
 More info here https://github.com/junegunn/vim-plug#unix
     
-## 8. Install tmux plugins
+## 8. Install tmux plugins (optional)
 1- Clone the tpm repository
 
     mkdir -p $HOME/.tmux/plugins
@@ -262,7 +262,7 @@ More info here https://github.com/junegunn/vim-plug#unix
 
 3- Press prefix + I (capital i, as in Install)
 
-## 9. Configure crontab to execute automatic scripts periodically
+## 9. Configure crontab to execute automatic scripts periodically (optional)
 1- Open crontab:  
 
     crontab -e
@@ -302,7 +302,6 @@ More info here https://github.com/junegunn/vim-plug#unix
 - FZF tutorial video: https://www.youtube.com/watch?v=tB-AgxzBmH8&t=1031s
 - FZF examples: https://github.com/junegunn/fzf/wiki/examples
 - FZF advanced examples: https://github.com/junegunn/fzf/blob/master/ADVANCED.md
-- Diff so fancy: https://github.com/so-fancy/diff-so-fancy
 - Lnav: https://lnav.org
 - How to test locally: https://github.com/mongodb/mongo/wiki/Running-Tests-from-Evergreen-Tasks-Locally
 - WT guide: https://www.percona.com/blog/wiredtiger-file-forensics-part-3-viewing-all-the-mongodb-data
