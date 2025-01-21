@@ -21,8 +21,10 @@
 
 ## 2. Install all the tools
 
-### Oh-my-posh (https://ohmyposh.dev)
+### Oh-my-posh
 A prompt theme engine for any shell.
+
+Website: https://ohmyposh.dev
 
 Installation:
     
@@ -30,30 +32,38 @@ Installation:
     sudo chmod +x $HOME/.local/bin/oh-my-posh
     oh-my-posh font install Meslo
     
-### Tmux (https://github.com/tmux/tmux)
+### Tmux
 Tmux is a terminal multiplexer. It lets you switch easily between several programs in one terminal, detach them (they keep running in the background) and reattach them to a different terminal.
+
+Repository:  https://github.com/tmux/tmux
 
 Installation: You'll need a version newer or equal than v3.3
 
     sudo apt-get install tmux
     
-### jq (https://github.com/jqlang/jq)
+### jq
 `jq` is a lightweight and flexible command-line JSON processor.
+
+Repository: https://github.com/jqlang/jq
 
 Installation:
 
     sudo apt-get install jq
     
-### fzf (https://github.com/junegunn/fzf)
+### fzf
 `fzf` is an interactive filter program for any kind of list
+
+Repository: https://github.com/junegunn/fzf
 
 Installation:
 
     git clone --depth 1 https://github.com/junegunn/fzf $HOME/.fzf
     $HOME/.fzf/install
     
-### diff-so-fancy (https://github.com/so-fancy/diff-so-fancy)
+### diff-so-fancy
 `diff-so-fancy` strives to make your diffs human readable instead of machine readable.
+
+Repository: https://github.com/so-fancy/diff-so-fancy
 
 Installation:
 
@@ -64,34 +74,44 @@ Installation:
 ##### MacOS
     brew install diff-so-fancy
 
-### mrlog (https://github.com/markbenvenuto/mrlog)
+### mrlog
 `mrlog` makes mongod logs more human-readable. It was built by a MondoDB developer (Mark Benvenuto).
 
-To install it, follow the instructions from https://github.com/markbenvenuto/mrlog.<br><br>
+Repository: https://github.com/markbenvenuto/mrlog
+
+To install it, follow the instructions on the repository link.<br><br>
 
 
-### MongoDB Database Tools (https://www.mongodb.com/docs/database-tools/installation/installation/)
+### MongoDB Database Tools
 The MongoDB Database Tools are a suite of official command-line utilities for working with MongoDB, like mongorestore, mongodump, bsondump, etc.
 
-To install them, follow the instructions from https://www.mongodb.com/docs/database-tools/installation/installation/
+Website: https://www.mongodb.com/docs/database-tools/installation/installation/
+
+To install them, follow the instructions on the given website.
 
 This is the internal repo for the mongo tools: https://github.com/mongodb/mongo-tools.<br><br>
 
-### fss (https://github.com/silviasuhu/fss)
+### fss
 `fss` is a tool to execute predefined and parametrized commands in a fzf fashion.
 
-To install this tool, follow the instructions from https://github.com/silviasuhu/fss.<br><br>
+Repository: https://github.com/silviasuhu/fss
+
+To install this tool, follow the instructions from the repository link.<br><br>
 
 
-### forgit (https://github.com/wfxr/forgit)
+### forgit
 Utility tool for using git interactively. Powered by fzf.
+
+Repository: https://github.com/wfxr/forgit
 
 Installation:
 
     git clone https://github.com/wfxr/forgit $HOME/.forgit
     
-### fd (https://github.com/sharkdp/fd)
+### fd
 `fd` is a program to find entries in your filesystem. It is a simple, fast and user-friendly alternative to find.
+
+Repository: https://github.com/sharkdp/fd
 
 Installation:
 
@@ -100,29 +120,40 @@ Installation:
     ln -s $(which fdfind) $HOME/.local/bin/fd
 ##### MacOS
     brew install fd
-    
-### mtools (https://github.com/rueckstiess/mtools)
+
+### task-spooler
+It's a CLI tool to queue and execute jobs. It's especially useful to serialize different commands.
+
+Repository: https://github.com/justanhduc/task-spooler
+
+### mtools
 `mtools` is a collection of helper scripts to parse, filter, and visualize MongoDB log files.
 
 `mtools` also includes `mlaunch`, a utility to quickly set up complex MongoDB test environments on a local machine
+
+Repository: https://github.com/rueckstiess/mtools
 
 To install these tools, follow the instructions from https://rueckstiess.github.io/mtools/install.html.  
 
 Make sure binaries are in your PATH env variable.<br><br>
 
-### m (https://github.com/aheckmann/m)
+### m
 
 `m` helps you download, use, and manage multiple versions of the MongoDB server and command-line tools.
+
+Repository: https://github.com/aheckmann/m
 
 To install it, follow the instructions from https://github.com/aheckmann/m#installation.
 
 Make sure the m binary is in your PATH env variable.<br><br>
 
-### WiredTiger (https://source.wiredtiger.com)
+### WiredTiger
 
 Wired Tiger is the Storage Engine that runs under the hood of a `mongod` process.
 
-To install it, follow the instructions from https://source.wiredtiger.com
+Website: https://source.wiredtiger.com
+
+To install it, follow the instructions from the given website
 
 The internal repo is https://github.com/wiredtiger/wiredtiger.git.<br><br>
 
@@ -130,11 +161,13 @@ The internal repo is https://github.com/wiredtiger/wiredtiger.git.<br><br>
 
 You'll find interesting WT scripts on https://github.com/wiredtiger/wiredtiger/blob/develop/tools.<br><br>
 
-### t2 (https://github.com/10gen/t2)
+### t2
 
 The `t2` tool visualizes timeseries data, primarily geared towards efficiently visualizing the large amount of full-time diagnostic data capture (FTDC) data captured by mongod 3.2 and later.
 
 It's especially useful to investigate HELP tickets.
+
+Repository: https://github.com/10gen/t2
 
 You can only install it on the laptop because it requires GUI.
 
@@ -145,8 +178,10 @@ Installation:
 3- To run it you will have to go to t2 directory and:
     ./build/t2/t2 test/data/mongodb_6.0/*
 
-### Mongo shell (https://www.mongodb.com/docs/mongodb-shell/)
+### Mongo shell
 `mongosh` is the official CLI tool for accessing a MongoDB server.
+
+Website: https://www.mongodb.com/docs/mongodb-shell/
 
 To install it, you can download binaries from https://www.mongodb.com/try/download/shell
 
@@ -155,6 +190,8 @@ The internal repo for the Mongo shell is: https://github.com/mongodb-js/mongosh.
 
 ### db-contrib-tools
 It is used to setup a multiversion environment. However, I'm using `m` instead of `db-contrib-tools`.
+
+Repository: https://github.com/10gen/db-contrib-tool
 
 To install it, follow the instructions from https://github.com/10gen/db-contrib-tool.<br><br>
 
