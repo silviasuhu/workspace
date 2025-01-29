@@ -94,14 +94,23 @@
                 }
             }
         },
+        "mongo_build_json": {
+            "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
+            "cmd": "tsp -fn bazel build compiledb",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {}
+        },
         "mongo_build_json_v80_and_before": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
             "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "venv_is_active"
+                "wrkdir_is_mongo_root"
             ],
             "parameters": {}
         },
@@ -652,17 +661,6 @@
             "bell": false,
             "statistics": false,
             "pre_checks": [],
-            "parameters": {}
-        },
-        "macos_install_python_and_build_json": {
-            "description": "",
-            "cmd": "rm -r .venv; python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh && ./buildscripts/scons.py --build-profile=compiledb compiledb",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_macos"
-            ],
             "parameters": {}
         },
         "macos_new_internal_branch": {
