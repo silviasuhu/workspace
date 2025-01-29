@@ -17,9 +17,9 @@
         }
     },
     "commands": {
-        "mongo_bazel_build": {
+        "mongo_build": {
             "description": "Build",
-            "cmd": "bazel build <<target>>",
+            "cmd": "rmBuildStamp; tsp -fn bazel build <<target>> && stampSuccessfulBuild",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -664,7 +664,7 @@
         "mongo_build_after_fetch_and_pull_internal_branch": {
             "description": "",
             "cmd":
-            "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.' && rmBuildStamp; tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>> && stampSuccessfulBuild",
+            "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.' && rmBuildStamp; tsp -fn bazel build <<target>> && stampSuccessfulBuild",
             "bell": false,
             "statistics": false,
             "pre_checks": [
