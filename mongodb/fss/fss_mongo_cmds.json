@@ -17,7 +17,40 @@
         }
     },
     "commands": {
-        "mongo_build": {
+        "mongo_bazel_build": {
+            "description": "Build",
+            "cmd": "bazel build <<target>>",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "target": {
+                    "type": "query",
+                    "description": "target",
+                    "default": "install-devcore",
+                    "query_cmd": "echo -e 'install-mongod\ninstall-mongos\ninstall-servers\ninstall-core\ninstall-devcore\ninstall-all\ninstall-all-meta\ninstall-unittests'"
+                }
+            }
+        },
+        "mongo_bazel_auth": {
+            "description": "Authenticating with EngFlow",
+            "cmd": "bazel run --config=local //buildscripts:engflow_auth",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
+        },
+        "mongo_bazel_install": {
+            "description": "Install bazel",
+            "cmd": "python buildscripts/install_bazel.py",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [],
+            "parameters": {}
+        },
+        "mongo_build_v7.0_v8.0": {
             "description": "Ninja wrapper. Builds the binaries",
             "cmd": "rmBuildStamp; tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>> && stampSuccessfulBuild",
             "bell": true,
@@ -42,7 +75,7 @@
                 }
             }
         },
-        "mongo_clean": {
+        "mongo_clean_v50_v60_v70_v80": {
             "description": "Ninja wrapper. Clean.",
             "cmd": "ninja -j400 <<ninjaFile>> -t clean; ccache -c; rmBuildStamp",
             "bell": true,
@@ -61,7 +94,7 @@
                 }
             }
         },
-        "mongo_build_json": {
+        "mongo_build_json_v80_and_before": {
             "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
             "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
             "bell": true,
@@ -72,18 +105,7 @@
             ],
             "parameters": {}
         },
-        "mongo_build_json_old": {
-            "description": "Regenerates compile_commands.json, that is what ccls and other intellisense stuff will use to index files",
-            "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=compiledb compiledb",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "venv_is_active"
-            ],
-            "parameters": {}
-        },
-        "mongo_pre_build": {
+        "mongo_pre_build_v70_v80": {
             "description": "scons wrapper. Regenerates ninja file in case it's broken or doesn't exist.",
             "cmd": "tsp -fn ./buildscripts/scons.py --build-profile=<<build_profile>> GDB_INDEX=0",
             "bell": true,
@@ -102,7 +124,7 @@
                 }
             }
         },
-        "mongo_pre_build_tsan": {
+        "mongo_pre_build_tsan_v80": {
             "description": "scons wrapper. Creates tsan.ninja file.",
             "cmd": "tsp -fn ./buildscripts/scons.py --dbg=on --opt=on --use-libunwind=off --link-model=dynamic --variables-files=./etc/scons/mongodbtoolchain_stable_clang.vars --variables-files=./etc/scons/experimental_unified_ninja.vars --ninja ICECC=icecc CCACHE=ccache --sanitize=thread --allocator=system NINJA_PREFIX=tsan VARIANT_DIR=tsandebug",
             "bell": true,
@@ -144,7 +166,7 @@
             ],
             "parameters": {}
         },
-        "mongo_install_venv_old_80": {
+        "mongo_install_venv_80": {
             "description": "Creates venv in mongo project and installs its requirements",
             "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && python3 -m poetry install --no-root --sync",
             "bell": true,
@@ -154,7 +176,7 @@
             ],
             "parameters": {}
         },
-        "mongo_install_venv_old_70": {
+        "mongo_install_venv_70": {
             "description": "Creates venv in mongo project and installs its requirements",
             "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install -r buildscripts/requirements.txt --use-feature=2020-resolver",
             "bell": true,
@@ -244,7 +266,7 @@
                 }
             }
         },
-        "mongo_run_local_unittest_file": {
+        "mongo_run_local_unittest_file_v60_v70_v80": {
             "description": "Compiles and runs unittest file locally",
             "cmd": "tsp -fn ninja -j400 -f <<ninjaFile>> +<<fileName>> | mrlog| tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
