@@ -188,6 +188,43 @@
         },
         "mongo_run_local_test_js": {
             "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
+            "cmd": "tsp -fn ./buildscripts/resmoke.py run --installDir=./bazel-bin/install-devcore/bin --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath <<repeatTests>> --mongodSetParameters='{logComponentVerbosity: {command: 2, sharding: {verbosity: 2}}}' --jobs=1 <<runAllFeatureFlags>> --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "jsSuite": {
+                    "type": "query",
+                    "description": "",
+                    "query_cmd": "./buildscripts/resmoke.py list-suites",
+                    "element_preview": "batcat --color=always ./buildscripts/resmokeconfig/suites/{}.yml",
+                    "default": "sharding"
+                },
+                "jsTest": {
+                    "type": "query",
+                    "optional": true,
+                    "description": "js file to test",
+                    "query_cmd": "find ./jstests -type f -name '*.js'",
+                    "element_preview": "batcat --color=always {}",
+                    "default": ""
+                },
+                "runAllFeatureFlags": {
+                    "type": "fix",
+                    "body": "--runAllFeatureFlagTests",
+                    "optional": true
+                },
+                "repeatTests": {
+                    "type": "input",
+                    "body": "--repeatTests <<VALUE>>",
+                    "optional": "true"
+                }
+            }
+        },
+        "mongo_run_local_test_js_v60_v70_v80": {
+            "description": "Runs local jstests. The logs are executor.log, fixture.log and tests.log and are stored in lastTest directory",
             "cmd": "tsp -fn ./buildscripts/resmoke.py run --installDir=./build/install/bin --storageEngine=wiredTiger --storageEngineCacheSizeGB=0.5 --dbpath=/tmp/testpath <<repeatTests>> --mongodSetParameters='{logComponentVerbosity: {command: 2, sharding: {verbosity: 2}}}' --jobs=1 <<runAllFeatureFlags>> --suite=<<jsSuite>> <<jsTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
@@ -225,7 +262,7 @@
         },
         "mongo_run_local_test_bm": {
             "description": "Runs local bm test.",
-            "cmd": "tsp -fn ./buildscripts/resmoke.py run --installDir=./build/install/bin --storageEngineCacheSizeGB=1 --jobs=1 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --suite=<<bmSuite>> <<bmBinTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./buildscripts/resmoke.py run --installDir=./bazel-bin/install-devcore/bin --storageEngineCacheSizeGB=1 --jobs=1 --dbpath=/tmp/testpath --mongodSetParameters='{logComponentVerbosity: {sharding: {verbosity: 2}}}' --suite=<<bmSuite>> <<bmBinTest>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -243,7 +280,7 @@
                 "bmBinTest": {
                     "type": "query",
                     "description": "bm binary file to test",
-                    "query_cmd": "find ./build/install/bin -type f -name '*bm'",
+                    "query_cmd": "find ./bazel-bin/install-devcore/bin -type f -name '*bm'",
                     "element_preview": "",
                     "default": ""
                 }
@@ -251,7 +288,7 @@
         },
         "mongo_run_local_unittest_binary": {
             "description": "Runs unittest binary locally",
-            "cmd": "tsp -fn ./build/install/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "cmd": "tsp -fn ./bazel-bin/install-devcore/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -261,7 +298,7 @@
                 "unittest_bin": {
                     "type": "query",
                     "description": "binary to test",
-                    "query_cmd": "ls build/install/bin",
+                    "query_cmd": "ls bazel-bin/install-devcore/bin",
                     "default": "db_s_server_test"
                 }
             }
@@ -561,9 +598,9 @@
                 },
                 "binary_path": {
                     "type": "query",
-                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './build/install/bin'",
+                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
                     "element_preview": "ls '{}'",
-                    "default": "./build/install/bin"
+                    "default": "./bazel-bin/install-devcore/bin"
                 }
             }
         },
@@ -576,9 +613,9 @@
             "parameters": {
                 "binary_path": {
                     "type": "query",
-                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './build/install/bin'",
+                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
                     "element_preview": "ls '{}'",
-                    "default": "./build/install/bin"
+                    "default": "./bazel-bin/install-devcore/bin"
                 }
             }
         },
@@ -595,9 +632,9 @@
                 },
                 "binary_path": {
                     "type": "query",
-                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './build/install/bin'",
+                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
                     "element_preview": "ls '{}'",
-                    "default": "./build/install/bin"
+                    "default": "./bazel-bin/install-devcore/bin"
                 }
             }
         },
