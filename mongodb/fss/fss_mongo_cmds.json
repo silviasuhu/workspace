@@ -50,7 +50,7 @@
             "pre_checks": [],
             "parameters": {}
         },
-        "mongo_build_v7.0_v8.0": {
+        "mongo_build_v70_v80": {
             "description": "Ninja wrapper. Builds the binaries",
             "cmd": "rmBuildStamp; tsp -fn nice -n 19 ninja -j400 <<ninjaFile>> <<target>> && stampSuccessfulBuild",
             "bell": true,
