@@ -2,7 +2,7 @@
 
 ROOT_PATH="$HOME/devel/mongo"
 JIRA_BASE_URL="https://jira.mongodb.org/rest/api/2/issue/"
-JIRA_TICKET_PATTERN="[A-Z]*-[0-9][0-9][0-9][0-9][0-9]"
+JIRA_TICKET_PATTERN="[A-Z]+-[0-9]+"
 
 # Load util_scripts.sh to use `isRepoCompiled()` function
 SCRIPT_DIR=$(dirname "$0")
@@ -26,7 +26,7 @@ fi
 # Build the header for the directories table
 FIRST_COLUMN_WIDTH=24
 SECOND_COLUMN_WIDTH=27
-THIRD_COLUMN_WIDTH=24
+THIRD_COLUMN_WIDTH=29
 FOURTH_COLUMN_WIDTH=16
 FIFTH_COLUMN_WIDTH=25
 printf "%-${FIRST_COLUMN_WIDTH}s|%-${SECOND_COLUMN_WIDTH}s|%-${THIRD_COLUMN_WIDTH}s|%-${FOURTH_COLUMN_WIDTH}s|%-${FIFTH_COLUMN_WIDTH}s\n" "  DIR" "  BASED ON" "  BRANCH" "  STATUS" "  INFO"
