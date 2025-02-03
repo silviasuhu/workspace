@@ -295,7 +295,26 @@
                 }
             }
         },
-        "mongo_run_local_unittest_binary": {
+        "mongo_run_local_unittest_file": {
+            "description": "Compiles and runs unittest file locally",
+            "cmd": "tsp -fn bazel test +<<fileName>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {
+                "fileName": {
+                    "type": "query",
+                    "description": "unittest file",
+                    "query_cmd": "find ./src/mongo -type f -name '*test.cpp' | sed -r 's/^.*\\/(.*)\\.cpp$/\\1/'",
+                    "element_preview": "",
+                    "default": ""
+                }
+            }
+        },
+        "mongo_run_local_unittest_binary_v60_v70_v80": {
             "description": "Runs unittest binary locally",
             "cmd": "tsp -fn ./bazel-bin/install-devcore/bin/<<unittest_bin>> | mrlog | tee tests.log; (exit ${PIPESTATUS[0]})",
             "bell": true,
