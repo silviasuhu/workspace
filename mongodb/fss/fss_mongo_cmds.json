@@ -30,7 +30,7 @@
                     "type": "query",
                     "description": "target",
                     "default": "install-devcore",
-                    "query_cmd": "echo -e 'install-mongod\ninstall-mongos\ninstall-servers\ninstall-core\ninstall-devcore\ninstall-all\ninstall-all-meta\ninstall-unittests'"
+                    "query_cmd": "echo -e 'compiledb\ninstall-wiredtiger\ninstall-mongod\ninstall-mongos\ninstall-mongo\ninstall-core\ninstall-devcore\ninstall-mongotest\ninstall-dist-test'"
                 }
             }
         },
