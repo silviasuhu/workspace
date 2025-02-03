@@ -10,7 +10,7 @@ ROOT_PATH="$HOME/devel/mongo"
 
 JIRA_API_BASE_URL="https://jira.mongodb.org/rest/api/2/issue/"
 JIRA_BASE_URL="https://jira.mongodb.org/browse/"
-JIRA_TICKET_PATTERN="[A-Z]*-[0-9][0-9][0-9][0-9][0-9]"
+JIRA_TICKET_PATTERN="[A-Z]+-[0-9]+"
 
 EVG_BASE_URL="https://spruce.mongodb.com/user/silvia.surroca/patches?page=0&patchName="
 
