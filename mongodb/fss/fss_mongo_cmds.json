@@ -682,14 +682,13 @@
             "pre_checks": [],
             "parameters": {}
         },
-        "macos_new_internal_branch": {
+        "macos_new_ticket_branch": {
             "description": "",
-            "cmd": "g checkout -b suhu/<<jira_ticket>>-internal <<base_branch>>",
+            "cmd": "g checkout -b suhu/<<jira_ticket>> <<base_branch>>",
             "bell": false,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_macos"
+                "wrkdir_is_mongo_root"
             ],
             "parameters": {
                 "jira_ticket": {
@@ -702,43 +701,6 @@
                     "description": "base branch",
                     "query_cmd": "git branch | grep --color=never ss-master-stable | sort -r",
                     "element_preview": "git log -n1 {}"
-                }
-            }
-        },
-        "fetch_and_pull_internal_branch": {
-            "description": "",
-            "cmd": "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.'",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_workstation"
-            ]
-        },
-        "mongo_build_after_fetch_and_pull_internal_branch": {
-            "description": "",
-            "cmd":
-            "g fetch; git diff --quiet && git diff --cached --quiet && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)-internal || echo 'Error: Uncommitted changes detected.' && rmBuildStamp; tsp -fn bazel build <<target>> && stampSuccessfulBuild",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_workstation"
-            ],
-            "parameters": {
-                "target": {
-                    "type": "query",
-                    "description": "target",
-                    "default": "install-devcore",
-                    "query_cmd": "echo -e 'install-mongod\ninstall-mongos\ninstall-servers\ninstall-core\ninstall-devcore\ninstall-all\ninstall-all-meta\ninstall-unittests'"
-                },
-                "ninjaFile": {
-                    "body": "-f <<VALUE>>",
-                    "type": "query",
-                    "description": "ninja file",
-                    "query_cmd": "ls *.ninja",
-                    "default": "",
-                    "element_preview": "batcat --color=always {}"
                 }
             }
         },
@@ -768,6 +730,17 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [],
+            "parameters": {}
+        },
+        "macos_sync_ws_repo": {
+            "description": "",
+            "cmd": "rsync -av --delete --exclude-from='.gitignore' --exclude-from=$HOME/.gitignore --exclude='.git' . devel-ws:~/devel/mongo/$(basename $PWD)/",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "is_macos"
+            ],
             "parameters": {}
         }
     }
