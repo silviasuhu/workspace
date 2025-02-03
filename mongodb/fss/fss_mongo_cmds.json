@@ -30,7 +30,7 @@
                     "type": "query",
                     "description": "target",
                     "default": "install-devcore",
-                    "query_cmd": "echo -e 'compiledb\ninstall-wiredtiger\ninstall-mongod\ninstall-mongos\ninstall-mongo\ninstall-core\ninstall-devcore\ninstall-mongotest\ninstall-dist-test'"
+                    "query_cmd": "bazel query 'kind(\".*install.*\", //:*)' 2>/dev/null"
                 }
             }
         },
