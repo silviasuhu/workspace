@@ -443,7 +443,7 @@
         },
         "evg_test_remotely": {
             "description": "Create a remote patch",
-            "cmd": "evergreen patch --project <<project>> <<alias>> <<uncommitted>>",
+            "cmd": "evergreen patch --project <<project>> <<alias>> <<uncommitted>> <<finalize>>",
             "bell": false,
             "statistics": false,
             "pre_checks": [
@@ -469,6 +469,12 @@
                     "type": "fix",
                     "optional": "true",
                     "default": "no"
+                },
+                "finalize": {
+                    "body": "--finalize",
+                    "type": "fix",
+                    "optional": "true",
+                    "default": "yes"
                 }
             }
         },
