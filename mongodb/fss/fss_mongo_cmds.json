@@ -734,7 +734,7 @@
         },
         "macos_sync_ws_repo": {
             "description": "",
-            "cmd": "rsync -av --delete --exclude-from='.gitignore' --exclude-from=$HOME/.gitignore --exclude='.git' . devel-ws:~/devel/mongo/$(basename $PWD)/",
+            "cmd": "sync_repo_with_ws.sh",
             "bell": false,
             "statistics": false,
             "pre_checks": [
