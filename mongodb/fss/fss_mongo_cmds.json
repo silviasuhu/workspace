@@ -30,6 +30,23 @@
                     "type": "query",
                     "description": "target",
                     "default": "install-devcore",
+                    "query_cmd": "echo -e 'install-core\ninstall-core-debug\ninstall-devcore\ninstall-devcore-debug\ninstall-dist-test\ninstall-dist-test-debug\ninstall-mongo\ninstall-mongod\ninstall-mongos'"
+                }
+            }
+        },
+        "mongo_build_select_any_target": {
+            "description": "Build",
+            "cmd": "rmBuildStamp; tsp -fn bazel build <<target>> && stampSuccessfulBuild",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "target": {
+                    "type": "query",
+                    "description": "target",
+                    "default": "install-devcore",
                     "query_cmd": "bazel query 'kind(\".*install.*\", //:*)' 2>/dev/null"
                 }
             }
