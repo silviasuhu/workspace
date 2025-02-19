@@ -19,7 +19,7 @@
     "commands": {
         "mongo_build": {
             "description": "Build",
-            "cmd": "rmBuildStamp; tsp -fn bazel build <<target>> && stampSuccessfulBuild",
+            "cmd": "rmBuildStamp; tsp -fn bazel build --config=<<config>> <<target>> && stampSuccessfulBuild",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -31,6 +31,12 @@
                     "description": "target",
                     "default": "install-devcore",
                     "query_cmd": "echo -e 'install-core\ninstall-core-debug\ninstall-devcore\ninstall-devcore-debug\ninstall-dist-test\ninstall-dist-test-debug\ninstall-mongo\ninstall-mongod\ninstall-mongos'"
+                },
+                "config": {
+                    "type": "query",
+                    "description": "config",
+                    "default": "fastbuild",
+                    "query_cmd": "echo -e 'fastbuild\ndbg\ndbg_aubsan\ndbg_tsan\nopt'"
                 }
             }
         },
