@@ -771,6 +771,17 @@
                 "is_macos"
             ],
             "parameters": {}
+        },
+        "macos_sync_ws_repo_without_git": {
+            "description": "",
+            "cmd": "sync_repo_with_ws.sh --skip-git",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "is_macos"
+            ],
+            "parameters": {}
         }
     }
 }
