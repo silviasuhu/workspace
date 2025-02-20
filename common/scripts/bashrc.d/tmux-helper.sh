@@ -9,20 +9,12 @@ send_command_to_every_tmux_pane() {
     done
 }
 
-refresh_tmux_env() {
-    if [[ $TMUX ]]; then
-        eval $(tmux showenv -s | grep --color=never -E '^(SSH|DISPLAY)');
-    fi
-}
-
 ## Start/attach `main` session
 ss_tmux() {
-    send_command_to_every_tmux_pane refresh_tmux_env;
     tmux -u new -As main;
 }
 
 ## Start/attach `vsc` session
 ss_tmux_vsc() {
-    send_command_to_every_tmux_pane refresh_tmux_env;
     tmux -u new-session -As vsc;
 }

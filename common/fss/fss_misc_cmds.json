@@ -5,16 +5,6 @@
         }
     },
     "commands": {
-        "tmux_refresh_env": {
-            "description": "Proper ssh forward to tmux. Refreshes env variables with regexp '^(SSH|DISPLAY)' for all existing panes.",
-            "cmd": "refresh_tmux_env",
-            "bell": false,
-            "statistics": false,
-            "pre_checks": [
-                "in_tmux"
-            ],
-            "parameters": {}
-        },
         "icecream_status": {
             "description": "Shows icecream cluster status",
             "cmd": "icecream-sundae -s iceccd.production.build.10gen.cc",
