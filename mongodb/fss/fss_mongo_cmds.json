@@ -320,7 +320,7 @@
         },
         "mongo_run_local_unittest_file": {
             "description": "Compiles and runs unittest file locally",
-            "cmd": "tsp -fn bazel test +<<fileName>>",
+            "cmd": "tsp -fn bazel test --test_output=all +<<fileName>> <<filter>> | mrlog | tee tests.log",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -334,6 +334,12 @@
                     "query_cmd": "find ./src/mongo -type f -name '*test.cpp' | sed -r 's/^.*\\/(.*)\\.cpp$/\\1/'",
                     "element_preview": "",
                     "default": ""
+                },
+                "filter": {
+                    "body": "-- -filter <<VALUE>>",
+                    "type": "input",
+                    "optional": true,
+                    "description": "run specific test"
                 }
             }
         },

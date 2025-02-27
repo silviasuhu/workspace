@@ -28,6 +28,10 @@ export PATH="$HOME/projects/mrlog/target/release:${PATH}"
 # Task-spooler alias to get parity between Linux and Macos
 alias tsp=ts
 
+### Init Oh My Posh
+export CLICOLOR=1
+eval "$(oh-my-posh --init --shell bash --config "$WORKSPACE_COMMON_DIR"/oh-my-posh/custom_mac.omp.json)"
+
 ### Set common and MongoDB settings
 . ~/.config/workspace/mongodb/bashrc_lnx
 
