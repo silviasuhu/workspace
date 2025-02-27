@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Initialize the following variables
+SCRIPT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+
 ### Add Homebrew binary directory to path
 export PATH=/opt/homebrew/bin:${PATH}
 
@@ -30,9 +33,10 @@ alias tsp=ts
 
 ### Init Oh My Posh
 export CLICOLOR=1
-eval "$(oh-my-posh --init --shell bash --config "$WORKSPACE_COMMON_DIR"/oh-my-posh/custom_mac.omp.json)"
+eval "$(oh-my-posh --init --shell bash --config "$SCRIPT_DIR"/oh-my-posh/custom_mac.omp.json)"
 
-### Set common and MongoDB settings
-. ~/.config/workspace/mongodb/bashrc_lnx
+### Source common and MongoDB settings
+. $SCRIPT_DIR/bashrc_lnx
 
-. "$HOME/.cargo/env"
+### Source cargo environment
+. $HOME/.cargo/env
