@@ -1,6 +1,7 @@
 #! /bin/bash
 
 ROOT_PATH="$HOME/devel/mongo"
+SNAPSHOT_FILE="$HOME/.reposSummary"
 JIRA_BASE_URL="https://jira.mongodb.org/rest/api/2/issue/"
 JIRA_TICKET_PATTERN="[A-Z]+-[0-9]+"
 
@@ -19,6 +20,27 @@ PURPLE="35"
 # FORMAT_BOLD_AND_RED="\e[${BOLD};${RED}m"
 FORMAT_END="\e[${NO_BOLD}m"
 
+# Parse arguments
+REFRESH=true
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --no-refresh)
+      REFRESH=false
+      shift
+      ;;
+    *)
+      echo "Unknown argument: $1"
+      exit 1
+      ;;
+  esac
+done
+
+if [[ "$REFRESH" == false ]]; then
+    cat $SNAPSHOT_FILE
+    exit 0
+fi
+
 if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]]; then
     currentBranch=$(git rev-parse --abbrev-ref HEAD)
 fi
@@ -29,17 +51,19 @@ SECOND_COLUMN_WIDTH=27
 THIRD_COLUMN_WIDTH=29
 FOURTH_COLUMN_WIDTH=16
 FIFTH_COLUMN_WIDTH=25
-printf "%-${FIRST_COLUMN_WIDTH}s|%-${SECOND_COLUMN_WIDTH}s|%-${THIRD_COLUMN_WIDTH}s|%-${FOURTH_COLUMN_WIDTH}s|%-${FIFTH_COLUMN_WIDTH}s\n" "  DIR" "  BASED ON" "  BRANCH" "  STATUS" "  INFO"
-printf %${FIRST_COLUMN_WIDTH}s |tr " " "-"
-printf "-"
-printf %${SECOND_COLUMN_WIDTH}s |tr " " "-"
-printf "-"
-printf %${THIRD_COLUMN_WIDTH}s |tr " " "-"
-printf "-"
-printf %${FOURTH_COLUMN_WIDTH}s |tr " " "-"
-printf "-"
-printf %${FIFTH_COLUMN_WIDTH}s |tr " " "-"
-printf "\n"
+{
+    printf "%-${FIRST_COLUMN_WIDTH}s|%-${SECOND_COLUMN_WIDTH}s|%-${THIRD_COLUMN_WIDTH}s|%-${FOURTH_COLUMN_WIDTH}s|%-${FIFTH_COLUMN_WIDTH}s\n" "  DIR" "  BASED ON" "  BRANCH" "  STATUS" "  INFO"
+    printf %${FIRST_COLUMN_WIDTH}s | tr " " "-"
+    printf "-"
+    printf %${SECOND_COLUMN_WIDTH}s | tr " " "-"
+    printf "-"
+    printf %${THIRD_COLUMN_WIDTH}s | tr " " "-"
+    printf "-"
+    printf %${FOURTH_COLUMN_WIDTH}s | tr " " "-"
+    printf "-"
+    printf %${FIFTH_COLUMN_WIDTH}s | tr " " "-"
+    printf "\n"
+} | tee "$SNAPSHOT_FILE"
 
 commitBaseBlue=""
 commitBaseYellow=""
@@ -139,14 +163,16 @@ for dir in $(find $ROOT_PATH -maxdepth 1 -mindepth 1 -type d -print0 | sort -z |
 
         # Print a directory row
         if [[ -z "$summary" || "$summary" == "null" ]]; then
-            printf "${FORMAT}%-${fst_column_width}s [%s] %s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch"
+            printf "${FORMAT}%-${fst_column_width}s [%s] %s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch" | tee -a "$SNAPSHOT_FILE"
         else
             jiraStatus=$(echo "$response" | jq -r '.fields.status.name')
-            printf "${FORMAT}%-${fst_column_width}s [%s] %-${THIRD_COLUMN_WIDTH}s %-${FOURTH_COLUMN_WIDTH}s %-${FIFTH_COLUMN_WIDTH}s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch" "$jiraStatus" "$summary"
+            printf "${FORMAT}%-${fst_column_width}s [%s] %-${THIRD_COLUMN_WIDTH}s %-${FOURTH_COLUMN_WIDTH}s %-${FIFTH_COLUMN_WIDTH}s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch" "$jiraStatus" "$summary" | tee -a "$SNAPSHOT_FILE"
         fi
         popd > /dev/null
     fi
 done
+
+exit 0
 
 # Build the header for the tickets table
 FIRST_COLUMN_WIDTH=25
