@@ -49,7 +49,8 @@ export PATH=$FORGIT_INSTALL_DIR/bin:${PATH}
 
 ### Init Oh My Posh
 export CLICOLOR=1
-[[ -z "$POSH_THEME" ]] && eval "$(oh-my-posh --init --shell bash --config "$WORKSPACE_COMMON_DIR"/oh-my-posh/custom_ws.omp.json)"
+[[ -z "$POSH_CONFIG_FILE" ]] && export POSH_CONFIG_FILE="$WORKSPACE_COMMON_DIR"/oh-my-posh/custom_ws.omp.json
+eval "$(oh-my-posh --init --shell bash --config "$POSH_CONFIG_FILE")"
 
 ### Aliases
 # alias ls='ls -h --color=auto'
