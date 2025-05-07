@@ -76,12 +76,12 @@ fi
 
 if [[ "$SKIP_GIT" == false ]]; then
     # Set the git repository of the remote device to the given revision.
-    remoteExec "$goToRepo; git reset --soft $revision"
+    remoteExec "$goToRepo; git reset $revision"
 
     # Perform a fetch if `git reset` failed.
     if [ $? -ne 0 ]; then
         echo "git reset failed."
-        remoteExec "$goToRepo; git fetch --quiet; git reset --soft $revision"
+        remoteExec "$goToRepo; git fetch --quiet; git reset $revision"
     fi
     if [ $? -ne 0 ]; then
         echo ""
