@@ -31,7 +31,8 @@ for file in $(find $BASHRC_D_PATH -type f); do
     source $file
 done
 
-source $HOME/.fss/bin/fss.sh
+source $HOME/.fss/bash/fss.sh
+source $HOME/projects/AI-in-terminal/bash/ask_llm.sh
 
 ### Required by mtools
 source $HOME/.asdf/asdf.sh
