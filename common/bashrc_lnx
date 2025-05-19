@@ -56,7 +56,7 @@ eval "$(oh-my-posh --init --shell bash --config "$POSH_CONFIG_FILE")"
 # alias ls='ls -h --color=auto'
 alias ll='ls -lhs'
 alias la='ls -la'
-alias grep='grep --color=always'
+# alias grep='grep --color=always'
 alias more='more --RAW-CONTROL-CHARS --chop-long-lines'
 alias l='less --status-column --LINE-NUMBERS --HILITE-UNREAD --IGNORE-CASE --RAW-CONTROL-CHARS'
 alias ljs='less -p "failed to load"'
