@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 # Descriptions: This script prints a summary of a git repo including Jira and Git info
 #
@@ -102,11 +102,11 @@ else
 fi
 
 
-echo ""
-echo -e "${titleFormat}$jiraTicket ${statusFormat}($jiraStatus)${titleFormat} $tags${NORMAL}"
-echo -e "${titleFormat}---------------------------------${NORMAL}"
-echo -e "${titleFormat}$jiraSummary${NORMAL}"
-echo ""
+printf "\n"
+printf "${titleFormat}$jiraTicket ${statusFormat}($jiraStatus)${titleFormat} $tags${NORMAL}\n"
+printf "${titleFormat}---------------------------------${NORMAL}\n"
+printf "${titleFormat}$jiraSummary${NORMAL}\n"
+printf "\n"
 printf "%-17s %s\n" "Branch:" "$branch"
 printf "%-17s %s\n" "Git describe:" "$gitDescribe"
 printf "%-17s %s\n" "Based branch:" "$baseBranch"
@@ -115,9 +115,9 @@ printf "%-17s %s\n" "Based commit:" "$(git log -1 --pretty=format:"%h - %ad: %s"
 printf "%-17s %s\n" "Last commit:" "$(git log -1 --pretty=format:"%h - %ad: %s" --date=short)"
 printf "%-17s %s\n" "Pending changes:" "$numFiles files"
 printf "%-17s %s\n" "Compiled:" "$compiled"
-echo ""
-echo -e "JIRA LINK: ${UNDERLINE_AND_BLUE}$JIRA_BASE_URL$jiraTicket${NORMAL}"
-echo -e "EVG LINK:  ${UNDERLINE_AND_GREEN}$EVG_BASE_URL$jiraTicket${NORMAL}"
-echo ""
+printf "\n"
+printf "JIRA LINK: ${UNDERLINE_AND_BLUE}$JIRA_BASE_URL$jiraTicket${NORMAL}\n"
+printf "EVG LINK:  ${UNDERLINE_AND_GREEN}$EVG_BASE_URL$jiraTicket${NORMAL}\n"
+printf "\n"
 
 popd > /dev/null
