@@ -15,11 +15,18 @@
         },
         "test": {
             "description": "Test.",
-            "cmd": "sleep 2",
+            "cmd": "echo '<<param1>>'",
             "bell": false,
             "statistics": true,
             "pre_checks": [],
-            "parameters": {}
+            "parameters": {
+                "param1": {
+                    "type": "input",
+                    "body": "<<VALUE>>",
+                    "default": "hola",
+                    "description": "print hola"
+                }
+            }
         }
     }
 }
