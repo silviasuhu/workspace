@@ -194,17 +194,19 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "is_workstation"
             ],
             "parameters": {}
         },
         "mongo_install_venv_80": {
             "description": "Creates venv in mongo project and installs its requirements",
-            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && python3 -m poetry install --no-root --sync",
+            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'zope-interface==5.0.0' && .venv/bin/python3 -m pip install 'poetry==2.0.0' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && python3 -m poetry install --no-root --sync",
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "is_workstation"
             ],
             "parameters": {}
         },
@@ -214,7 +216,19 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root"
+                "wrkdir_is_mongo_root",
+                "is_workstation"
+            ],
+            "parameters": {}
+        },
+        "mongo_install_venv_macos": {
+            "description": "Creates venv in mongo project and installs its requirements",
+            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/homebrew/bin/python3.11 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "is_macos"
             ],
             "parameters": {}
         },
