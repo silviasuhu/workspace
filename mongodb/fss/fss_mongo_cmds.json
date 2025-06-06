@@ -504,9 +504,40 @@
                 }
             }
         },
+        "evg_test_remotely_new": {
+            "description": "Create a remote patch",
+            "cmd": "create_evg_patch.sh <<alias>> <<uncommitted>> <<finalize>>",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
+            ],
+            "parameters": {
+                "alias": {
+                    "body": "--alias <<VALUE>>",
+                    "type": "query",
+                    "optional": true,
+                    "description": "alias",
+                    "query_cmd": "echo -e 'required\\nsharding\\nrun_unittests'",
+                    "default": "required"
+                },
+                "uncommitted": {
+                    "body": "--uncommitted",
+                    "type": "fix",
+                    "optional": "true",
+                    "default": "no"
+                },
+                "finalize": {
+                    "body": "--finalize",
+                    "type": "fix",
+                    "optional": "true",
+                    "default": "yes"
+                }
+            }
+        },
         "evg_test_remotely": {
             "description": "Create a remote patch",
-            "cmd": "evergreen patch --project <<project>> <<alias>> <<uncommitted>> <<finalize>>",
+            "cmd": "evergreen patch --project <<project>> <<alias>> <<uncommitted>> <<finalize>> --skip_confirm",
             "bell": false,
             "statistics": false,
             "pre_checks": [
@@ -820,6 +851,16 @@
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "is_macos"
+            ],
+            "parameters": {}
+        },
+        "mongo_create_pr": {
+            "description": "",
+            "cmd": "create_draft_pr.sh",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root"
             ],
             "parameters": {}
         }
