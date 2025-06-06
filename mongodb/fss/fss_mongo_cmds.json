@@ -428,7 +428,7 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root",
+                "wrkdir_is_mongo_root"
             ],
             "parameters": {}
         },
@@ -438,7 +438,7 @@
             "bell": true,
             "statistics": false,
             "pre_checks": [
-                "wrkdir_is_mongo_root",
+                "wrkdir_is_mongo_root"
             ],
             "parameters": {}
         },
