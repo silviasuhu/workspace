@@ -50,9 +50,10 @@ FIRST_COLUMN_WIDTH=24
 SECOND_COLUMN_WIDTH=27
 THIRD_COLUMN_WIDTH=29
 FOURTH_COLUMN_WIDTH=16
-FIFTH_COLUMN_WIDTH=25
+FIFTH_COLUMN_WIDTH=12
+SIXTH_COLUMN_WIDTH=25
 {
-    printf "%-${FIRST_COLUMN_WIDTH}s|%-${SECOND_COLUMN_WIDTH}s|%-${THIRD_COLUMN_WIDTH}s|%-${FOURTH_COLUMN_WIDTH}s|%-${FIFTH_COLUMN_WIDTH}s\n" "  DIR" "  BASED ON" "  BRANCH" "  STATUS" "  INFO"
+    printf "%-${FIRST_COLUMN_WIDTH}s|%-${SECOND_COLUMN_WIDTH}s|%-${THIRD_COLUMN_WIDTH}s|%-${FOURTH_COLUMN_WIDTH}s|%-${FIFTH_COLUMN_WIDTH}s|%-${SIXTH_COLUMN_WIDTH}s\n" "  DIR" "  BASED ON" "  BRANCH" "  STATUS" "  PR" "  INFO"
     printf %${FIRST_COLUMN_WIDTH}s | tr " " "-"
     printf "-"
     printf %${SECOND_COLUMN_WIDTH}s | tr " " "-"
@@ -62,6 +63,8 @@ FIFTH_COLUMN_WIDTH=25
     printf %${FOURTH_COLUMN_WIDTH}s | tr " " "-"
     printf "-"
     printf %${FIFTH_COLUMN_WIDTH}s | tr " " "-"
+    printf "-"
+    printf %${SIXTH_COLUMN_WIDTH}s | tr " " "-"
     printf "\n"
 } | tee "$SNAPSHOT_FILE"
 
@@ -161,12 +164,18 @@ for dir in $(find $ROOT_PATH -maxdepth 1 -mindepth 1 -type d -print0 | sort -z |
             summary=""
         fi
 
+        # Get the PR status
+        prState=$(gh pr view --json state -q .state 2> /dev/null)
+        if [[ -z "$prState" ]]; then
+            prState="N/A"
+        fi
+
         # Print a directory row
         if [[ -z "$summary" || "$summary" == "null" ]]; then
             printf "${FORMAT}%-${fst_column_width}s [%s] %s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch" | tee -a "$SNAPSHOT_FILE"
         else
             jiraStatus=$(echo "$response" | jq -r '.fields.status.name')
-            printf "${FORMAT}%-${fst_column_width}s [%s] %-${THIRD_COLUMN_WIDTH}s %-${FOURTH_COLUMN_WIDTH}s %-${FIFTH_COLUMN_WIDTH}s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch" "$jiraStatus" "$summary" | tee -a "$SNAPSHOT_FILE"
+            printf "${FORMAT}%-${fst_column_width}s [%s] %-${THIRD_COLUMN_WIDTH}s %-${FOURTH_COLUMN_WIDTH}s %-${FIFTH_COLUMN_WIDTH}s %-${SIXTH_COLUMN_WIDTH}s${FORMAT_END}\n" "$dirNameWithTags" "$baseCommitSummary" "$branch" "$jiraStatus" "$prState" "$summary" | tee -a "$SNAPSHOT_FILE"
         fi
         popd > /dev/null
     fi
