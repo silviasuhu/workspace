@@ -106,6 +106,15 @@
             "pre_checks": [
                 "wrkdir_is_inside_git_repository"
             ]
+        },
+        "git_open_pr":{
+            "description": "Open a pull request on GitHub.",
+            "cmd": "gh pr view --web",
+            "bell": false,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_inside_git_repository"
+            ]
         }
     }
 }
