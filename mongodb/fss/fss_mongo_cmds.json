@@ -422,7 +422,27 @@
             ],
             "parameters": {}
         },
+        "mongo_lint": {
+            "description": "Lints the source code according to the conversion adopted by all development teams.",
+            "cmd": "bazel run lint",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+            ],
+            "parameters": {}
+        },
         "mongo_format": {
+            "description": "Formats the source code according to the conversion adopted by all development teams.",
+            "cmd": "bazel run format",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+            ],
+            "parameters": {}
+        },
+        "mongo_format_v80_or_before": {
             "description": "Formats the source code according to the conversion adopted by all development teams.",
             "cmd": "./buildscripts/clang_format.py format-my",
             "bell": true,
