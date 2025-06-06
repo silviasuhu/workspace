@@ -17,9 +17,6 @@ export TERM_MAIN_COLOR="#50b9ff"
 PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
 export PATH
 
-# Setting PATH for llvm binaries
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-
 # Setting PATH for mrlog
 export PATH="$HOME/projects/mrlog/target/release:${PATH}"
 
