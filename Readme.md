@@ -22,6 +22,16 @@
 
 ## 2. Install the environment tools
 
+### iTerm2
+
+Install iTerm2 from their website.
+Once installed, configure its settings following these steps:
+1. Open iTerm2.
+2. Open Settings.
+3. Go to General > Settings
+4. Check 'Load settings from a custom folder or URL'
+5. Select the iterm settings located in the iTerm folder of this repository.
+
 ### Oh-my-posh
 A prompt theme engine for any shell.
 
