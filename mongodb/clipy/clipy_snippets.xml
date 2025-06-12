@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<folders>
+	<folder>
+		<title>Generic</title>
+		<snippets>
+			<snippet>
+				<title>jira url prefix</title>
+				<content>https://jira.mongodb.org/browse/</content>
+			</snippet>
+			<snippet>
+				<title>evg patch url</title>
+				<content>https://spruce.mongodb.com/patch/6837fa9076e5140007d1298e/configure/tasks</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>Logs (test)</title>
+		<snippets>
+			<snippet>
+				<title>[utest] error</title>
+				<content>Throwing exception|Writing fatal message|BACKTRACE</content>
+			</snippet>
+			<snippet>
+				<title>[utest] test start</title>
+				<content>Running.*test</content>
+			</snippet>
+			<snippet>
+				<title>[utest] suite start</title>
+				<content>Running.*suite</content>
+			</snippet>
+			<snippet>
+				<title>evg js test start 2</title>
+				<content>0000 Running (.*?\.js)\.\.\.</content>
+			</snippet>
+			<snippet>
+				<title>evg js test end</title>
+				<content>0000 (.*?\.js) ran in \d+\.\d+ seconds</content>
+			</snippet>
+			<snippet>
+				<title>[task] test start resmoke</title>
+				<content>JSTest .*js started with pid</content>
+			</snippet>
+			<snippet>
+				<title>[sh] MongoDB shell version</title>
+				<content>MongoDB shell version .*</content>
+			</snippet>
+			<snippet>
+				<title>[fsm] finish fixture setup</title>
+				<content>Finished the setup of ShardedClusterFixture</content>
+			</snippet>
+			<snippet>
+				<title>[fsm] js test start</title>
+				<content>fsm_workload_test.*Starting FSM workload</content>
+			</snippet>
+			<snippet>
+				<title>[fsm] fsm fixture status</title>
+				<content>fsm_workload_test.*Fixture status|ShardedClusterFixture:job</content>
+			</snippet>
+			<snippet>
+				<title>[hook] ContinuousStepdown</title>
+				<content>ContinuousStepdown</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>Logs (mongod)</title>
+		<snippets>
+			<snippet>
+				<title>[gen] Binary version</title>
+				<content>Build Info.*version</content>
+			</snippet>
+			<snippet>
+				<title>[gen] MongoDB starting</title>
+				<content>MongoDB starting</content>
+			</snippet>
+			<snippet>
+				<title>[cmd] About to run the command</title>
+				<content>About to run the command</content>
+			</snippet>
+			<snippet>
+				<title>[cmd] Slow query</title>
+				<content>Slow query</content>
+			</snippet>
+			<snippet>
+				<title>[ddl] Acquired DDL lock</title>
+				<content>Acquired DDL lock|Released DDL lock</content>
+			</snippet>
+			<snippet>
+				<title>[ddl] ShardingDDLCoordinator</title>
+				<content>ShardingDDLCoordinator</content>
+			</snippet>
+			<snippet>
+				<title>[ddl] About to log metadata</title>
+				<content>About to log metadata event</content>
+			</snippet>
+			<snippet>
+				<title>[ddl] Constructing new coordinator</title>
+				<content>Constructing new sharding DDL coordinator</content>
+			</snippet>
+			<snippet>
+				<title>[ddl] coordinator failed</title>
+				<content>Failed sharding DDL coordinator</content>
+			</snippet>
+			<snippet>
+				<title>[ddl] re-execute</title>
+				<content>Re-executing sharding DDL coordinator</content>
+			</snippet>
+			<snippet>
+				<title>[rep] Replica set state transition</title>
+				<content>Replica set state transition</content>
+			</snippet>
+			<snippet>
+				<title>[rep] Stepping down from primary</title>
+				<content>Stepping down from primary</content>
+			</snippet>
+			<snippet>
+				<title>[rep] Member is in new state</title>
+				<content>Member is in new state</content>
+			</snippet>
+			<snippet>
+				<title>[svp] Refresh cached collection</title>
+				<content>Refreshed cached collection</content>
+			</snippet>
+			<snippet>
+				<title>[svp] Updating collection metadata</title>
+				<content>Updating collection metadata for</content>
+			</snippet>
+			<snippet>
+				<title>[rep] Transition to primary complete</title>
+				<content>Transition to primary complete</content>
+			</snippet>
+			<snippet>
+				<title>[sh] inconsistency found</title>
+				<content>Detected sharding metadata inconsistency</content>
+			</snippet>
+			<snippet>
+				<title>[deb] stacktrace record</title>
+				<content>Stacktrace Record</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>Search filters</title>
+		<snippets>
+			<snippet>
+				<title>Parseley errors filter</title>
+				<content>&amp;filters=100%2831380.%2ABACKTRACE%257C31445.%2AFrame%257Cfailed%2520to%2520load%257CBuild%2520Info%257CShardedClusterFixture%257CInvariant%2520failure%257CWriting%2520fatal%2520message%257CF%2520%2AASSERT%257Cassert.soon%257Cjs_test.%2Aassert%257CThrowing%2520exception%257CRunning.%2Atest%257CRunning.%2Asuite%257CAssertion%2520while%2520executing%2520command%257CSlow%2520query.%2AerrMsg%257CTEST.%2AFAILURE.%2AfailedTests%257CStarted%2520program.%2Aport%257CBadValue%257Cerror.%2Aerrmsg%29</content>
+			</snippet>
+			<snippet>
+				<title>less error filter</title>
+				<content>31380.*BACKTRACE|31445.*Frame|failed to load|Build Info|ShardedClusterFixture|Invariant failure|Writing fatal message|F *ASSERT|assert.soon|js_test.*assert|Throwing exception|Assertion while executing command|Slow query.*errMsg|TEST.*FAILURE.*failedTests|error.*errmsg|BadValue</content>
+			</snippet>
+			<snippet>
+				<title>Parseley task filter</title>
+				<content>&amp;filters=000%28Running%2520command%257CFinished%2520command%257Cerror%253A%257Cbuilding%2520terminated%2520because%2520of%2520errors%29&amp;highlights=error%253A</content>
+			</snippet>
+			<snippet>
+				<title>exclude REPL_HB</title>
+				<content>(^.*j0:s1:n0(?!.*REPL_HB).+$)</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>GDB</title>
+		<snippets>
+			<snippet>
+				<title>[bash] dump all stacktraces to gdb.txt</title>
+				<content>gdb ./mongod ./dump_mongod.2906.core --batch -ex &apos;thread apply all bt&apos; &gt;gdb.txt</content>
+			</snippet>
+			<snippet>
+				<title>[bt-regex] acquiring lock</title>
+				<content>mongo::LockerImpl::lock</content>
+			</snippet>
+			<snippet>
+				<title>[gdb] gdb dump service context</title>
+				<content>p *opCtx._client._serviceContext</content>
+			</snippet>
+			<snippet>
+				<title>[gdb] print Global lock</title>
+				<content>p mongo::resourceIdGlobal</content>
+			</snippet>
+			<snippet>
+				<title>[gdb] print ResourceCatalog</title>
+				<content>p *(mongo::ResourceCatalog*)mongo::ResourceCatalog::get()::resourceCatalog._storage</content>
+			</snippet>
+			<snippet>
+				<title>[gdb] print RSTL lock </title>
+				<content>p mongo::resourceIdReplicationStateTransitionLock</content>
+			</snippet>
+			<snippet>
+				<title>[gdb] print locks acquired per opCtx</title>
+				<content>p opCtx-&gt;_locker-&gt;_requests</content>
+			</snippet>
+			<snippet>
+				<title>[search bt] _lockComplete</title>
+				<content>_lockComplete</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>MongoShell</title>
+		<snippets>
+			<snippet>
+				<title>Run mongo --nodb</title>
+				<content>cd build/install/bin; ./mongo --nodb</content>
+			</snippet>
+			<snippet>
+				<title>oplog entry over coll</title>
+				<content>db.getSiblingDB(&apos;local&apos;).oplog.rs.aggregate([{$match: {$or:[{ns:&apos;config.shards&apos;},{&apos;o.applyOps.ns&apos;:&apos;config.shards&apos;}]}}])</content>
+			</snippet>
+			<snippet>
+				<title>changelog what regex</title>
+				<content>db.getSiblingDB(&quot;config&quot;).changelog.aggregate([{$match:{what: {$regex:/Shard/}}}])</content>
+			</snippet>
+			<snippet>
+				<title>set logVerbosity</title>
+				<content>db.adminCommand( {
+   setParameter: 1,
+   logComponentVerbosity: {
+      verbosity: 1,
+      command: 2,
+      sharding: { verbosity: 2 }
+   }
+} )</content>
+			</snippet>
+		</snippets>
+	</folder>
+</folders>
