@@ -1,34 +1,41 @@
 {
-        "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-        "blocks": [
-                {
-                        "alignment": "left",
-                        "segments": [
-                                {
-                                        "foreground": "#56B6C2",
-                                        "properties": {
-                                                "style": "folder"
-                                        },
-                                        "style": "plain",
-                                        "template": " {{ .Path }}",
-                                        "type": "path"
-                                },
-                                {
-                                        "foreground": "#2e8c99",
-                                        "style": "plain",
-                                        "template": " ({{ .Full }})",
-                                        "type": "python"
-                                },
-                                {
-                                        "foreground": "#22b682",
-                                        "style": "plain",
-                                        "template": " {{ if gt .Code 0 }}<#f50000>\u276f\u276f</>{{ else }}\u276f\u276f{{ end }}",
-                                        "type": "text"
-                                }
-                        ],
-                        "type": "prompt"
-                }
-        ],
-        "final_space": true,
-        "version": 2
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none",
+            "style": "folder"
+          },
+          "template": " {{ .Path }}",
+          "foreground": "#56B6C2",
+          "type": "path",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": " ({{ .Full }})",
+          "foreground": "#2e8c99",
+          "type": "python",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": " {{ if gt .Code 0 }}<#f50000>❯❯</>{{ else }}❯❯{{ end }}",
+          "foreground": "#22b682",
+          "type": "text",
+          "style": "plain"
+        }
+      ]
+    }
+  ],
+  "version": 3,
+  "final_space": true
 }
