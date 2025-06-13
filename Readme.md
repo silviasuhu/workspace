@@ -164,7 +164,13 @@ Follow the instructions from the given repository.
 
 Repository: https://github.com/rueckstiess/mtools
 
-To install these tools, follow the instructions from https://rueckstiess.github.io/mtools/install.html.  
+Installation:
+
+##### Linux
+Follow the instructions from https://rueckstiess.github.io/mtools/install.html
+##### MacOS
+    brew install pipx
+    pipx install 'mtools[all]'
 
 Make sure binaries are in your PATH env variable.<br><br>
 
