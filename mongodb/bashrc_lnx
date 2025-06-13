@@ -35,8 +35,10 @@ source $HOME/.fss/bash/fss.sh
 source $HOME/projects/AI-in-terminal/bash/ask_llm.sh
 
 ### Required by mtools
-source $HOME/.asdf/asdf.sh
-source $HOME/.asdf/completions/asdf.bash
+if [ "$(uname)" != "Darwin" ]; then
+    source $HOME/.asdf/asdf.sh
+    source $HOME/.asdf/completions/asdf.bash
+fi
 
 export PATH=$WORKSPACE_MONGODB_DIR/scripts/bin:${PATH}
 
