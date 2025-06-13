@@ -322,6 +322,16 @@ More info here https://github.com/junegunn/vim-plug#unix
     git worktree add devel1 master
     git worktree add devel2 master
     git worktree add devel3 master
+
+### Setup a build environment on MacOs
+
+    cd <<repo_dir>>
+    brew install python3
+    python3 -m venv .venv
+    . .venv/bin/activate
+    python3 -m pip install 'poetry==1.5.1'
+    ./buildscripts/poetry_sync.sh
+    ./buildscripts/install_bazel.py
     
 ## 11. Link /data/db path to $HOME/.data to prevent full disk scenarios
     sudo mv /data ~/.data
