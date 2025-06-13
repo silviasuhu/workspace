@@ -18,6 +18,23 @@
                 "clear": true
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Build compiledb",
+            "type": "shell",
+            "command": ".venv/bin/python3 bazel build compiledb"
+        },
+        {
+            "label": "Sync changes to WS",
+            "type": "shell",
+            "command": "sync_repo_with_ws.sh",
+            "problemMatcher": []
+        },
+        {
+            "label": "Sync changes to WS (skipping Git)",
+            "type": "shell",
+            "command": "sync_repo_with_ws.sh --skip-git",
+            "problemMatcher": []
         }
     ]
 }
