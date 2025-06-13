@@ -726,7 +726,7 @@
                 },
                 "binary_path": {
                     "type": "query",
-                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
+                    "query_cmd": "find $HOME/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
                     "element_preview": "ls '{}'",
                     "default": "./bazel-bin/install-devcore/bin"
                 }
@@ -741,7 +741,7 @@
             "parameters": {
                 "binary_path": {
                     "type": "query",
-                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
+                    "query_cmd": "find $HOME/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
                     "element_preview": "ls '{}'",
                     "default": "./bazel-bin/install-devcore/bin"
                 }
@@ -760,7 +760,7 @@
                 },
                 "binary_path": {
                     "type": "query",
-                    "query_cmd": "find /home/ubuntu/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
+                    "query_cmd": "find $HOME/.local/m -iname 'bin' -type d; echo './bazel-bin/install-devcore/bin'",
                     "element_preview": "ls '{}'",
                     "default": "./bazel-bin/install-devcore/bin"
                 }
