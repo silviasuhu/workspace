@@ -2,85 +2,17 @@ api_server_host: https://evergreen.mongodb.com/api
 ui_server_host: https://evergreen.mongodb.com
 api_key: <<api_key>>
 user: <<user>>
-projects:
-    - name: mongodb-mongo-master
-      default: true
-      tasks:
-        - burn_in_tests_gen
-      local_aliases:
-        - alias: burn_in
-          variant: .*required
-          task: burn_in_tests_gen
-        - alias: sharding
-          variant: .*required
-          task: shard
-      trigger_aliases: []
-    - name: mongodb-mongo-v6.2
-      tasks:
-        - burn_in_tests_gen
-      local_aliases:
-        - alias: burn_in
-          variant: .*required
-          task: burn_in_tests_gen
-        - alias: sharding
-          variant: .*required
-          task: shard
-      trigger_aliases: []
-    - name: mongodb-mongo-v6.3
-      tasks:
-        - burn_in_tests_gen
-      local_aliases:
-        - alias: burn_in
-          variant: .*required
-          task: burn_in_tests_gen
-        - alias: sharding
-          variant: .*required
-          task: shard
-      trigger_aliases: []
-    - name: mongodb-mongo-v6.0
-      tasks:
-        - burn_in_tests_gen
-      local_aliases:
-        - alias: burn_in
-          variant: .*required
-          task: burn_in_tests_gen
-        - alias: sharding
-          variant: .*required
-          task: shard
-      trigger_aliases: []
-    - name: mongodb-mongo-v5.0
-      tasks:
-        - burn_in_tests_gen
-      local_aliases:
-        - alias: burn_in
-          variant: .*required
-          task: burn_in_tests_gen
-        - alias: sharding
-          variant: .*required
-          task: shard
-      trigger_aliases: []
-    - name: mongodb-mongo-v4.4
-      tasks:
-        - burn_in_tests_gen
-      local_aliases:
-        - alias: burn_in
-          variant: .*required
-          task: burn_in_tests_gen
-        - alias: sharding
-          variant: .*required
-          task: shard
-      trigger_aliases: []
-    - name: mongosh
-      trigger_aliases: []
-disable_auto_defaulting: true
+disable_auto_defaulting: false
 projects_for_directory:
-    /home/ubuntu/devel/mongo/main1: mongodb-mongo-master
-    /home/ubuntu/devel/mongo/main2: mongodb-mongo-master
-    /home/ubuntu/devel/mongo/main3: mongodb-mongo-master
-    /home/ubuntu/devel/mongo/master: mongodb-mongo-master
-    /home/ubuntu/devel/mongo/v4.4: mongodb-mongo-v4.4
-    /home/ubuntu/devel/mongo/v5.0: mongodb-mongo-v5.0
-    /home/ubuntu/devel/mongo/v6.0: mongodb-mongo-v6.0
-    /home/ubuntu/devel/mongo/v6.2: mongodb-mongo-v6.2
-    /home/ubuntu/devel/mongo/v6.3: mongodb-mongo-v6.3
-    /home/ubuntu/devel/mongosh: mongosh
+  /home/ubuntu/devel/mongo/develA: mongodb-mongo-master
+  /home/ubuntu/devel/mongo/develB: mongodb-mongo-master
+  /home/ubuntu/devel/mongo/develC: mongodb-mongo-master
+  /home/ubuntu/devel/mongo/experimental: mongodb-mongo-master
+  /home/ubuntu/devel/mongo/codereview: mongodb-mongo-master
+  /home/ubuntu/devel/mongo/master: mongodb-mongo-master
+  /home/ubuntu/devel/mongo/v5.0: mongodb-mongo-v5.0
+  /home/ubuntu/devel/mongo/v6.0: mongodb-mongo-v6.0
+  /home/ubuntu/devel/mongo/v7.0: mongodb-mongo-v7.0
+  /home/ubuntu/devel/mongo/v8.0: mongodb-mongo-v8.0
+  /home/ubuntu/devel/mongo/v8.1: mongodb-mongo-v8.1
+  /home/ubuntu/devel/mongosh: mongosh
