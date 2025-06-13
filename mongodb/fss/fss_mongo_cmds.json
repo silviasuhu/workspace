@@ -223,7 +223,7 @@
         },
         "mongo_install_venv_macos": {
             "description": "Creates venv in mongo project and installs its requirements",
-            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/homebrew/bin/python3.11 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh",
+            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/homebrew/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -794,7 +794,7 @@
                 "jira_ticket": {
                     "type": "input",
                     "description": "Jira ticket",
-                    "default":""
+                    "default": ""
                 },
                 "base_branch": {
                     "type": "query",
