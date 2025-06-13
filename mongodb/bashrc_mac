@@ -9,25 +9,18 @@ export PATH=/opt/homebrew/bin:${PATH}
 ### Set Homebrew bash completion
 [[ -r /usr/local/etc/profile.d/bash_completion.sh ]] && . /usr/local/etc/profile.d/bash_completion.sh
 
-# Export Terminal main color (used by TMUX and Oh My Posh)
-export TERM_MAIN_COLOR="#50b9ff"
-
-# Setting PATH for Python
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
-export PATH
-
 # Setting PATH for mrlog
-export PATH="$HOME/projects/mrlog/target/release:${PATH}"
-
-# Task-spooler alias to get parity between Linux and Macos
-alias tsp=ts
+export PATH=${HOME}/.mrlog/target/release:${PATH}
 
 ### Set Oh My Posh config file
-export POSH_CONFIG_FILE="$SCRIPT_DIR"/oh-my-posh/custom_mac.omp.json
+export POSH_CONFIG_FILE=${SCRIPT_DIR}/oh-my-posh/custom_mac.omp.json
+
+# Export Terminal main color (used by TMUX and Oh My Posh)
+export TERM_MAIN_COLOR="#50b9ff"
 
 ### Source common and MongoDB settings
 . $SCRIPT_DIR/bashrc_lnx
 
-### Source cargo environment
-. $HOME/.cargo/env
+# Task-spooler alias to get parity between Linux and Macos
+alias tsp=ts
+
