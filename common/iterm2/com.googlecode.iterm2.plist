@@ -41,6 +41,8 @@
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>NeverBlockSystemShutdown</key>
+	<true/>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -982,7 +984,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>ssh -t -X devel-ws 'send_command_to_every_tmux_pane refresh_tmux_env; tmux -u new -As main'</string>
+			<string>ssh -t -X devel-ws 'tmux -u new -As main'</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1243,6 +1245,8 @@
 			<string>/Users/silvia</string>
 		</dict>
 	</array>
+	<key>OnlyWhenMoreTabs</key>
+	<true/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenBookmark</key>
@@ -1288,8 +1292,10 @@
 	</dict>
 	<key>Print In Black And White</key>
 	<true/>
-	<key>QuitWhenAllWindowsClosed</key>
+	<key>PromptOnQuit</key>
 	<false/>
+	<key>QuitWhenAllWindowsClosed</key>
+	<true/>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
