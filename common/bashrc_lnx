@@ -59,7 +59,6 @@ alias la='ls -la'
 # alias grep='grep --color=always'
 alias more='more --RAW-CONTROL-CHARS --chop-long-lines'
 alias l='less --status-column --LINE-NUMBERS --HILITE-UNREAD --IGNORE-CASE --RAW-CONTROL-CHARS'
-alias ljs='less -p "failed to load"'
 
 alias tmux='tmux -u'
 alias ff='fzf --bind "ctrl-d:reload(fd --type d --hidden --follow),ctrl-f:reload($FZF_DEFAULT_COMMAND)" --preview "batcat --color=always --line-range :50 {}"'

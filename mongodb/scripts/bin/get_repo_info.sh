@@ -164,7 +164,7 @@ if [[ "$get_jira_description" == true && -n "$jiraTicket" ]]; then
     printf "${BOLD}$jiraSummary${NORMAL}\n"
     printf "\n"
 
-else
+elif [[ "$get_jira_description" == true && -z "$jiraTicket" ]]; then
 
     printf "\n"
     printf "${BOLD}$branch $tags${NORMAL}\n"
