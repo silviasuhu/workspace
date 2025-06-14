@@ -3,10 +3,22 @@
 EVG_BASE_URL="https://spruce.mongodb.com/patch/"
 EVG_PATCHES_FILE="$HOME/.evgPatches"
 
-## We can receive 3 arguments: --alias <<alias>>, --finalize, --uncommitted
+usage() {
+    echo "Usage: $0 [--alias <alias>] [--finalize] [--uncommitted] [--open] [--addPRCommentWithEvgPatch] [--help|-h]"
+    echo "  --alias <alias>    Specify an alias for the patch"
+    echo "  --finalize         Finalize the patch immediately"
+    echo "  --uncommitted      Include uncommitted changes in the patch"
+    echo "  --open             Open the created patch in the browser"
+    echo "  --addPRCommentWithEvgPatch  Add a comment with the last EVG patch to the PR"
+    echo "  --help, -h         Show this help message"
+    exit 1
+}
+
 alias=""
 finalize=false
 uncommitted=false
+open=false
+addPRCommentWithEvgPatch=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -21,6 +33,18 @@ while [[ $# -gt 0 ]]; do
         --uncommitted)
             uncommitted=true
             shift
+            ;;
+        --open)
+            open=true
+            shift
+            ;;
+        --addPRCommentWithEvgPatch)
+            addPRCommentWithEvgPatch=true
+            shift
+            ;;
+        --help|-h)
+            usage
+            exit 0
             ;;
         *)
             echo "Unknown argument: $1"
@@ -74,10 +98,49 @@ patchInfo=$($cmd --json | jq -r '.patch_id + "," + .create_time' 2>/dev/null)
 if [[ -z "$patchInfo" ]]; then
     echo "Failed to create patch. Please check the command and try again."
     exit 1
-else
-    patchId=$(echo "$patchInfo" | cut -d ',' -f 1)
-    echo "Patch created successfully"
-    echo "$EVG_BASE_URL$patchId"
 fi
 
+echo "\nPatch created successfully"
+patchId=$(echo "$patchInfo" | cut -d ',' -f 1)
+
+
+# Add a comment to the PR with the last patch details
+if [[ "$addPRCommentWithEvgPatch" == true ]]; then
+    prComment=":evergreen_tree: [evg]($EVG_BASE_URL$patchId)"
+    
+    # Check if the `gh` command is available
+    if ! command -v gh &> /dev/null; then
+        echo "gh CLI is not installed. Cannot add PR comment."
+        exit 1
+    fi
+
+    # Check if the current branch is associated with a PR
+    if ! gh pr view --json number --jq .number > /dev/null 2>&1; then
+        echo "No PR associated with the current branch: $branch"
+        exit 1
+    fi
+
+    echo "\nAdding comment to PR with last EVG patch"
+    echo "PR URL: $(gh pr view --json url --jq .url > /dev/null 2>&1)"
+
+    gh pr comment --body "$prComment"
+fi
+
+if $open; then
+    echo "Opening evg patch $EVG_BASE_URL$patchId"
+    if command -v xdg-open &> /dev/null; then
+        xdg-open "$EVG_BASE_URL$patchId" &> /dev/null
+    elif command -v open &> /dev/null; then
+        open "$EVG_BASE_URL$patchId" &> /dev/null
+    else
+        echo "No suitable command found to open the URL."
+        exit 1
+    fi
+else
+    echo "Evg patch: $EVG_BASE_URL$patchId"
+fi
+
+echo ""
+
+# Save the patch information to the EVG_PATCHES_FILE to keep track of patches
 echo "$branch,$patchInfo" >> "$EVG_PATCHES_FILE"

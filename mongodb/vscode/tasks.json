@@ -1,28 +1,34 @@
 {
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Jira summary",
+            "label": "Get repo info",
             "type": "shell",
-            "command": "mon_repoSummary.sh",
+            "command": "get_repo_info.sh",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "detail": "Show current branch Jira info",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "dedicated",
-                "showReuseMessage": false,
-                "clear": true
+            "problemMatcher": []
+        },
+        {
+            "label": "Get repo urls",
+            "type": "shell",
+            "command": "get_repo_info.sh --only-urls",
+            "options": {
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": []
         },
         {
             "label": "Build compiledb",
             "type": "shell",
-            "command": ".venv/bin/python3 bazel build compiledb"
+            "command": "bazel build compiledb",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
         },
         {
             "label": "Sync changes to WS",
@@ -35,6 +41,103 @@
             "type": "shell",
             "command": "sync_repo_with_ws.sh --skip-git",
             "problemMatcher": []
+        },
+        {
+            "label": "Create evg patch",
+            "type": "shell",
+            "command": "create_evg_patch.sh ${input:evgArgs} ${input:evgUncommitted} ${input:openAttr} ${input:addPRCommentWithEvgPatch}",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Open last evg",
+            "type": "shell",
+            "command": "get_last_evg_patch.sh --open",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Open PR",
+            "type": "shell",
+            "command": "gh pr view --web",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Open Jira",
+            "type": "shell",
+            "command": "get_repo_info.sh --open-jira",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Create Draft PR",
+            "type": "shell",
+            "command": "create_draft_pr.sh ${input:openAttr} ${input:addPRCommentWithEvgPatch}",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Add PR comment with the last Evg patch",
+            "type": "shell",
+            "command": "get_last_evg_patch.sh --addPRCommentWithEvgPatch",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         }
+    ],
+    "inputs": [
+        {
+            "id": "openAttr",
+            "type": "pickString",
+            "description": "Select --open",
+            "options": [
+                "--open",
+                "",
+            ],
+            "default": ""
+        },
+        {
+            "id": "addPRCommentWithEvgPatch",
+            "type": "pickString",
+            "description": "Add PR comment with Evg patch",
+            "options": [
+                "--addPRCommentWithEvgPatch",
+                "",
+            ],
+            "default": ""
+        },
+        {
+            "id": "evgArgs",
+            "type": "pickString",
+            "description": "Select Evergreen args",
+            "options": [
+                "--alias required --finalize",
+                "--alias required",
+                "",
+            ],
+            "default": ""
+        },
+        {
+            "id": "evgUncommitted",
+            "type": "pickString",
+            "description": "Select --uncommitted",
+            "options": [
+                "--uncommitted",
+                "",
+            ],
+            "default": ""
+        },
     ]
 }
