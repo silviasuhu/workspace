@@ -323,6 +323,7 @@ More info here https://github.com/junegunn/vim-plug#unix
     git clone --bare git@github.com:10gen/mongo.git .bare
     echo "gitdir: ./.bare" > .git
     git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+    git fetch
     git worktree add --track -B master master origin/master
     git worktree add --track -B v7.0 v7.0 origin/v7.0
     git worktree add devel1 master
