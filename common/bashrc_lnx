@@ -71,6 +71,7 @@ alias decompress_tar="tar -xvf"
 alias decompress_targz="tar -xzvf"
 alias decompress_tgz="tar -xvzf"
 alias decompress_zip="unzip"
+alias tsp=ts
 
 # Set aliases from ~/.bash_aliases
 if [ -f ~/.bash_aliases ]; then

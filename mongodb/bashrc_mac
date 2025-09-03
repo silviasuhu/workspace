@@ -33,6 +33,4 @@ export TERM_MAIN_COLOR="#50b9ff"
 ### Source common and MongoDB settings
 . $SCRIPT_DIR/bashrc_lnx
 
-# Task-spooler alias to get parity between Linux and Macos
-alias tsp=ts
 

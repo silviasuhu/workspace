@@ -188,9 +188,9 @@
             ],
             "parameters": {}
         },
-        "mongo_install_venv": {
-            "description": "Creates venv in mongo project and installs its requirements",
-            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh",
+        "mongo_install_python_venv_ws": {
+            "description": "Creates venv in mongo repo",
+            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate",
             "bell": true,
             "statistics": false,
             "pre_checks": [
@@ -199,36 +199,47 @@
             ],
             "parameters": {}
         },
-        "mongo_install_venv_80": {
+        "mongo_install_python_venv_macos": {
             "description": "Creates venv in mongo project and installs its requirements",
-            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'zope-interface==5.0.0' && .venv/bin/python3 -m pip install 'poetry==2.0.0' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && python3 -m poetry install --no-root --sync",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_workstation"
-            ],
-            "parameters": {}
-        },
-        "mongo_install_venv_70": {
-            "description": "Creates venv in mongo project and installs its requirements",
-            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/mongodbtoolchain/v4/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install -r buildscripts/requirements.txt --use-feature=2020-resolver",
-            "bell": true,
-            "statistics": false,
-            "pre_checks": [
-                "wrkdir_is_mongo_root",
-                "is_workstation"
-            ],
-            "parameters": {}
-        },
-        "mongo_install_venv_macos": {
-            "description": "Creates venv in mongo project and installs its requirements",
-            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/homebrew/bin/python3 -m venv .venv && . .venv/bin/activate && .venv/bin/python3 -m pip install 'poetry==1.5.1' && ./buildscripts/poetry_sync.sh",
+            "cmd": "tsp -fn [[ -d .venv ]] && rm -r .venv; /opt/homebrew/bin/python3 -m venv .venv && . .venv/bin/activate",
             "bell": true,
             "statistics": false,
             "pre_checks": [
                 "wrkdir_is_mongo_root",
                 "is_macos"
+            ],
+            "parameters": {}
+        },
+        "mongo_install_dependencies": {
+            "description": "Creates venv in mongo repo",
+            "cmd": "./buildscripts/poetry_sync.sh",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
+        },
+        "mongo_install_dependencies_80": {
+            "description": "Creates venv in mongo project and installs its requirements",
+            "cmd": ".venv/bin/python3 -m pip install 'zope-interface==5.0.0' && .venv/bin/python3 -m pip install 'poetry==2.0.0' && export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring && python3 -m poetry install --no-root --sync",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
+            ],
+            "parameters": {}
+        },
+        "mongo_install_dependencies_70_60": {
+            "description": "Creates venv in mongo project and installs its requirements",
+            "cmd": ".venv/bin/python3 -m pip install -r buildscripts/requirements.txt --use-feature=2020-resolver",
+            "bell": true,
+            "statistics": false,
+            "pre_checks": [
+                "wrkdir_is_mongo_root",
+                "venv_is_active"
             ],
             "parameters": {}
         },

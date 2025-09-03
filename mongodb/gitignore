@@ -6,3 +6,4 @@ lab*
 .prepareAndBuildRepo*
 .lastCompilationMd5
 jstests/**/mytest.js
+.lastTestCommand

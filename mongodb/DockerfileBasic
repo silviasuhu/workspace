@@ -59,20 +59,15 @@ RUN curl -o toolchain_installer.sh http://mongodbtoolchain.build.10gen.cc/instal
     && rm toolchain_installer.sh
 # # ENV PATH=$PATH:/opt/mongodbtoolchain/v5/bin/
 
-# Get the workspace git repository
-ADD --chown=ubuntu: git@github.com:silviasuhu/workspace.git /home/ubuntu/.workspace
-RUN sudo chmod +x /home/ubuntu/.workspace/common/scripts/bin/* \
-    && sudo chmod +x /home/ubuntu/.workspace/mongodb/scripts/bin/*
-
 # Install evergreen CLI
-RUN curl -o evergreen https://evg-bucket-evergreen.s3.amazonaws.com/evergreen/clients/evergreen_f15fc12fcc2146aad2cd6453c2ccfea6046b25be/linux_amd64/evergreen \
+RUN curl -o evergreen https://evg-bucket-evergreen.s3.amazonaws.com/evergreen/clients/evergreen_f6e1a5ddfbff29d906215facbe34f4c5f6e9d69f/linux_amd64/evergreen \
     && chmod +x evergreen \
-    && sudo mv evergreen /usr/local/bin/evergreen
-
-# Install fss
-ADD --chown=ubuntu: git@github.com:silviasuhu/fss.git /home/ubuntu/.fss
-RUN echo "/home/ubuntu/.workspace/common/fss/*" > /home/ubuntu/.fss.conf \
-    && echo "/home/ubuntu/.workspace/mongodb/fss/*" >> /home/ubuntu/.fss.conf
+    && sudo mv evergreen /usr/local/bin/evergreen \
+    && echo '# check https://spruce.mongodb.com/preferences/cli for your credentials' >> /home/ubuntu/.evergreen.yml \
+    && echo 'user: "<<your username>>"' >> /home/ubuntu/.evergreen.yml \
+    && echo 'api_key: "<<your api key>>"' >> /home/ubuntu/.evergreen.yml \
+    && echo 'api_server_host: "https://evergreen.mongodb.com/api"' >> /home/ubuntu/.evergreen.yml \
+    && echo 'ui_server_host: "https://evergreen.mongodb.com"' >> /home/ubuntu/.evergreen.yml
 
 # Install oh-my-posh
 RUN curl -s https://ohmyposh.dev/install.sh | bash -s
@@ -127,17 +122,5 @@ RUN git clone https://github.com/justanhduc/task-spooler.git /home/ubuntu/.task-
     && make cpu \
     && sudo make install \
     && cd /home/ubuntu
-
-# Setup dot files
-RUN ln -s /home/ubuntu/.workspace/mongodb/bashrc_lnx /home/ubuntu/.bash_profile \
-    && ln -s /home/ubuntu/.workspace/mongodb/gitignore /home/ubuntu/.gitignore \
-    && cp /home/ubuntu/.workspace/mongodb/gitconfig /home/ubuntu/.gitconfig \
-    && cp /home/ubuntu/.workspace/mongodb/evergreen.yml /home/ubuntu/.evergreen.yml \
-    && ln -s /home/ubuntu/.workspace/common/vim/vimrc /home/ubuntu/.vimrc \
-    && ln -s /home/ubuntu/.workspace/common/tmux/tmux.conf /home/ubuntu/.tmux.conf
-
-RUN echo 'source ~/.bash_profile' >> /home/ubuntu/.bashrc
-
-RUN mkdir devel
 
 RUN sudo sysctl -w kernel.core_pattern=dump_%e.%p.core

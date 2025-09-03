@@ -24,7 +24,7 @@ colorscheme equinusocio_material
 
 " use a different style
 " valid values: 'default' (default), 'darker', 'pure'
-"let g:equinusocio_material_style = 'pure'
+let g:equinusocio_material_style = 'default'
 
 " Set shift width to 4 spaces.
 set shiftwidth=4

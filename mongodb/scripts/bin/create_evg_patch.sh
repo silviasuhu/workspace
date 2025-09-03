@@ -58,12 +58,6 @@ JIRA_TICKET_PATTERN="[A-Z]+-[0-9]+"
 
 # Get the branch name and JIRA ticket from the current git repository
 branch=$(git rev-parse --abbrev-ref HEAD)
-if [[ "$branch" =~ $JIRA_TICKET_PATTERN ]]; then
-    jiraTicket="${BASH_REMATCH[0]}"
-else
-    echo "No JIRA ticket found in branch name: $branch"
-    exit 1
-fi
 
 # Get the base branch
 gitDescribe=$(git describe --abbrev=0 $branch)
@@ -80,7 +74,8 @@ else
     baseBranch="v$major.$minor"
 fi
 
-cmd="evergreen patch --project mongodb-mongo-$baseBranch"
+# cmd="evergreen patch --project mongodb-mongo-$baseBranch"
+cmd="evergreen patch"
 if [[ -n "$alias" ]]; then
     cmd="$cmd --alias $alias"
 fi
